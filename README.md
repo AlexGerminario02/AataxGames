@@ -1,4 +1,5 @@
-# Ataxx
+
+# Battleshipp
 
 La struttura della repository si presenta nel seguente modo:
 

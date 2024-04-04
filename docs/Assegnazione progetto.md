@@ -3,7 +3,7 @@
 ## Ataxx
 
 
-![Ataxx](C://Users//fbrac//progetto-minsky//Ataxx.PNG)
+![Ataxx](./img/Ataxx.png)
 
 ### Tabellone di gioco
 
@@ -14,6 +14,9 @@
 - Le mosse possono essere di due tipi:
   1. Posizionamento di una nuova pedina in una casella adiacente a una pedina gia' presente
   2. Spostamento di una propria pedina saltando una casella adiacente a condizione che la casella di arrivo sia libera
-- Le pedine catturate vengono girate e passano allo schieramento avversario, ma non e' obbligatorio catturare pedine dopo una mossa
+- Le pedine catturate vengono girate e passano allo schieramento avversario, ma non e' obbligatorio catturare pedine dopo una mossa.
 - La partita prosegue finche' tutte le caselle sono occupate o un giocatore non puo' piu' muovere. 
-- Vince il giocatore con piu' pedine del suo colore sul tavoliere. Il punteggio di solito e' dato dalla differenza delle pedine  
+
+##### Come vincere
+- Vince il giocatore con piu' pedine del suo colore sul tavoliere. 
+- Il punteggio di solito e' dato dalla differenza delle pedine.  

@@ -2,9 +2,9 @@ package it.uniba.app;
 
 import java.util.Scanner;
 
-public class Menu {
+final class Menu {
     private Menu() { }
-    public static void help(Scanner scanner) {
+    public static void help(final Scanner scanner) {
         boolean helpRunning = true;
         while (helpRunning) {
             System.out.println("====HELP====");

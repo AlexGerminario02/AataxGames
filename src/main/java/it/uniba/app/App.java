@@ -23,6 +23,10 @@ public final class App {
      */
     public static void main(final String[] args) {
         Scanner scanner = new Scanner(System.in);
+        Tavoliere tavoliere = Tavoliere.creaTavoliere();
+        Giocatore giocatore1 = new Giocatore(new Pedina('X', 0, 0), "Giocatore 1");
+        Giocatore giocatore2 = new Giocatore(new Pedina('O', 0, 0), "Giocatore 2");
+        Partita partita = new Partita(giocatore1, giocatore2, tavoliere);
         boolean isRunning = true;
 
         while (isRunning) {
@@ -41,6 +45,10 @@ public final class App {
                     break;
                 case "/esci":
                     isRunning = false; // esco dal ciclo while
+                    break;
+                case "/gioca":
+                    tavoliere.inizializzaPedine();
+                    partita.avviaPartita();
                     break;
                 default:
                     System.out.println("Scelta non valida. Premi un pulsante valido\n");

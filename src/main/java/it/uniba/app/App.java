@@ -28,9 +28,13 @@ public final class App {
         Giocatore giocatore2 = new Giocatore(new Pedina('O', 0, 0), "Giocatore 2");
         Partita partita = new Partita(giocatore1, giocatore2, tavoliere);
         boolean isRunning = true;
+        boolean giocoIniziato = false;
 
         while (isRunning) {
             System.out.println(new App().getGreeting());
+            if (!giocoIniziato) { // Se il gioco non è iniziato, suggerisci di iniziare una nuova partita
+                System.out.println("\nIl gioco non è ancora iniziato. Digita '/gioca' per iniziare una nuova partita.");
+            }
             System.out.println("\nDigita '/help','--help' o '-h' per visulizzare l'elenco dei comandi ");
             System.out.println("\n============================");
 
@@ -47,6 +51,7 @@ public final class App {
                     isRunning = false; // esco dal ciclo while
                     break;
                 case "/gioca":
+                    giocoIniziato = true;
                     tavoliere.inizializzaPedine();
                     partita.avviaPartita();
                     break;

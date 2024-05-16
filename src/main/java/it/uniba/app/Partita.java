@@ -72,6 +72,7 @@ public class Partita {
             break;
             case "/tavoliere":
                 tavoliere.visualizzaTavolierePieno();
+            break;
             default:
                 System.out.println("Comando non valido. Riprova.");
         }

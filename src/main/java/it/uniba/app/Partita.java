@@ -1,6 +1,7 @@
 package it.uniba.app;
 
 import java.util.Scanner;
+
 /**
  * Classe che rappresenta una partita.
  */
@@ -65,7 +66,10 @@ public class Partita {
             case "-h":
             case "--help":
                 Menu.help(scanner);
-                break;
+            break;
+            case "/vuoto":
+                tavoliere.visualizzaTavoliereVuoto();
+            break;
             default:
                 System.out.println("Comando non valido. Riprova.");
         }

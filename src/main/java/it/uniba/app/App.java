@@ -50,6 +50,9 @@ public final class App {
                     tavoliere.inizializzaPedine();
                     partita.avviaPartita();
                     break;
+                case "/vuoto":
+                    tavoliere.visualizzaTavoliereVuoto();
+                    break;
                 default:
                     System.out.println("Scelta non valida. Premi un pulsante valido\n");
 

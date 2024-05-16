@@ -13,6 +13,7 @@ final class Menu {
             System.out.println("Elenco comandi: ");
             System.out.println("/gioca - 'Questo comando serve per avviare la partita'");
             System.out.println("/vuoto - 'Questo comando permette di generare il tavoliere del gioco vuoto'");
+            System.out.println("/tavoliere - 'Questo comando permette di generare il tavoliere durante il gioco'");
             System.out.println("/esci - 'Questo comando permette di uscire dal gioco'");
 
             System.out.print("\nDigita '/back' per tornare alla schermata iniziale: ");

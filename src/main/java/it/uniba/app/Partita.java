@@ -70,6 +70,9 @@ public class Partita {
             case "/vuoto":
                 tavoliere.visualizzaTavoliereVuoto();
             break;
+            case "/tavoliere":
+                tavoliere.visualizzaTavolierePieno();
+            break;
             default:
                 System.out.println("Comando non valido. Riprova.");
         }

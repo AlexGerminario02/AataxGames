@@ -133,6 +133,40 @@ public class Tavoliere {
     /**
      * Visualizza il tavoliere vuoto con le coordinate sulle righe e sui numeri.
      */
+
+     public void visualizzaTavoliereVuoto() {
+        System.out.print("    ");
+        for (char colonna : colonne) {
+            System.out.print("   " + colonna + "  ");
+        }
+        System.out.println();
+        for (int i = 1; i <= DIM; i++) {
+            System.out.print("  ");
+            for (char colonna : colonne) {
+                System.out.print(LINE_SEPARATOR);
+            }
+            System.out.println("+");
+            System.out.print(i + " ");
+            for (char colonna : colonne) {
+                System.out.print(EMPTY_CELL);
+            }
+            System.out.println("| " + i); // Numero di riga a destra
+        }
+        System.out.print("  ");
+        for (char colonna : colonne) {
+            System.out.print(LINE_SEPARATOR);
+        }
+        System.out.println("+");
+        System.out.print("    ");
+        for (char colonna : colonne) {
+            System.out.print("   " + colonna + "  ");
+        }
+        System.out.println();
+    }
+
+    /**
+     * Visualizza il tavoliere vuoto con le coordinate sulle righe e sui numeri.
+     */
     public final void inizializzaPedine() {
         int i = 0;
             // Posiziona una pedina 'X' nella prima riga e nella prima colonna

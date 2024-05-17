@@ -9,14 +9,11 @@ import java.util.Arrays;
 @SuppressWarnings("unused")
 
 public class Tavoliere {
-    public static final int MOVE_UP_LEFT = -2;
-    public static final int MOVE_UP_RIGHT = -1;
-    public static final int MOVE_RIGHT_UP = 1;
-    public static final int MOVE_RIGHT_DOWN = 2;
-    public static final int MOVE_DOWN_RIGHT = 2;
-    public static final int MOVE_DOWN_LEFT = 1;
-    public static final int MOVE_LEFT_DOWN = -1;
-    public static final int MOVE_LEFT_UP = -2;
+    public static final int ZERO = 0;
+    public static final int UNO = 1;
+    public static final int MENOUNO = 1;
+    public static final int DUE = 2;
+    public static final int MENODUE = -2;
     public static final int RIGAINIZIALE = 1;
     public static final int COLONNAINIZIALE = 1;
     public static final int RIGAFINALE = 7;
@@ -224,26 +221,23 @@ final int colonnaFinale) {
      * @return le mosse di tipo B disponibili
      */
 
-     public ArrayList<Coordinate> mosseB(final int riga, final char colonna) {
+    //Modifica alla funzione mosseB
+    public ArrayList<Coordinate> mosseB(final int riga, final char colonna) {
         ArrayList<Coordinate> mosse = new ArrayList<>();
         // Coordinate delle caselle adiacenti (in orizzontale, verticale e diagonale)
-        int[] deltaRighe = {
-            MOVE_UP_LEFT, MOVE_UP_LEFT, MOVE_UP_LEFT, MOVE_RIGHT_UP, MOVE_RIGHT_DOWN,
-            MOVE_RIGHT_DOWN, MOVE_DOWN_RIGHT, MOVE_DOWN_LEFT, MOVE_DOWN_LEFT,
-            MOVE_LEFT_DOWN, MOVE_LEFT_DOWN, MOVE_LEFT_DOWN, MOVE_UP_LEFT
-        };
-        int[] deltaColonne = {
-            MOVE_UP_LEFT, MOVE_RIGHT_UP, MOVE_RIGHT_DOWN, MOVE_RIGHT_DOWN,
-            MOVE_RIGHT_DOWN, MOVE_UP_RIGHT, MOVE_UP_LEFT, MOVE_UP_LEFT,
-            MOVE_LEFT_DOWN, MOVE_LEFT_DOWN, MOVE_LEFT_DOWN, MOVE_UP_LEFT, MOVE_UP_LEFT
-        };
+        int[] deltaRighe = {MENODUE, MENODUE, MENODUE, -1, 0, 0, 1, 1,
+             DUE, DUE, DUE, MENODUE, DUE, DUE, DUE, DUE, -1,
+        MENODUE }; // Aggiunti ulteriori spostamenti verticali
+        int[] deltaColonne = {MENODUE, -1, 1, MENODUE, MENODUE, DUE, MENODUE,
+             DUE, -1, 0, 1, 0, MENODUE, 0, 1, DUE,
+        DUE, DUE }; // Aggiunti ulteriori spostamenti orizzontali
         // Controlla ogni casella adiacente
         for (int i = 0; i < deltaRighe.length; i++) {
             int nuovaRiga = riga + deltaRighe[i];
             char nuovaColonna = (char) (colonna + deltaColonne[i]);
             // Se la casella adiacente è all'interno del tavoliere e vuota, aggiungi la mossa
-            if (nuovaRiga >= 1 && nuovaRiga
-             <= DIM && Arrays.binarySearch(colonne, nuovaColonna) >= 0 && posizioneVuota(nuovaRiga, nuovaColonna)) {
+            if (nuovaRiga >= 1 && nuovaRiga <= DIM && Arrays.binarySearch(colonne, nuovaColonna) >= 0
+             && posizioneVuota(nuovaRiga, nuovaColonna)) {
                 mosse.add(new Coordinate(nuovaRiga, nuovaColonna));
             }
         }

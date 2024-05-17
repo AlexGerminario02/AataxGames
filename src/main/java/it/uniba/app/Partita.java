@@ -9,6 +9,8 @@ import java.util.Scanner;
 public class Partita {
     public static final int RIGA = 1;
     public static final int COLONNA = 7;
+    public static final char A = 'a';
+    public static final char B = 'b';
     private static final String MESSAGGIO_GIOCO = "Inserisci coordinate o comandi del menu: ";
 
     @SuppressWarnings("unused")

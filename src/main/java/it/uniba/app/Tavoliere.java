@@ -1,5 +1,6 @@
 package it.uniba.app;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -180,5 +181,27 @@ public class Tavoliere {
             setPedina(new Pedina('O', DIM, i + 1), DIM, colonne[0]);
 
     }
+
+    /**
+     * Restituice il numero di mosse di tipo A disponibili nel gioco.
+     *
+     * @return le mosse di tipo A disponibili
+     */
+     public ArrayList<Coordinate> mosseA(final int riga, final char colonna) {
+      ArrayList<Coordinate> mosse = new ArrayList<>();
+      int[] deltaRighe = {-1, -1, -1, 0, 0, 1, 1, 1 };
+      int[] deltaColonne = {-1, 0, 1, -1, 1, -1, 0, 1 };
+      for (int i = 0; i < deltaRighe.length; i++) {
+      int nuovaRiga = riga + deltaRighe[i];
+      char nuovaColonna = (char) (colonna + deltaColonne[i]);
+      if (nuovaRiga >= 1 && nuovaRiga <= DIM && Arrays.binarySearch(colonne,
+      nuovaColonna) >= 0
+      && posizioneVuota(nuovaRiga, nuovaColonna)) {
+      mosse.add(new Coordinate(nuovaRiga, nuovaColonna));
+      }
+      }
+      return mosse;
+      }
+
 }
 

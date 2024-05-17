@@ -9,6 +9,14 @@ import java.util.Arrays;
 @SuppressWarnings("unused")
 
 public class Tavoliere {
+    public static final int MOVE_UP_LEFT = -2;
+    public static final int MOVE_UP_RIGHT = -1;
+    public static final int MOVE_RIGHT_UP = 1;
+    public static final int MOVE_RIGHT_DOWN = 2;
+    public static final int MOVE_DOWN_RIGHT = 2;
+    public static final int MOVE_DOWN_LEFT = 1;
+    public static final int MOVE_LEFT_DOWN = -1;
+    public static final int MOVE_LEFT_UP = -2;
     private static final String LINE_SEPARATOR = "+-----";
     private static final String EMPTY_CELL = "|  .  ";
 
@@ -24,7 +32,7 @@ public class Tavoliere {
     private static final int DIM = 7;
 
     /** I caratteri che rappresentano le colonne del tavoliere. */
-    private final char[] colonne = {'a', 'b', 'c', 'd', 'e', 'f', 'g'};
+    private final char[] colonne = {'a', 'b', 'c', 'd', 'e', 'f', 'g' };
 
     /** Il numero del turno attuale. */
     private int turno;
@@ -81,7 +89,8 @@ public class Tavoliere {
         scacchiera[riga - 1][indiceColonna] = pedina;
         return true;
     }
-/**
+
+    /**
      * Controlla se la posizione specificata sul tavoliere è vuota.
      *
      * @param riga    la riga della posizione
@@ -135,7 +144,7 @@ public class Tavoliere {
      * Visualizza il tavoliere vuoto con le coordinate sulle righe e sui numeri.
      */
 
-     public void visualizzaTavoliereVuoto() {
+    public void visualizzaTavoliereVuoto() {
         System.out.print("    ");
         for (char colonna : colonne) {
             System.out.print("   " + colonna + "  ");
@@ -170,15 +179,15 @@ public class Tavoliere {
      */
     public final void inizializzaPedine() {
         int i = 0;
-            // Posiziona una pedina 'X' nella prima riga e nella prima colonna
-            setPedina(new Pedina('X', i + 1, i + 1), i + 1, colonne[0]);
-            // Posiziona una pedina 'O' nella prima riga e nell'ultima colonna
-            setPedina(new Pedina('O', i + 1, DIM - i), i + 1, colonne[DIM - 1]);
-            int j = DIM;
-            // Posiziona una pedina 'X' nell'ultima riga e nell'ultima colonna
-            setPedina(new Pedina('X', j, DIM - i), DIM, colonne[DIM - 1]);
-            // Posiziona una pedina 'O' nell'ultima riga e nella prima colonna
-            setPedina(new Pedina('O', DIM, i + 1), DIM, colonne[0]);
+        // Posiziona una pedina 'X' nella prima riga e nella prima colonna
+        setPedina(new Pedina('X', i + 1, i + 1), i + 1, colonne[0]);
+        // Posiziona una pedina 'O' nella prima riga e nell'ultima colonna
+        setPedina(new Pedina('O', i + 1, DIM - i), i + 1, colonne[DIM - 1]);
+        int j = DIM;
+        // Posiziona una pedina 'X' nell'ultima riga e nell'ultima colonna
+        setPedina(new Pedina('X', j, DIM - i), DIM, colonne[DIM - 1]);
+        // Posiziona una pedina 'O' nell'ultima riga e nella prima colonna
+        setPedina(new Pedina('O', DIM, i + 1), DIM, colonne[0]);
 
     }
 
@@ -187,21 +196,52 @@ public class Tavoliere {
      *
      * @return le mosse di tipo A disponibili
      */
-     public ArrayList<Coordinate> mosseA(final int riga, final char colonna) {
-      ArrayList<Coordinate> mosse = new ArrayList<>();
-      int[] deltaRighe = {-1, -1, -1, 0, 0, 1, 1, 1 };
-      int[] deltaColonne = {-1, 0, 1, -1, 1, -1, 0, 1 };
-      for (int i = 0; i < deltaRighe.length; i++) {
-      int nuovaRiga = riga + deltaRighe[i];
-      char nuovaColonna = (char) (colonna + deltaColonne[i]);
-      if (nuovaRiga >= 1 && nuovaRiga <= DIM && Arrays.binarySearch(colonne,
-      nuovaColonna) >= 0
-      && posizioneVuota(nuovaRiga, nuovaColonna)) {
-      mosse.add(new Coordinate(nuovaRiga, nuovaColonna));
-      }
-      }
-      return mosse;
-      }
+    public ArrayList<Coordinate> mosseA(final int riga, final char colonna) {
+        ArrayList<Coordinate> mosse = new ArrayList<>();
+        int[] deltaRighe = {-1, -1, -1, 0, 0, 1, 1, 1 };
+        int[] deltaColonne = {-1, 0, 1, -1, 1, -1, 0, 1 };
+        for (int i = 0; i < deltaRighe.length; i++) {
+            int nuovaRiga = riga + deltaRighe[i];
+            char nuovaColonna = (char) (colonna + deltaColonne[i]);
+            if (nuovaRiga >= 1 && nuovaRiga <= DIM && Arrays.binarySearch(colonne,
+                    nuovaColonna) >= 0
+                    && posizioneVuota(nuovaRiga, nuovaColonna)) {
+                mosse.add(new Coordinate(nuovaRiga, nuovaColonna));
+            }
+        }
+        return mosse;
+    }
 
+    /**
+     * Restituice il numero di mosse di tipo B disponibili nel gioco.
+     *
+     * @return le mosse di tipo B disponibili
+     */
+
+     public ArrayList<Coordinate> mosseB(final int riga, final char colonna) {
+        ArrayList<Coordinate> mosse = new ArrayList<>();
+        // Coordinate delle caselle adiacenti (in orizzontale, verticale e diagonale)
+        int[] deltaRighe = {
+            MOVE_UP_LEFT, MOVE_UP_LEFT, MOVE_UP_LEFT, MOVE_RIGHT_UP, MOVE_RIGHT_DOWN,
+            MOVE_RIGHT_DOWN, MOVE_DOWN_RIGHT, MOVE_DOWN_LEFT, MOVE_DOWN_LEFT,
+            MOVE_LEFT_DOWN, MOVE_LEFT_DOWN, MOVE_LEFT_DOWN, MOVE_UP_LEFT
+        };
+        int[] deltaColonne = {
+            MOVE_UP_LEFT, MOVE_RIGHT_UP, MOVE_RIGHT_DOWN, MOVE_RIGHT_DOWN,
+            MOVE_RIGHT_DOWN, MOVE_UP_RIGHT, MOVE_UP_LEFT, MOVE_UP_LEFT,
+            MOVE_LEFT_DOWN, MOVE_LEFT_DOWN, MOVE_LEFT_DOWN, MOVE_UP_LEFT, MOVE_UP_LEFT
+        };
+        // Controlla ogni casella adiacente
+        for (int i = 0; i < deltaRighe.length; i++) {
+            int nuovaRiga = riga + deltaRighe[i];
+            char nuovaColonna = (char) (colonna + deltaColonne[i]);
+            // Se la casella adiacente è all'interno del tavoliere e vuota, aggiungi la mossa
+            if (nuovaRiga >= 1 && nuovaRiga
+             <= DIM && Arrays.binarySearch(colonne, nuovaColonna) >= 0 && posizioneVuota(nuovaRiga, nuovaColonna)) {
+                mosse.add(new Coordinate(nuovaRiga, nuovaColonna));
+            }
+        }
+        return mosse;
+    }
 }
 

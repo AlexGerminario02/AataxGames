@@ -243,5 +243,17 @@ public class Tavoliere {
         }
         return mosse;
     }
+     /**
+     * Restituice il numero di mosse di tipo C disponibili nel gioco.
+     *
+     * @return le mosse di tipo C disponibili
+     */
+
+    public ArrayList<Coordinate> mosseC(final int riga, final char colonna) {
+        ArrayList<Coordinate> mosseC = new ArrayList<>();
+        mosseC.addAll(mosseA(riga, colonna));
+        mosseC.addAll(mosseB(riga, colonna));
+        return mosseC;
+    }
 }
 

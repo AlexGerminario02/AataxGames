@@ -6,6 +6,10 @@ import java.util.Scanner;
  * Main class of the application.
  */
 public final class App {
+    public static final int RIGAI = 1;
+    public static final int COLONNAI = 1;
+    public static final int RIGAF = 7;
+    public static final int COLONNAF = 7;
 
     /**
      * Get a greeting sentence.
@@ -52,7 +56,7 @@ public final class App {
                     break;
                 case "/gioca":
                     giocoIniziato = true;
-                    tavoliere.inizializzaPedine();
+                    tavoliere.inizializzaPedine(RIGAI, COLONNAI, RIGAF, COLONNAF);
                     partita.avviaPartita();
                     break;
                 case "/vuoto":

@@ -1,12 +1,16 @@
 package it.uniba.app;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  * Classe che rappresenta una partita.
  */
 public class Partita {
-
+    public static final int RIGA = 1;
+    public static final int COLONNA = 7;
+    public static final char A = 'a';
+    public static final char B = 'b';
     private static final String MESSAGGIO_GIOCO = "Inserisci coordinate o comandi del menu: ";
 
     @SuppressWarnings("unused")
@@ -72,6 +76,24 @@ public class Partita {
             break;
             case "/tavoliere":
                 tavoliere.visualizzaTavolierePieno();
+            break;
+                case "/qualimosse":
+                    // Coordinate delle pedine del giocatore 1 (X)
+                    Coordinate[] pedineGiocatore1 = {
+                            new Coordinate(RIGA, 'a'), // Pedina in cella[1,1]
+                            new Coordinate(COLONNA, 'g') // Pedina in cella[7,7]
+                    };
+
+                    ArrayList<Coordinate> mossea = new ArrayList<>();
+                    ArrayList<Coordinate> mosseb = new ArrayList<>();
+                    //ArrayList<Coordinate> mossec = new ArrayList<>();
+                    for (Coordinate pedina : pedineGiocatore1) {
+                        mossea.addAll(tavoliere.mosseA(pedina.getRiga(), pedina.getColonna()));
+                        mosseb.addAll(tavoliere.mosseB(pedina.getRiga(), pedina.getColonna()));
+                        //mossec.addAll(tavoliere.mosseC(pedina.getRiga(), pedina.getColonna()));
+                    }
+
+                    tavoliere.stampaMosseDisponibili(mossea, mosseb);
             break;
             default:
                 System.out.println("Comando non valido. Riprova.");

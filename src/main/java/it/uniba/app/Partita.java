@@ -22,6 +22,7 @@ public class Partita {
 
     /**
      * Costruttore della classe Partita.
+     * 
      * @param giocatoret1
      * @param giocatoret2
      * @param tavolieret
@@ -61,6 +62,7 @@ public class Partita {
 
     /**
      * Funzione che gestisce i comandi del menu.
+     * 
      * @param comando
      */
     private void gestisciComando(final String comando) {
@@ -70,31 +72,51 @@ public class Partita {
             case "-h":
             case "--help":
                 Menu.help(scanner);
-            break;
+                break;
             case "/vuoto":
                 tavoliere.visualizzaTavoliereVuoto();
-            break;
+                break;
             case "/tavoliere":
                 tavoliere.visualizzaTavolierePieno();
-            break;
-                case "/qualimosse":
-                    // Coordinate delle pedine del giocatore 1 (X)
-                    Coordinate[] pedineGiocatore1 = {
-                            new Coordinate(RIGA, 'a'), // Pedina in cella[1,1]
-                            new Coordinate(COLONNA, 'g') // Pedina in cella[7,7]
-                    };
+                break;
+            case "/qualimosse":
+                // Coordinate delle pedine del giocatore 1 (X)
+                Coordinate[] pedineGiocatore1 = {
+                        new Coordinate(RIGA, 'a'), // Pedina in cella[1,1]
+                        new Coordinate(COLONNA, 'g') // Pedina in cella[7,7]
+                };
 
-                    ArrayList<Coordinate> mossea = new ArrayList<>();
-                    ArrayList<Coordinate> mosseb = new ArrayList<>();
-                    //ArrayList<Coordinate> mossec = new ArrayList<>();
-                    for (Coordinate pedina : pedineGiocatore1) {
-                        mossea.addAll(tavoliere.mosseA(pedina.getRiga(), pedina.getColonna()));
-                        mosseb.addAll(tavoliere.mosseB(pedina.getRiga(), pedina.getColonna()));
-                        //mossec.addAll(tavoliere.mosseC(pedina.getRiga(), pedina.getColonna()));
+                ArrayList<Coordinate> mossea = new ArrayList<>();
+                ArrayList<Coordinate> mosseb = new ArrayList<>();
+                // ArrayList<Coordinate> mossec = new ArrayList<>();
+                for (Coordinate pedina : pedineGiocatore1) {
+                    mossea.addAll(tavoliere.mosseA(pedina.getRiga(), pedina.getColonna()));
+                    mosseb.addAll(tavoliere.mosseB(pedina.getRiga(), pedina.getColonna()));
+                    // mossec.addAll(tavoliere.mosseC(pedina.getRiga(), pedina.getColonna()));
+                }
+
+                tavoliere.stampaMosseDisponibili(mossea, mosseb);
+                break;
+            case "/abbandona":
+                // qui va messo keyboard al posto di scanner.
+                System.out.println(MSG_ABBANDONA_PARTITA);
+                String conferma = scanner.nextLine();
+                if (conferma.equalsIgnoreCase("si")) {
+                    // Determina quale giocatore ha abbandonato
+                    if (tavoliere.getTurno() % 2 == 0) {
+                        System.out.println("Il giocatore " + giocatore2.getNome() + CONFERMA_ABBANDONO);
+                    } else {
+                        System.out.println("Il giocatore " + giocatore1.getNome() + CONFERMA_ABBANDONO);
                     }
-
-                    tavoliere.stampaMosseDisponibili(mossea, mosseb);
-            break;
+                    // Determina il giocatore opposto
+                    Giocatore giocatoreOpposto = (tavoliere.getTurno() % 2 == 0) ? giocatore1 : giocatore2;
+                    int numeroPedineGiocatoreOpposto =
+                    tavoliere.contaPedine(giocatoreOpposto.getPedina().getCarattere(), tavoliere);
+                    System.out.println("Il giocatore " + giocatoreOpposto.getNome() + " ha vinto per "
+                            + numeroPedineGiocatoreOpposto + " a 0.");
+                    return;
+                }
+                break;
             default:
                 System.out.println("Comando non valido. Riprova.");
         }

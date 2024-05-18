@@ -14,6 +14,7 @@ public class Partita {
     private static final String MESSAGGIO_GIOCO = "Inserisci coordinate o comandi del menu: ";
     private static final String MSG_ABBANDONA_PARTITA = "Sei sicuro di voler abbandonare la partita? (si/no) \n";
     private static final String CONFERMA_ABBANDONO = " ha abbandonato la partita.";
+    //private boolean uscitaRichiesta = false;
     private Giocatore giocatore2;
     private Giocatore giocatore1;
     private Tavoliere tavoliere;
@@ -117,6 +118,9 @@ public class Partita {
                             + numeroPedineGiocatoreOpposto + " a 0.");
                     return;
                 }
+                break;
+                case "/esci":
+                uscitaRichiesta = Menu.esci(scanner);
                 break;
             default:
                 System.out.println("Comando non valido. Riprova.");

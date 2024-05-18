@@ -60,6 +60,9 @@ public final class App {
                     giocoIniziato = true;
                     tavoliere.inizializzaPedine(RIGAI, COLONNAI, RIGAF, COLONNAF);
                     partita.avviaPartita();
+                    if (partita.avviaPartita()) {
+                        return;
+                    }
                     break;
                 case "/vuoto":
                     tavoliere.visualizzaTavoliereVuoto();

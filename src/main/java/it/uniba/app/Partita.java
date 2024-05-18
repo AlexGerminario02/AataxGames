@@ -45,7 +45,7 @@ public class Partita {
              // L'uscita è stata richiesta
         }
         tavoliere.visualizzaTavolierePieno();
-        while (!partitaFinita() /*&& !uscitaRichiesta*/) {
+        while (!partitaFinita() && !uscitaRichiesta) {
             System.out.print(MESSAGGIO_GIOCO);
             String input = scanner.nextLine().trim();
             if (input.startsWith("/") || input.startsWith("-") || input.startsWith("--")) {

@@ -30,5 +30,18 @@ final class Menu {
         }
 
     }
+    public static boolean esci(final Scanner scanner) {
+        while (true) {
+            System.out.println(CONFERMA_ESCI);
+            String stringa = scanner.nextLine();
+            if (stringa.equalsIgnoreCase("si")) {
+                return true; // Esce dalla funzione, indicando che l'utente vuole uscire
+            } else if (stringa.equalsIgnoreCase("no")) {
+                return false; // Esce dalla funzione, indicando che l'utente non vuole uscire
+            } else {
+                System.out.println("Inserisci solo 'si' o 'no'.");
+            }
+        }
+    }
 
 }

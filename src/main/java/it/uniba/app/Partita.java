@@ -12,7 +12,8 @@ public class Partita {
     public static final char A = 'a';
     public static final char B = 'b';
     private static final String MESSAGGIO_GIOCO = "Inserisci coordinate o comandi del menu: ";
-
+    private static final String MSG_ABBANDONA_PARTITA = "Sei sicuro di voler abbandonare la partita? (si/no) \n";
+    private static final String CONFERMA_ABBANDONO = " ha abbandonato la partita.";
     @SuppressWarnings("unused")
     private Giocatore giocatore2;
     @SuppressWarnings("unused")
@@ -22,7 +23,7 @@ public class Partita {
 
     /**
      * Costruttore della classe Partita.
-     * 
+     *
      * @param giocatoret1
      * @param giocatoret2
      * @param tavolieret
@@ -62,7 +63,7 @@ public class Partita {
 
     /**
      * Funzione che gestisce i comandi del menu.
-     * 
+     *
      * @param comando
      */
     private void gestisciComando(final String comando) {

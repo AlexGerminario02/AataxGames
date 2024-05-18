@@ -39,9 +39,13 @@ public class Partita {
      * Funzione che Avvia la partita.
      */
 
-    public void avviaPartita() {
+     public boolean avviaPartita() {
+        if (uscitaRichiesta) {
+            return true;
+             // L'uscita è stata richiesta
+        }
         tavoliere.visualizzaTavolierePieno();
-        while (!partitaFinita()) {
+        while (!partitaFinita() /*&& !uscitaRichiesta*/) {
             System.out.print(MESSAGGIO_GIOCO);
             String input = scanner.nextLine().trim();
             if (input.startsWith("/") || input.startsWith("-") || input.startsWith("--")) {
@@ -51,10 +55,9 @@ public class Partita {
                 // Gestisci le coordinate inserite dall'utente
                 gestisciCoordinate(input);
             }
-
         }
-
         scanner.close();
+        return partitaFinita(); // Ritorna true se la partita è finita
     }
 
     private boolean partitaFinita() {

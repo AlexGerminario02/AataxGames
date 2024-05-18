@@ -1,7 +1,7 @@
 package it.uniba.app;
 
 import java.io.IOException;
-import java.util.Scanner;
+
 
 final class Menu {
 
@@ -18,12 +18,11 @@ final class Menu {
         }
     }
 
-    public static void helpPrincipale(final Scanner scanner) {
+    public static void helpPrincipale(final Tastiera tastiera) {
 
         System.out.println(Costanti.BENVENUTO_HELP);
         System.out.println(Costanti.MENU_COMANDI_PRINCIPALE);
-        System.out.print("\nPer poter digitare un comando tornare al menu principale /indietro: ");
-        String aiuto = scanner.nextLine().trim();
+        String aiuto = tastiera.readString("\nPer poter digitare un comando tornare al menu principale /indietro: ");
         if (aiuto.equalsIgnoreCase("/indietro")) {
             clearScreen();
             return;
@@ -31,10 +30,10 @@ final class Menu {
         }
     }
 
-    public static boolean esci(final Scanner scanner) {
+    public static boolean esci(final Tastiera tastiera) {
         while (true) {
             System.out.println(Costanti.CONFERMA_ESCI);
-            String stringa = scanner.nextLine();
+            String stringa = tastiera.readString(Costanti.CONFERMA_ESCI);
             if (stringa.equalsIgnoreCase("si")) {
                 return true; // Esce dalla funzione, indicando che l'utente vuole uscire
             } else if (stringa.equalsIgnoreCase("no")) {
@@ -45,11 +44,11 @@ final class Menu {
         }
     }
 
-    public static void helpGioco(final Scanner scanner) {
+    public static void helpGioco(final Tastiera tastiera) {
         System.out.println(Costanti.BENVENUTO_HELP);
         System.out.print(Costanti.MENU_COMANDI_GIOCO);
-        scanner.nextLine().trim();
-        if (scanner.nextLine().trim().equalsIgnoreCase("/indietro")) {
+        String stringa = tastiera.readString("");
+        if (stringa.equalsIgnoreCase("/indietro")) {
             clearScreen();
             return;
         }

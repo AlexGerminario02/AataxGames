@@ -1,8 +1,5 @@
 package it.uniba.app;
 
-import java.util.Scanner;
-
-
 /**
  * Main class of the application.
  */
@@ -30,7 +27,7 @@ public final class App {
      */
     public static void main(final String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        Tastiera tastiera = new Tastiera();
         Tavoliere tavoliere = Tavoliere.creaTavoliere();
         Giocatore giocatore1 = new Giocatore(new Pedina('X', 0, 0), "Nero");
         Giocatore giocatore2 = new Giocatore(new Pedina('O', 0, 0), "Bianco");
@@ -45,18 +42,16 @@ public final class App {
         while (isRunning) {
             stampaBenvenuto();
             System.out.println(Costanti.MENU_COMANDO_INIZIALE);
-            System.out.print(Costanti.PROMPT_COMANDO);
-
-            String input = scanner.nextLine().trim(); // inserisco il trim per rimuovere eventuali spazi bianchi
+            String input = tastiera.readString(Costanti.PROMPT_COMANDO);
 
             switch (input.toLowerCase()) {
                 case "/help":
                 case "--help":
                 case "-h":
-                    Menu.helpPrincipale(scanner);
+                    Menu.helpPrincipale(tastiera);
                     break;
                 case "/esci":
-                    if (Menu.esci(scanner)) {
+                    if (Menu.esci(tastiera)) {
                         isRunning = false;
                     }
                     break;
@@ -76,6 +71,5 @@ public final class App {
                     System.out.println("Scelta non valida. Premi un pulsante valido\n");
             }
         }
-        scanner.close();
     }
 }

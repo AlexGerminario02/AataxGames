@@ -1,7 +1,6 @@
 package it.uniba.app;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Classe che rappresenta una partita.
@@ -18,7 +17,7 @@ public class Partita {
     private Giocatore giocatore2;
     private Giocatore giocatore1;
     private Tavoliere tavoliere;
-    private Scanner scanner;
+    private Tastiera tastiera;
 
     /**
      * Costruttore della classe Partita.
@@ -32,7 +31,7 @@ public class Partita {
         this.giocatore1 = giocatoret1;
         this.giocatore2 = giocatoret2;
         this.tavoliere = tavolieret;
-        this.scanner = new Scanner(System.in);
+        this.tastiera = new Tastiera();
     }
 
     /**
@@ -46,8 +45,7 @@ public class Partita {
         }
         tavoliere.visualizzaTavolierePieno();
         while (!partitaFinita() && !uscitaRichiesta) {
-            System.out.print(MESSAGGIO_GIOCO);
-            String input = scanner.nextLine().trim();
+            String input = tastiera.readString(MESSAGGIO_GIOCO);
             if (input.startsWith("/") || input.startsWith("-") || input.startsWith("--")) {
                 // Gestisci i comandi del menu
                 gestisciComando(input);
@@ -56,7 +54,6 @@ public class Partita {
                 gestisciCoordinate(input);
             }
         }
-        scanner.close();
         return partitaFinita(); // Ritorna true se la partita è finita
     }
 
@@ -76,7 +73,7 @@ public class Partita {
             case "/help":
             case "-h":
             case "--help":
-                Menu.helpGioco(scanner);
+                Menu.helpGioco(tastiera);
                 break;
             case "/vuoto":
                 tavoliere.visualizzaTavoliereVuoto();
@@ -105,7 +102,7 @@ public class Partita {
             case "/abbandona":
                 // qui va messo keyboard al posto di scanner.
                 System.out.println(MSG_ABBANDONA_PARTITA);
-                String conferma = scanner.nextLine();
+                String conferma = tastiera.readString(MSG_ABBANDONA_PARTITA);
                 if (conferma.equalsIgnoreCase("si")) {
                     // Determina quale giocatore ha abbandonato
                     if (tavoliere.getTurno() % 2 == 0) {
@@ -123,7 +120,7 @@ public class Partita {
                 }
                 break;
                 case "/esci":
-                uscitaRichiesta = Menu.esci(scanner);
+                uscitaRichiesta = Menu.esci(tastiera);
                 break;
             default:
                 System.out.println("Comando non valido. Riprova.");

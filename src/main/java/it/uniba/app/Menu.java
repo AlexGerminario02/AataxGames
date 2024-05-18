@@ -3,6 +3,7 @@ package it.uniba.app;
 import java.util.Scanner;
 
 final class Menu {
+    private static final String CONFERMA_ESCI = "Sei sicuro di voler uscire dal gioco (si/no) \n";
     private Menu() { }
     public static void help(final Scanner scanner) {
         boolean helpRunning = true;
@@ -29,6 +30,19 @@ final class Menu {
             }
         }
 
+    }
+    public static boolean esci(final Scanner scanner) {
+        while (true) {
+            System.out.println(CONFERMA_ESCI);
+            String stringa = scanner.nextLine();
+            if (stringa.equalsIgnoreCase("si")) {
+                return true; // Esce dalla funzione, indicando che l'utente vuole uscire
+            } else if (stringa.equalsIgnoreCase("no")) {
+                return false; // Esce dalla funzione, indicando che l'utente non vuole uscire
+            } else {
+                System.out.println("Inserisci solo 'si' o 'no'.");
+            }
+        }
     }
 
 }

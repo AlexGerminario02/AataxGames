@@ -14,9 +14,7 @@ public class Partita {
     private static final String MESSAGGIO_GIOCO = "Inserisci coordinate o comandi del menu: ";
     private static final String MSG_ABBANDONA_PARTITA = "Sei sicuro di voler abbandonare la partita? (si/no) \n";
     private static final String CONFERMA_ABBANDONO = " ha abbandonato la partita.";
-    @SuppressWarnings("unused")
     private Giocatore giocatore2;
-    @SuppressWarnings("unused")
     private Giocatore giocatore1;
     private Tavoliere tavoliere;
     private Scanner scanner;
@@ -30,6 +28,8 @@ public class Partita {
      */
 
     public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final Tavoliere tavolieret) {
+        this.giocatore1 = giocatoret1;
+        this.giocatore2 = giocatoret2;
         this.tavoliere = tavolieret;
         this.scanner = new Scanner(System.in);
     }

@@ -1,0 +1,85 @@
+package it.uniba.app;
+
+/**
+ * Classe che contiene le costanti del gioco.
+ */
+
+public final class Costanti {
+    public static final String R = "\u001B[0m";
+    public static final String RED = "\u001B[31m";
+    public static final String BLU = "\u001B[34m";
+    public static final String O = "\u001B[38;5;208m";
+    public static final String CONFERMA_ESCI = "Sei sicuro di voler uscire dal gioco (si/no) \n";
+
+
+    public static final int RIGAI = 1;
+    public static final int COLONNAI = 1;
+    public static final int RIGAF = 7;
+    public static final int COLONNAF = 7;
+
+    public static final String BENVENUTO_HELP =
+       "  _   _   _____   _       ____  \n"
+     + " | | | | | ____| | |     |  _ \\ \n"
+     + " | |_| | |  _|   | |     | |_) |\n"
+     + " |  _  | | |___  | |___  |  __/ \n"
+     + " |_| |_| |_____| |_____| |_|    \n";
+
+     public static final String MENU_COMANDI_PRINCIPALE =
+    BLU + "-------------------------------------------------------\n"
+    + BLU + "| " + R +             "Elenco comandi" + BLU + "                                      |\n"
+    + BLU + "|-----------------------------------------------------|\n"
+    + BLU + "| " + O + "/gioca" + R + "   - 'Avvia la partita'  " + BLU + "                     |\n"
+    + BLU + "| " + O + "/vuoto" + R + "   - 'Genera il tavoliere vuoto' " + BLU + "             |\n"
+    + BLU + "| " + O + "/esci" + R + "    - 'Esci dal gioco'    " + BLU + "                     |\n"
+    + BLU + "|-----------------------------------------------------|\n" + R;
+
+
+    public static final String MENU_COMANDI_GIOCO =
+    BLU + "-------------------------------------------------------\n"
+    + BLU + "| " + R +             "Elenco comandi" + BLU + "                                      |\n"
+    + BLU + "|-----------------------------------------------------|\n"
+    + BLU + "| " + O + "/qualimosse" + R + "   - 'Mostra le mosse possibili'  " + BLU + "        |\n"
+    + BLU + "| " + O + "/tavoliere" + R + "   - 'Mostra il tavoliere in gioco' " + BLU + "       |\n"
+    + BLU + "| " + O + "/abbandona" + R + "    - 'Abbandona la partita'    " + BLU + "           |\n"
+    + BLU + "|-----------------------------------------------------|\n" + R;
+
+
+
+    public static final String BENVENUTO_ASCII = "\n"
+    + RED + " ________      # _________  # ________      # __     __     # __     __     #\n"
+    + BLU + "/_______/\\     #/________/\\ #/_______/\\     #/__/\\ /__/\\    #/__/\\ /__/\\    #\n"
+    + RED + "\\::: _  \\ \\    #\\__.::.__\\/ #\\::: _  \\ \\    #\\ \\::\\\\:.\\ \\   #\\ \\::\\\\:.\\ \\   #\n"
+    + BLU + " \\::(_)  \\ \\   #   \\::\\ \\   # \\::(_)  \\ \\   # \\_\\::_\\:_\\/   # \\_\\::_\\:_\\/   #\n"
+    + RED + "  \\:: __  \\ \\  #    \\::\\ \\  #  \\:: __  \\ \\  #   _\\/__\\_\\_/\\ #   _\\/__\\_\\_/\\ #\n"
+    + BLU + "   \\:.\\ \\  \\ \\ #     \\::\\ \\ #   \\:.\\ \\  \\ \\ #   \\ \\ \\ \\::\\ \\#   \\ \\ \\ \\::\\ \\#\n"
+    + RED + "    \\__\\/\\__\\/ #      \\__\\/ #    \\__\\/\\__\\/ #    \\_\\/  \\__\\/ #    \\_\\/  \\__\\/ #\n";
+
+
+    public static final String INTRODUZIONE = BLU + "> INTRODUZIONE\n" + R
+            + "Ataxx è un avvincente gioco da tavolo strategico per due giocatori"
+            + "progettato per essere giocato in modalità locale."
+            + "Nato nei primi anni '90, è diventato un classico grazie alla combinazione"
+            + "di regole semplici e profondità tattica.\n";
+    public static final String REGOLE = BLU + "> REGOLE\n" + R
+            + "Il gioco si svolge su una griglia di 7x7 caselle. Ogni giocatore inizia"
+            + "con due pedine disposte agli angoli opposti della griglia. "
+            + "L'obiettivo è controllare il maggior numero possibile di caselle."
+            + "Durante ogni turno, un giocatore può spostare una pedina in una casella vuota adiacente per duplicarla"
+            + "o in una casella vuota a due caselle di distanza."
+            + "Le pedine avversarie adiacenti a quella mossa vengono convertite"
+            + "al colore del giocatore che ha effettuato la mossa.\n";
+    public static final String MENU_COMANDO_INIZIALE = BLU + "> COMANDO\n" + R
+            + O + "/help, -h, --help" + R
+            + "  - Mostra l'elenco dei comandi\n";
+
+    public static final String PROMPT_COMANDO = "\n" + BLU + "============================" + R
+            + "\nDigita un comando: ";
+
+    /**
+     * Costruttore della classe Costanti.
+     */
+    private Costanti() {
+        // Costruttore vuoto
+    }
+
+}

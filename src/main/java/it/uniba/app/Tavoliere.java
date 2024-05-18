@@ -203,6 +203,8 @@ public class Tavoliere {
             System.out.print("   " + colonna + "  ");
         }
         System.out.println();
+
+
     }
 
     /**

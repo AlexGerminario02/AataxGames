@@ -10,7 +10,8 @@ public final class Costanti {
     public static final String BLU = "\u001B[34m";
     public static final String O = "\u001B[38;5;208m";
     public static final String CONFERMA_ESCI = "Sei sicuro di voler uscire dal gioco (si/no) \n";
-
+    public static final String COMANDO_HELP_GIOCO = "Inserisci il comando /indietro per continuare: ";
+    public static final String ERRORE = "Comando inserito non valido";
 
     public static final int RIGAI = 1;
     public static final int COLONNAI = 1;
@@ -38,9 +39,9 @@ public final class Costanti {
     BLU + "-------------------------------------------------------\n"
     + BLU + "| " + R +             "Elenco comandi" + BLU + "                                      |\n"
     + BLU + "|-----------------------------------------------------|\n"
-    + BLU + "| " + O + "/qualimosse" + R + "   - 'Mostra le mosse possibili'  " + BLU + "        |\n"
-    + BLU + "| " + O + "/tavoliere" + R + "   - 'Mostra il tavoliere in gioco' " + BLU + "       |\n"
-    + BLU + "| " + O + "/abbandona" + R + "    - 'Abbandona la partita'    " + BLU + "           |\n"
+    + BLU + "| " + O + "/qualimosse" + R + "   - 'Mostra le mosse possibili'  " + BLU + "       |\n"
+    + BLU + "| " + O + "/tavoliere" + R + "   - 'Mostra il tavoliere in gioco' " + BLU + "      |\n"
+    + BLU + "| " + O + "/abbandona" + R + "    - 'Abbandona la partita'    " + BLU + "          |\n"
     + BLU + "|-----------------------------------------------------|\n" + R;
 
 
@@ -74,6 +75,8 @@ public final class Costanti {
 
     public static final String PROMPT_COMANDO = "\n" + BLU + "============================" + R
             + "\nDigita un comando: ";
+public static final String SCELTA_AVVIA_PARTITA = "Vuoi inserire un comando o le coordinate? (comando/coordinate)\n";
+public static final String COORDINATE = "Digita le coordinate: ";
 
     /**
      * Costruttore della classe Costanti.

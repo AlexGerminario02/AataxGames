@@ -32,7 +32,6 @@ final class Menu {
 
     public static boolean esci(final Tastiera tastiera) {
         while (true) {
-            System.out.println(Costanti.CONFERMA_ESCI);
             String stringa = tastiera.readString(Costanti.CONFERMA_ESCI);
             if (stringa.equalsIgnoreCase("si")) {
                 return true; // Esce dalla funzione, indicando che l'utente vuole uscire
@@ -47,10 +46,5 @@ final class Menu {
     public static void helpGioco(final Tastiera tastiera) {
         System.out.println(Costanti.BENVENUTO_HELP);
         System.out.print(Costanti.MENU_COMANDI_GIOCO);
-        String stringa = tastiera.readString("");
-        if (stringa.equalsIgnoreCase("/indietro")) {
-            clearScreen();
-            return;
-        }
     }
 }

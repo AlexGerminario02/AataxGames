@@ -10,10 +10,11 @@ public class Partita {
     public static final int COLONNA = 7;
     public static final char A = 'a';
     public static final char B = 'b';
-    private static final String MESSAGGIO_GIOCO = "Inserisci coordinate o comandi del menu: ";
+    //private static final String MESSAGGIO_GIOCO = "Inserisci coordinate o comandi del menu: ";
     private static final String MSG_ABBANDONA_PARTITA = "Sei sicuro di voler abbandonare la partita? (si/no) \n";
     private static final String CONFERMA_ABBANDONO = " ha abbandonato la partita.";
     private boolean uscitaRichiesta = false;
+    private boolean abbandono = false;
     private Giocatore giocatore2;
     private Giocatore giocatore1;
     private Tavoliere tavoliere;
@@ -38,20 +39,28 @@ public class Partita {
      * Funzione che Avvia la partita.
      */
 
-     public boolean avviaPartita() {
+    public boolean avviaPartita() {
         if (uscitaRichiesta) {
             return true;
-             // L'uscita è stata richiesta
+            // L'uscita è stata richiesta
+        }
+        if (abbandono) {
+           return false;
         }
         tavoliere.visualizzaTavolierePieno();
-        while (!partitaFinita() && !uscitaRichiesta) {
-            String input = tastiera.readString(MESSAGGIO_GIOCO);
-            if (input.startsWith("/") || input.startsWith("-") || input.startsWith("--")) {
-                // Gestisci i comandi del menu
+        while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
+            String decisione = tastiera.readString(Costanti.SCELTA_AVVIA_PARTITA);
+            switch (decisione) {
+                case "comando":
+                String input = tastiera.readString(Costanti.PROMPT_COMANDO);
                 gestisciComando(input);
-            } else {
-                // Gestisci le coordinate inserite dall'utente
-                gestisciCoordinate(input);
+                    break;
+                    case "coordinate":
+                    String coordinate = tastiera.readString(Costanti.COORDINATE);
+                    gestisciCoordinate(coordinate);
+                default:
+                System.out.println(Costanti.ERRORE);
+                    break;
             }
         }
         return partitaFinita(); // Ritorna true se la partita è finita
@@ -100,8 +109,6 @@ public class Partita {
                 tavoliere.stampaMosseDisponibili(mossea, mosseb);
                 break;
             case "/abbandona":
-                // qui va messo keyboard al posto di scanner.
-                System.out.println(MSG_ABBANDONA_PARTITA);
                 String conferma = tastiera.readString(MSG_ABBANDONA_PARTITA);
                 if (conferma.equalsIgnoreCase("si")) {
                     // Determina quale giocatore ha abbandonato
@@ -112,14 +119,15 @@ public class Partita {
                     }
                     // Determina il giocatore opposto
                     Giocatore giocatoreOpposto = (tavoliere.getTurno() % 2 == 0) ? giocatore1 : giocatore2;
-                    int numeroPedineGiocatoreOpposto =
-                    tavoliere.contaPedine(giocatoreOpposto.getPedina().getCarattere(), tavoliere);
+                    int numeroPedineGiocatoreOpposto = tavoliere
+                            .contaPedine(giocatoreOpposto.getPedina().getCarattere(), tavoliere);
                     System.out.println("Il giocatore " + giocatoreOpposto.getNome() + " ha vinto per "
                             + numeroPedineGiocatoreOpposto + " a 0.");
+                    abbandono = true;
                     return;
                 }
                 break;
-                case "/esci":
+            case "/esci":
                 uscitaRichiesta = Menu.esci(tastiera);
                 break;
             default:

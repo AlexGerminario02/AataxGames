@@ -24,8 +24,8 @@ public class Tavoliere {
     private static final String ANSI_ORANGE = "\u001B[38;2;255;165;0m";
 
     // Costanti per i caratteri dei giocatori
-    private static final char PEDINA_BIANCA = '\u25CB'; // 'O'
-    private static final char PEDINA_NERA = '\u25CF'; // 'X'
+    private static final char PEDINA_BIANCA = 'X'; // 'X'
+    private static final char PEDINA_NERA = 'O'; // 'O'
 
     // Attributi del tavoliere
 

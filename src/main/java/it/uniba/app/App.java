@@ -14,7 +14,7 @@ public final class App {
     /**
      * Metodo per stampare il benvenuto con i colori.
      */
-    private static void stampaBenvenuto() {
+    public static void stampaBenvenuto() {
         System.out.println(Costanti.BENVENUTO_ASCII);
         System.out.println(Costanti.INTRODUZIONE);
         System.out.println(Costanti.REGOLE);

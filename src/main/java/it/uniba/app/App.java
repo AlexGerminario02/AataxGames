@@ -2,22 +2,25 @@ package it.uniba.app;
 
 import java.util.Scanner;
 
+
 /**
  * Main class of the application.
  */
 public final class App {
-    public static final int RIGAI = 1;
-    public static final int COLONNAI = 1;
-    public static final int RIGAF = 7;
-    public static final int COLONNAF = 7;
+    // Definizione delle sequenze di escape ANSI per i colori
+
+
+    private App() {
+        // Costruttore privato per evitare l'instanziazione della classe
+    }
 
     /**
-     * Get a greeting sentence.
-     *
-     * @return the "Hello World!" string.
+     * Metodo per stampare il benvenuto con i colori.
      */
-    public String getGreeting() {
-        return "===BENVENUTO IN ATAXX!===";
+    private static void stampaBenvenuto() {
+        System.out.println(Costanti.BENVENUTO_ASCII);
+        System.out.println(Costanti.INTRODUZIONE);
+        System.out.println(Costanti.REGOLE);
     }
 
     /**
@@ -26,53 +29,53 @@ public final class App {
      * @param args command line arguments
      */
     public static void main(final String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         Tavoliere tavoliere = Tavoliere.creaTavoliere();
         Giocatore giocatore1 = new Giocatore(new Pedina('X', 0, 0), "Nero");
         Giocatore giocatore2 = new Giocatore(new Pedina('O', 0, 0), "Bianco");
         Partita partita = new Partita(giocatore1, giocatore2, tavoliere);
         boolean isRunning = true;
-        boolean giocoIniziato = false;
+
+
+
+        // Stampa il messaggio di benvenuto
+
 
         while (isRunning) {
-            System.out.println(new App().getGreeting());
-            if (!giocoIniziato) { // Se il gioco non è iniziato, suggerisci di iniziare una nuova partita
-                System.out.println("\nIl gioco non è ancora iniziato. Digita '/gioca' per iniziare una nuova partita.");
-            }
-            System.out.println("\nDigita '/help','--help' o '-h' per visulizzare l'elenco dei comandi ");
-            System.out.println("\n============================");
+            stampaBenvenuto();
+            System.out.println(Costanti.MENU_COMANDO_INIZIALE);
+            System.out.print(Costanti.PROMPT_COMANDO);
 
-            System.out.print("\nDigita un comando: ");
             String input = scanner.nextLine().trim(); // inserisco il trim per rimuovere eventuali spazi bianchi
 
             switch (input.toLowerCase()) {
                 case "/help":
                 case "--help":
                 case "-h":
-                    Menu.help(scanner);
+                    Menu.helpPrincipale(scanner);
                     break;
-                    case "/esci":
+                case "/esci":
                     if (Menu.esci(scanner)) {
                         isRunning = false;
                     }
                     break;
                 case "/gioca":
-                    giocoIniziato = true;
-                    tavoliere.inizializzaPedine(RIGAI, COLONNAI, RIGAF, COLONNAF);
+                    Menu.clearScreen();
+                    tavoliere.inizializzaPedine(Costanti.RIGAI, Costanti.COLONNAI, Costanti.RIGAF, Costanti.COLONNAF);
                     partita.avviaPartita();
                     if (partita.avviaPartita()) {
                         return;
                     }
                     break;
                 case "/vuoto":
+                    Menu.clearScreen();
                     tavoliere.visualizzaTavoliereVuoto();
                     break;
                 default:
                     System.out.println("Scelta non valida. Premi un pulsante valido\n");
-
             }
         }
         scanner.close();
-
     }
 }

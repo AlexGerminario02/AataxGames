@@ -76,7 +76,7 @@ public class Partita {
             case "/help":
             case "-h":
             case "--help":
-                Menu.help(scanner);
+                Menu.helpGioco(scanner);
                 break;
             case "/vuoto":
                 tavoliere.visualizzaTavoliereVuoto();

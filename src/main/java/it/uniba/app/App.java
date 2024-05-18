@@ -28,8 +28,8 @@ public final class App {
     public static void main(final String[] args) {
         Scanner scanner = new Scanner(System.in);
         Tavoliere tavoliere = Tavoliere.creaTavoliere();
-        Giocatore giocatore1 = new Giocatore(new Pedina('X', 0, 0), "Giocatore 1");
-        Giocatore giocatore2 = new Giocatore(new Pedina('O', 0, 0), "Giocatore 2");
+        Giocatore giocatore1 = new Giocatore(new Pedina('X', 0, 0), "Nero");
+        Giocatore giocatore2 = new Giocatore(new Pedina('O', 0, 0), "Bianco");
         Partita partita = new Partita(giocatore1, giocatore2, tavoliere);
         boolean isRunning = true;
         boolean giocoIniziato = false;

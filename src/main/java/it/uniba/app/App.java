@@ -51,8 +51,10 @@ public final class App {
                 case "-h":
                     Menu.help(scanner);
                     break;
-                case "/esci":
-                    isRunning = false; // esco dal ciclo while
+                    case "/esci":
+                    if (Menu.esci(scanner)) {
+                        isRunning = false;
+                    }
                     break;
                 case "/gioca":
                     giocoIniziato = true;

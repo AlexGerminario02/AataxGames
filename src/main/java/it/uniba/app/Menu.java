@@ -3,6 +3,7 @@ package it.uniba.app;
 import java.util.Scanner;
 
 final class Menu {
+    private static final String CONFERMA_ESCI = "Sei sicuro di voler uscire dal gioco (si/no) \n";
     private Menu() { }
     public static void help(final Scanner scanner) {
         boolean helpRunning = true;

@@ -210,13 +210,13 @@ public class Tavoliere {
     public void inizializzaPedine(final int rigaIniziale, final int colonnaIniziale, final int rigaFinale,
             final int colonnaFinale) {
         // Posiziona una pedina 'X' nella prima riga e nella prima colonna
-        setPedina(new Pedina('@', rigaIniziale, colonnaIniziale), rigaIniziale, colonne[0]);
+        setPedina(new Pedina('X', rigaIniziale, colonnaIniziale), rigaIniziale, colonne[0]);
         // Posiziona una pedina 'O' nella prima riga e nell'ultima colonna
-        setPedina(new Pedina('$', rigaIniziale, colonnaFinale), rigaIniziale, colonne[DIM - 1]);
+        setPedina(new Pedina('O', rigaIniziale, colonnaFinale), rigaIniziale, colonne[DIM - 1]);
         // Posiziona una pedina 'X' nell'ultima riga e nell'ultima colonna
-        setPedina(new Pedina('@', rigaFinale, colonnaFinale), rigaFinale, colonne[DIM - 1]);
+        setPedina(new Pedina('X', rigaFinale, colonnaFinale), rigaFinale, colonne[DIM - 1]);
         // Posiziona una pedina 'O' nell'ultima riga e nella prima colonna
-        setPedina(new Pedina('$', rigaFinale, colonnaIniziale), rigaFinale, colonne[0]);
+        setPedina(new Pedina('O', rigaFinale, colonnaIniziale), rigaFinale, colonne[0]);
     }
 
     /**

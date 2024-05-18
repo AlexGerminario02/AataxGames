@@ -1,8 +1,10 @@
 package it.uniba.app;
 
 /**
+ * <<Boundary>>
  * Main class of the application.
- */
+ * Questa classe rappresenta il punto di ingresso dell'applicazione Ataxx.
+ */
 public final class App {
     // Definizione delle sequenze di escape ANSI per i colori
 
@@ -14,7 +16,7 @@ public final class App {
     /**
      * Metodo per stampare il benvenuto con i colori.
      */
-    public static void stampaBenvenuto() {
+    private static void stampaBenvenuto() {
         System.out.println(Costanti.BENVENUTO_ASCII);
         System.out.println(Costanti.INTRODUZIONE);
         System.out.println(Costanti.REGOLE);

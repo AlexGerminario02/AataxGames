@@ -5,8 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Classe che controlla l'input inserito dall'utente.
- */
+ * <<Boundary>>
+ * Classe per gestire l'input da tastiera.
+ * Questa classe fornisce metodi per leggere diversi tipi di input dall'utente,
+ * come stringhe, interi e caratteri, gestendo eventuali errori di input.
+ */
 public class Tastiera {
     private BufferedReader reader;
 

@@ -1,9 +1,11 @@
 package it.uniba.app;
 
 /**
+ * <<Boundary>>
  * Classe che contiene le costanti del gioco.
- */
-
+ * Questa classe fornisce variabili statiche finali utilizzate per la formattazione del testo,
+ * i limiti della griglia del gioco, messaggi di benvenuto, menu dei comandi, e le regole del gioco.
+ */
 public final class Costanti {
     public static final String R = "\u001B[0m";
     public static final String RED = "\u001B[31m";

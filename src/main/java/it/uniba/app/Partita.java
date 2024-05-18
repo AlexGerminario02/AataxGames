@@ -3,8 +3,11 @@ package it.uniba.app;
 import java.util.ArrayList;
 
 /**
+ * <<Control>>
+ *
  * Classe che rappresenta una partita.
- */
+ * Gestisce il flusso del gioco e l'interazione con i giocatori.
+ */
 public class Partita {
     public static final int RIGA = 1;
     public static final int COLONNA = 7;

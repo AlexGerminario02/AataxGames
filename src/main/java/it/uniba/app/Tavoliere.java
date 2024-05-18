@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
+ * <<Entity>>
  * Classe che rappresenta il tavoliere di gioco.
- */
+ * Questa classe gestisce lo stato del tavoliere, le mosse disponibili e la visualizzazione del tavoliere.
+ */
 @SuppressWarnings("unused")
 
 public class Tavoliere {

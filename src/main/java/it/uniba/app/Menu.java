@@ -2,7 +2,11 @@ package it.uniba.app;
 
 import java.io.IOException;
 
-
+/**
+ * <<Boundary>>
+ * Questa classe gestisce l'interfaccia del menu per l'utente nel gioco Ataxx.
+ * Fornisce metodi per visualizzare l'aiuto, confermare l'uscita e pulire lo schermo.
+ */
 final class Menu {
 
     private Menu() {

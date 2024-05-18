@@ -1,4 +1,4 @@
-package it.uniba.app;
+package it.uniba.app.Boundary;
 
 import java.io.BufferedReader;
 import java.io.IOException;

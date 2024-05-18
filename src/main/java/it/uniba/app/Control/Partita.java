@@ -1,6 +1,13 @@
-package it.uniba.app;
+package it.uniba.app.Control;
 
 import java.util.ArrayList;
+
+import it.uniba.app.Boundary.Costanti;
+import it.uniba.app.Boundary.Menu;
+import it.uniba.app.Boundary.Tastiera;
+import it.uniba.app.Entity.Coordinate;
+import it.uniba.app.Entity.Giocatore;
+import it.uniba.app.Entity.Tavoliere;
 
 /**
  * <<Control>>

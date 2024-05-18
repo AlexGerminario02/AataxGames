@@ -1,4 +1,9 @@
-package it.uniba.app;
+package it.uniba.app.Boundary;
+
+import it.uniba.app.Control.Partita;
+import it.uniba.app.Entity.Giocatore;
+import it.uniba.app.Entity.Pedina;
+import it.uniba.app.Entity.Tavoliere;
 
 /**
  * <<Boundary>>

@@ -1,4 +1,4 @@
-package it.uniba.app;
+package it.uniba.app.Entity;
 
 /**
  * <<Entity>>: Classe per rappresentare le coordinate di una pedina sul tavoliere.

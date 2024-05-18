@@ -1,4 +1,4 @@
-package it.uniba.app;
+package it.uniba.app.Entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;

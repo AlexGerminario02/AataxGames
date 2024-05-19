@@ -1,8 +1,11 @@
-package it.uniba.app;
+package it.uniba.app.Entity;
 
 /**
+ * <<Entity>>
  * Classe che rappresenta una pedina.
- */
+ * Una pedina è un'entità che ha un carattere e una posizione
+ * (riga e colonna) sulla scacchiera.
+ */
 public class Pedina {
     // Attributi della pedina
     private char carattere;

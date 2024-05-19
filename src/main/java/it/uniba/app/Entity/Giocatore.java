@@ -1,8 +1,10 @@
-package it.uniba.app;
+package it.uniba.app.Entity;
 
 /**
+ * <<Entity>>
  * Questa classe rappresenta un giocatore nel gioco Ataxx.
- */
+ * Un giocatore è caratterizzato da una pedina e un nome.
+ */
 public class Giocatore {
     // Attributi del giocatore
 

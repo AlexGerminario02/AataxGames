@@ -1,8 +1,8 @@
-package it.uniba.app;
+package it.uniba.app.Entity;
 
 /**
- * Classe per rappresentare le coordinate di una pedina sul tavoliere.
- */
+ * <<Entity>>: Classe per rappresentare le coordinate di una pedina sul tavoliere.
+ */
 public class Coordinate {
     private int riga;
     private char colonna;

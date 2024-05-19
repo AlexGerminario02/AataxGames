@@ -1,11 +1,13 @@
-package it.uniba.app;
+package it.uniba.app.Entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
+ * <<Entity>>
  * Classe che rappresenta il tavoliere di gioco.
- */
+ * Questa classe gestisce lo stato del tavoliere, le mosse disponibili e la visualizzazione del tavoliere.
+ */
 @SuppressWarnings("unused")
 
 public class Tavoliere {
@@ -24,8 +26,8 @@ public class Tavoliere {
     private static final String ANSI_ORANGE = "\u001B[38;2;255;165;0m";
 
     // Costanti per i caratteri dei giocatori
-    private static final char PEDINA_BIANCA = '\u25CB'; // 'O'
-    private static final char PEDINA_NERA = '\u25CF'; // 'X'
+    private static final char PEDINA_BIANCA = 'X'; // 'X'
+    private static final char PEDINA_NERA = 'O'; // 'O'
 
     // Attributi del tavoliere
 

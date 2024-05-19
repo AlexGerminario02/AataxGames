@@ -9,10 +9,10 @@ import it.uniba.app.Entity.Tavoliere;
  * <<Boundary>>
  * Main class of the application.
  * Questa classe rappresenta il punto di ingresso dell'applicazione Ataxx.
- */
+ *  
+ */
 public final class App {
     // Definizione delle sequenze di escape ANSI per i colori
-
 
     private App() {
         // Costruttore privato per evitare l'instanziazione della classe
@@ -41,10 +41,7 @@ public final class App {
         Partita partita = new Partita(giocatore1, giocatore2, tavoliere);
         boolean isRunning = true;
 
-
-
         // Stampa il messaggio di benvenuto
-
 
         while (isRunning) {
             stampaBenvenuto();
@@ -77,7 +74,8 @@ public final class App {
                     tavoliere.visualizzaTavoliereVuoto();
                     break;
                 default:
-                    System.out.println("Scelta non valida. Premi un pulsante valido\n");
+                    //System.out.println("Scelta non valida. Premi un pulsante valido\n");
+                    Menu.clearScreen();
             }
         }
     }

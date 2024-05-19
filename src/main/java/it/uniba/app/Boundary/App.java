@@ -68,6 +68,8 @@ public final class App {
                     partita.avviaPartita();
                     if (partita.avviaPartita()) {
                         return;
+                    } else {
+                        partita.reset();
                     }
                     break;
                 case "/vuoto":

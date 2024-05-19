@@ -7,6 +7,7 @@ import it.uniba.app.Boundary.Menu;
 import it.uniba.app.Boundary.Tastiera;
 import it.uniba.app.Entity.Coordinate;
 import it.uniba.app.Entity.Giocatore;
+//import it.uniba.app.Entity.Pedina;
 import it.uniba.app.Entity.Tavoliere;
 
 /**
@@ -150,5 +151,12 @@ public class Partita {
         System.out.println("Funzione da implementare per gestire le coordinate: " + coordinate);
         System.out.println("");
 
+    }
+    /**
+     * Funzione per resettare lo stato della partita.
+     */
+    public void reset() {
+    uscitaRichiesta = false;
+    abbandono = false;
     }
 }

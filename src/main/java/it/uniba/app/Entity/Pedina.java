@@ -23,6 +23,15 @@ public class Pedina {
         this.riga = row;
         this.colonna = column;
     }
+    /**
+     * Costruttore di copia della classe Pedina.
+     * @param copia L'istanza di Pedina da copiare.
+     */
+    public Pedina(final Pedina copia) {
+        this.carattere = copia.carattere;
+        this.riga = copia.riga;
+        this.colonna = copia.colonna;
+    }
 
     // Metodi getter e setter
     public final char getCarattere() {

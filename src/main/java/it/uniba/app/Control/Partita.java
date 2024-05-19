@@ -7,6 +7,7 @@ import it.uniba.app.Boundary.Menu;
 import it.uniba.app.Boundary.Tastiera;
 import it.uniba.app.Entity.Coordinate;
 import it.uniba.app.Entity.Giocatore;
+import it.uniba.app.Entity.Pedina;
 //import it.uniba.app.Entity.Pedina;
 import it.uniba.app.Entity.Tavoliere;
 
@@ -34,15 +35,14 @@ public class Partita {
     /**
      * Costruttore della classe Partita.
      *
-     * @param giocatoret1
-     * @param giocatoret2
-     * @param tavolieret
+     * @param giocatoret1 il primo giocatore
+     * @param giocatoret2 il secondo giocatore
+     * @param tavolieret il tavoliere della partita
      */
-
     public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final Tavoliere tavolieret) {
-        this.giocatore1 = giocatoret1;
-        this.giocatore2 = giocatoret2;
-        this.tavoliere = tavolieret;
+        this.giocatore1 = new Giocatore(new Pedina(giocatoret1.getPedina()), giocatoret1.getNome());
+        this.giocatore2 = new Giocatore(new Pedina(giocatoret2.getPedina()), giocatoret2.getNome());
+        this.tavoliere = new Tavoliere(tavolieret);
         this.tastiera = new Tastiera();
     }
 

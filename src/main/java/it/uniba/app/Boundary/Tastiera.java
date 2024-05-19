@@ -3,13 +3,15 @@ package it.uniba.app.Boundary;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 /**
  * <<Boundary>>
  * Classe per gestire l'input da tastiera.
  * Questa classe fornisce metodi per leggere diversi tipi di input dall'utente,
  * come stringhe, interi e caratteri, gestendo eventuali errori di input.
- */
+ *  
+ */
 public class Tastiera {
     private BufferedReader reader;
 
@@ -17,7 +19,7 @@ public class Tastiera {
      * Costruttore della classe.
      */
     public Tastiera() {
-        reader = new BufferedReader(new InputStreamReader(System.in));
+        reader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
     }
 
     /**
@@ -73,7 +75,7 @@ public class Tastiera {
             System.out.print(prompt);
             try {
                 String input = reader.readLine();
-                if (input.length() == 1) {
+                if (input != null && input.length() == 1) {
                     value = input.charAt(0);
                     valid = true;
                 } else {
@@ -85,4 +87,5 @@ public class Tastiera {
         }
         return value;
     }
+
 }

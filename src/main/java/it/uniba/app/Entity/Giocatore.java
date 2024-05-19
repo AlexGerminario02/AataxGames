@@ -4,7 +4,8 @@ package it.uniba.app.Entity;
  * <<Entity>>
  * Questa classe rappresenta un giocatore nel gioco Ataxx.
  * Un giocatore è caratterizzato da una pedina e un nome.
- */
+ *  
+ */
 public class Giocatore {
     // Attributi del giocatore
 
@@ -17,11 +18,11 @@ public class Giocatore {
     /**
      * Costruisce un nuovo giocatore con la pedina e il nome specificati.
      *
-     * @param pedinat la pedina associata al giocatore
+     * @param copia la pedina associata al giocatore
      * @param nomet il nome del giocatore
      */
-    public Giocatore(final Pedina pedinat, final String nomet) {
-        this.pedina = pedinat;
+    public Giocatore(final Pedina copia, final String nomet) {
+        this.pedina = new Pedina(copia); // Usa il costruttore di copia per creare una nuova istanza di Pedina
         this.nome = nomet;
     }
 
@@ -33,16 +34,16 @@ public class Giocatore {
      * @return la pedina associata al giocatore
      */
     public Pedina getPedina() {
-        return pedina;
+        return new Pedina(pedina);
     }
 
     /**
      * Imposta la pedina associata al giocatore.
      *
-     * @param pedinat la pedina da associare al giocatore
+     * @param copia la pedina da associare al giocatore
      */
-    public void setPedina(final Pedina pedinat) {
-        this.pedina = pedinat;
+    public void setPedina(final Pedina copia) {
+        this.pedina = new Pedina(copia);
     }
 
     /**

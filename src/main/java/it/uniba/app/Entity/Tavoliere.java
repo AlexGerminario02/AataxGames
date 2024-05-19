@@ -6,8 +6,10 @@ import java.util.Arrays;
 /**
  * <<Entity>>
  * Classe che rappresenta il tavoliere di gioco.
- * Questa classe gestisce lo stato del tavoliere, le mosse disponibili e la visualizzazione del tavoliere.
- */
+ * Questa classe gestisce lo stato del tavoliere, le mosse disponibili e la
+ * visualizzazione del tavoliere.
+ *  
+ */
 @SuppressWarnings("unused")
 
 public class Tavoliere {
@@ -57,11 +59,33 @@ public class Tavoliere {
      *
      * @param dim dimensione del tavoliere (numero di righe e colonne)
      */
-
     public Tavoliere(final int dim) {
         this.scacchiera = new Pedina[dim][dim];
         this.turno = 1;
     }
+
+    /**
+     * Costruisce una nuova istanza di Tavoliere copiando i valori da un'altra
+     * istanza esistente di Tavoliere.
+     * Questo costruttore esegue una copia profonda della scacchiera, creando nuove
+     * istanze di Pedina per
+     * evitare la condivisione di riferimenti mutabili tra le istanze.
+     *
+     * @param copia l'istanza di Tavoliere da cui copiare i valori
+     */
+    public Tavoliere(final Tavoliere copia) {
+        int dim = copia.scacchiera.length;
+        this.scacchiera = new Pedina[dim][dim];
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                if (copia.scacchiera[i][j] != null) {
+                    this.scacchiera[i][j] = new Pedina(copia.scacchiera[i][j]); // Usa il costruttore di copia di Pedina
+                }
+            }
+        }
+        this.turno = copia.turno;
+    }
+
     // Metodi per gestire il tavoliere
 
     /**
@@ -205,7 +229,6 @@ public class Tavoliere {
             System.out.print("   " + colonna + "  ");
         }
         System.out.println();
-
 
     }
 

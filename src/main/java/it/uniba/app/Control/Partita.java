@@ -21,6 +21,7 @@ public class Partita {
     public static final int COLONNA = 7;
     public static final char A = 'a';
     public static final char B = 'b';
+    public static final int TIME = 6;
     //private static final String MESSAGGIO_GIOCO = "Inserisci coordinate o comandi del menu: ";
     private static final String MSG_ABBANDONA_PARTITA = "Sei sicuro di voler abbandonare la partita? (si/no) \n";
     private static final String CONFERMA_ABBANDONO = " ha abbandonato la partita.";
@@ -139,7 +140,7 @@ public class Partita {
                         abbandono = true;
                         confermaAbbandono = true;
                         try {
-                        TimeUnit.SECONDS.sleep(6); // Attendi 6 secondi
+                        TimeUnit.SECONDS.sleep(TIME); // Attendi 6 secondi
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

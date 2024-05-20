@@ -82,7 +82,7 @@ public final class App {
                             break; // Esce dal ciclo while e torna al menu principale
                         } else {
                             System.out.println(
-                                    "Comando non riconosciuto. Per favore, digitare '/indietro' per tornare al menu principale.");
+                        "Comando non riconosciuto. Per favore, digitare '/indietro' per tornare al menu principale.");
                         }
                     }
                     break;

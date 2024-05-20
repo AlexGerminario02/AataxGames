@@ -26,7 +26,16 @@ public class Giocatore {
         this.nome = nomet;
     }
 
-    // Metodi getter e setter
+
+ /**
+  * Costruttore di copia della classe Giocatore.
+  * @param copia
+  */
+    public Giocatore(final Giocatore copia) {
+        this.pedina = new Pedina(copia.getPedina()); // Usa i Pedina per creare una nuova istanza di Pedina
+        this.nome = copia.nome;
+    }
+
 
     /**
      * Restituisce la pedina associata al giocatore.

@@ -73,7 +73,7 @@ public class Tavoliere {
      *
      * @param copia l'istanza di Tavoliere da cui copiare i valori
      */
-    public Tavoliere(final Tavoliere copia) {
+     public Tavoliere(final Tavoliere copia) {
         int dim = copia.scacchiera.length;
         this.scacchiera = new Pedina[dim][dim];
         for (int i = 0; i < dim; i++) {

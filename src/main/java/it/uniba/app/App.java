@@ -64,7 +64,6 @@ public final class App {
                     break;
                 case "/gioca":
                     Menu.clearScreen();
-                    tavoliere.inizializzaPedine(Costanti.RIGAI, Costanti.COLONNAI, Costanti.RIGAF, Costanti.COLONNAF);
                     partita.avviaPartita();
                     if (partita.avviaPartita()) {
                         return;

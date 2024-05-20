@@ -1,14 +1,13 @@
 package it.uniba.app.Control;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import it.uniba.app.Boundary.Costanti;
 import it.uniba.app.Boundary.Menu;
 import it.uniba.app.Boundary.Tastiera;
 import it.uniba.app.Entity.Coordinate;
 import it.uniba.app.Entity.Giocatore;
-import it.uniba.app.Entity.Pedina;
-//import it.uniba.app.Entity.Pedina;
 import it.uniba.app.Entity.Tavoliere;
 
 /**
@@ -35,14 +34,15 @@ public class Partita {
     /**
      * Costruttore della classe Partita.
      *
-     * @param giocatoret1 il primo giocatore
-     * @param giocatoret2 il secondo giocatore
-     * @param tavolieret il tavoliere della partita
+     * @param giocatoret1
+     * @param giocatoret2
+     * @param tavolieret
      */
-    public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final Tavoliere tavolieret) {
-        this.giocatore1 = new Giocatore(new Pedina(giocatoret1.getPedina()), giocatoret1.getNome());
-        this.giocatore2 = new Giocatore(new Pedina(giocatoret2.getPedina()), giocatoret2.getNome());
-        this.tavoliere = new Tavoliere(tavolieret);
+
+     public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final Tavoliere tavolieret) {
+        this.giocatore1 = giocatoret1;
+        this.giocatore2 = giocatoret2;
+        this.tavoliere = tavolieret;
         this.tastiera = new Tastiera();
     }
 
@@ -138,6 +138,13 @@ public class Partita {
                                 + numeroPedineGiocatoreOpposto + " a 0.");
                         abbandono = true;
                         confermaAbbandono = true;
+                        try {
+                        TimeUnit.SECONDS.sleep(6); // Attendi 6 secondi
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    // Pulisci lo schermo dopo 6 secondi
+                    Menu.clearScreen();
                     } else if (conferma.equalsIgnoreCase("no")) {
                         confermaAbbandono = true;
                     } else {

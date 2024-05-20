@@ -1,1 +1,379 @@
-# Report
+# REPORT
+
+<div style="font-size: 18px;">
+
+## **Indice**
+</div>
+
+<div style="font-size: 16px;">
+   
+1. [Introduzione](#1-introduzione)
+
+2. [Modello di Dominio](#2-modello-di-dominio)  
+
+3. [Requisiti Specifici](#3-requisiti-specifici)
+ 
+    - 3.1 [Requisiti Funzionali](#31-requisiti-funzionali)
+
+    - 3.2 [Requisiti non Funzionali](#32-requisiti-non-funzionali)
+
+4. [Manuale Utente](#4-manuale-utente)
+
+   - 4.1 [Introduzione Manuale](#41-introduzione-manuale)
+ 
+   - 4.2 [Azioni Preliminari](#42-azioni-preliminari)
+     - 4.2.1 [Installazione e configurazione Docker](#421-installazione-e-configurazione-docker)
+     - 4.2.2 [Autenticazione con GitHub](#422-autenticazione-con-github)
+     - 4.2.3 [Avvio dell'Applicazione](#423-avvio-dellapplicazione)
+
+   - 4.3 [Guida ai Comandi](#43-guida-ai-comandi)
+     - 4.3.1 [Come si Gioca](#431-come-si-gioca)
+
+   - 4.4 [Glossario e Termini Chiave](#44-glossario-e-termini-chiave)
+
+5. [Analisi Retrospettiva](#5-analisi-retrospettiva)
+
+   - 5.1 [Sprint 0](#51-sprint-0)
+   </div>
+  
+
+<div style="font-size: 16px;">
+
+
+
+## **1. Introduzione**
+
+</div>
+
+<div style="font-size: 15px;">
+Il progetto ha come obiettivo la realizzazione di una versione digitale del gioco da tavolo Ataxx, sviluppata utilizzando il linguaggio di programmazione Java e giocabile attraverso un terminale sfruttando la riga di comando (CLI).
+</div>
+
+### <span style="font-size: 112%;">Gioco Ataxx
+
+<div style="font-size: 15px;">
+Ataxx è un gioco di strategia che si sviluppa all'interno di un tavoliere composto da 49 caselle (7x7), dove gli sfidanti hanno lo scopo di convertire le pedine avversarie in proprie, in modo tale da conquistare la maggior parte del territorio. Vince chi riesce ad occupare il tavoliere con il maggior numero di pedine.
+</div>
+
+### <span style="font-size: 112%;">Descrizione funzionalità implementate
+<div style="font-size: 15px;">
+Il progetto comprende le suguenti funzionalità principali:
+
+- **Modalità di Gioco**: Possibilità di giocare contro un altro giocatore sullo stesso schermo 
+
+- **Tavoliere**: Un tavoliere composto da 49 caselle su cui è possibile spostare le pedine utilizzando le coordinate delle righe e delle colonne presenti
+
+- **Elenco Comandi**: Implementazione di un elenco comandi che illustra tutti i possibili comandi utilizzabili all'interno del gioco ed accessibile in ogni momento digitanto *`/help`*, *`--help`* o *`-h`*. 
+
+### <span style="font-size: 112%;">Metodo di Sviluppo
+In questo report verranno illustrati in modo dettagliato i vari processi di sviluppo del codice, i problemi riscontrati dal team durante le implementazioni di esso e le risoluzioni adottate per portare a termine i vari Sprint. Il tutto verrà illustrato anche mediante l'utilizzo di screenshots esplicativi.
+</div>
+
+## **2. Modello di Dominio**
+
+<div style="font-size: 15px;">
+
+In questa sezione verrà mostrato il modello di dominio realizzato in UML tramite il software StarUML.
+</div>
+
+![ModelloDiDominio](./img/ModelloDiDominio.png)
+
+## **3. REQUISITI SPECIFICI**
+
+<div style="font-size: 16px;">
+
+### **3.1 REQUISITI FUNZIONALI**
+</div>
+
+
+<div style="font-size: 15px;">
+
+- **Identificatore**: RF001
+    
+    * **Descrizione**: Come giocatore voglio mostrare l'help con elenco comandi
+    
+    * **Condizioni iniziali**: L'utente ha appena avviato il gioco e si trova nella schermata inziale e non sa cosa cliccare per avviare il gioco.
+
+    * **Azioni richieste**: L'utente deve digitare il comando *`/help`*, *`--help`* o *`-h`* per visualizzare il Menu di Help.
+
+    * **Condizioni finali**: L'utente accede al Menu help e gli viene mostrato l'elenco con i comandi utilizzabili all'interno del software. Per poter utilizzare i comandi visualizzati bisogna tornare al menu principale tramite *`/indietro`*, e dopo sarà possibile digitare i comandi appena visualizzati. 
+
+
+- **Identficatore**: RF002
+
+    * **Descrizione**: Come giocatore voglio iniziare una nuova partita.
+
+    * **Condizioni iniziali**: L'utente si trova nel menu principale e vuole iniziare una nuova partita.
+
+    * **Azioni richieste**: Per iniziare una nuova partita, l'utente, deve digitare il comando *`/gioca`*.
+
+    * **Condizioni finali**: All'utente viene mostrato il tavoliere di gioco con le pedine in posizione iniziale e si predispone ad effettuare la prima mossa di gioco, oppure potrebbe digitare altri comandi.
+
+
+- **identificatore**: RF003
+
+   * **Descrizione**: Come giocatore voglio mostrare il tavoliere vuoto con la numerazione.
+
+   * **Condizioni iniziali**: L'utente si trova nel menu principale e vorrebbe visualizzare il tavoliere di gioco vuoto.
+
+   * **Azioni richieste**: Per visulizzare il tabellone vuoto, l'utente, deve digitare il comando *`/vuoto`*.
+
+   * **Condizioni finali**: All'utente viene mostrato il tavoliere con 49 caselle (7x7) con le righe numerate con numeri da 1 a 7, e le colonne numerate con lettere che vanno da 'a' a 'g'.
+
+
+- **Identificatore**: RF004
+
+   * **Descrizione**: Come giocatore voglio mostrare il tavoliere con le pedine e la numerazione
+
+   * **Condizioni iniziali**: L'utente non ha ancora iniziato una nuova partita e gli viene suggerito il comando *`/gioca`* per iniziare una nuova partita.
+
+   * **Azioni richieste**: Per poter visualizzare il tavoliere con le pedine e la numerazione, l'utente, deve prima iniziare una nuova partita e successivamente digitare il comando *`/tavoliere`*.
+
+   * **Condizioni finali**: All'utente viene mostrato il tavoliere con 49 caselle (7x7) con le righe numerate con numeri da 1 a 7, e le colonne numerate con lettere che vanno da 'a' a 'g'. Inoltre, sono presenti le pedine posizionate nelle caselle iniziali al fine di poter effettuare le successive mosse.
+
+
+- **Identificatore**: RF005
+
+   * **Descrizione**: Come giocatore voglio visualizzare le mosse possibili di una pedina
+
+   * **Condizioni iniziali**: L'utente ha iniziato una nuova partita digitando il comando *`/gioca`* e gli è stato mostrato il tavoliere contenente le pedine in posizione iniziale, e vorrebbe conoscere le mosse possibili da effettuare muovendo una determinata pedina.
+
+   * **Azioni richieste**: Per visualizzare le mosse possibili, l'utente, deve digitare il comando *`/qualimosse`* e successivamente dovrà inserire le coordinate della pedina che vuole giocare.
+
+   * **Condizioni finali**: Dopo aver digitato la posizione della pedina (inserendo riga e colonna corrispondenti), all'utente vengono mostrate con un colore differente, le mosse che potrebbero essere effettuate dalla pedina indicata.
+
+
+- **Identificatore**: RF006
+
+   * **Descrizione**: Come giocatore voglio abbandonare la partita.
+
+   * **Condizioni iniziali**: L'utente sta giocando una partita ma vorrebbe abbandonare perchè le sue possibilità di vittoria sono quasi nulle.
+
+   * **Azioni richieste**: Per poter abbandonare una partita, l'utente, dovrà digitare il comando *`/abbandona`*. L'app chiederà all'utente di confermare l'abbandono.
+
+   * **Condizioni finali**: Se la conferma di abbandono risulta positiva, l'app comunica che il Bianco (o Nero) ha vinto per abbandono e dichiara come vincitore l'avversario per x a 0 dove x è il numero di pedine rimaste dell'avversario.
+   Se la conferma è negativa, l'app si predispone a ricevere nuove mosse o comandi.
+
+
+- **Identificatore**: RF007
+
+   * **Descrizione**: Come giocatore voglio chiudere il gioco.
+
+   * **Condizioni iniziali**: L'utente ha terminato una partita (oppure ha avviato l'app per errore) e vorrebbe uscire dall'applicazione.
+
+   * **Azioni richieste**: Per poter chiudere il gioco l'utente dovrà digitare il comando *`/esci`*. L'app chiederà all'utente di confermare la sua scelta.
+
+   * **Condizioni finali**: Se la conferma di chiusura del gioco è positiva, l'app si chiude e restituisce il controllo al sistema operativo.
+   Se la conferma è negativa, l'app si predispone a ricevere nuovi comandi.
+   </div>
+
+<div style="font-size: 16px;">
+
+### **3.2 REQUISITI NON FUNZIONALI**
+</div>
+
+<div style="font-size: 15px;">
+
+Il funzionamento del software richiede:
+
+- **RFN1**: il container Docker dell'app deve essere eseguito da terminali che supportano Unicode con encoding UTF-8 o UTF-16
+
+  **Elenco terminali supportati**:  
+  
+   **Linux** :
+    * Terminal
+
+    **Windows**:
+    * Powershell
+    * Gitbash (in questo caso il Docker ha come prefisso winpty)
+    </div>
+
+
+## **4. MANUALE UTENTE**
+
+<div style="font-size: 18px;">
+
+### [**Indice**](#indice)
+</div>
+
+
+<div style="font-size: 15px;">
+
+### **4.1 Introduzione Manuale**
+Benvenuto nel Manuale Utente del software **Ataxx**. Questo manuale è stato creato per guidarti nell'utilizzo del software in modo efficace e senza problemi.
+
+#### <span style="font-size: 112%;">Obiettivo del Manuale
+Il nostro obiettivo con questo manuale è fornirti istruzioni chiare e dettagliate su come utilizzare tutte le funzionalità di Ataxx. Attraverso istruzioni step by step, esempi pratici e suggerimenti utili, speriamo di rendere l'esperienza di utilizzo del software piacevole e senza stress.
+
+#### <span style="font-size: 112%;">Struttura del Manuale
+Il manuale è diviso in diverse sezioni, ognuna delle quali copre un aspetto specifico di Ataxx :
+
+1. **Introduzione**: Questa sezione fornisce una panoramica del manuale, inclusi gli obiettivi di esso.
+
+2. **Azioni preliminari**: Qui troverai istruzioni dettagliate su come installare e configurare software indispensabili per consentire all'applicazione di essere avviata. Troverai l'installazione e configurazione di Docker tramite l'utilizzo di GitHub.
+
+3. **Guida ai Comandi**: Una guida rapida per aiutarti a iniziare rapidamente con le funzionalità del software.
+
+4. **Glossario e Termini Chiave**: Una lista di termini e concetti chiave utilizzati nel software, con le relative definizioni.
+
+#### <span style="font-size: 112%;">Come Utilizzare questo Manuale
+
+Per ottenere il massimo beneficio da questo manuale, ti consigliamo di leggerlo in modo sequenziale, partendo dall'introduzione e procedendo attraverso le varie sezioni in ordine. Se hai bisogno di informazioni su una funzionalità specifica, puoi consultare direttamente la sezione corrispondente utilizzando l'indice.
+
+<div style="font-size: 16px;">
+
+### **4.2 Azioni Preliminari**
+</div>
+
+Prima di poter avviare l'applicazione si devono compiere delle azioni preliminari: installare Docker e configurare l'accesso con GitHub.
+
+<div style="font-size: 16px;">
+
+* #### 4.2.1 Installazione e Configurazione Docker
+   </div>
+
+   <div style="margin-left: 20px;">
+
+   Per prima cosa bisogna scaricare [Docker Desktop](https://www.docker.com/products/docker-desktop/) (clicca il nome dell'applicazione per recarti al sito ufficale) dal sito ufficiale e assicurarsi che l'installazione sia andata a buon fine.
+   </div>
+
+<div style="font-size: 16px;">
+
+* #### 4.2.2 Autenticazione con GitHub
+</div>
+  
+  <div style="margin-left: 20px;">
+
+  Eseguire l'accesso a Docker tramite account di GitHub in modo tale da poter ottenere l'applicazione. Sarà necessario creare il Personal Access Token di GitHub per poter collegare l'account (clicca [qui](https://docs.github.com/en/enterprise-server@3.9/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) per leggere una guida su come creare il Token). Una volta creato il token assicurasi di memorizzarlo in un file denominato ad esempio `Token.txt`, perchè non sarà più visibile all'interno di GitHub.         
+  Una volta effettuati questi passaggi, recarsi in un qualsiasi terminale a vostra disposizione (**Attenzione!** Assicurarsi che sia un terminale che soddisfi i [Requisiti non Funzionali](#requisiti-non-funzionali)), e digitare il comando `cat ./TOKEN.txt | docker login ghcr.io -u <USERNAME> --password-stdin` sostituendo `<USERNAME>` con il proprio username di GitHub.
+  </div>
+
+<div style="font-size: 16px;">
+
+* #### 4.2.3 Avvio dell'Applicazione
+</div>
+  
+  <div style="margin-left: 20px;">
+
+  Per poter eseguire l'applicazione, assicurarsi di avere *Docker Desktop* in esecuzione, ed eseguire sul terminale il comando 
+  `docker pull ghcr.io/softeng2324-inf-uniba/ataxx-minsky:latest ` per poter scaricare l'immagine dal docker.
+  Per avviare il programma, digitare il comando                                
+  `winpty docker run --rm -it ghcr.io/softeng2324-inf-uniba/ataxx-minsky:latest `
+  
+
+   ![DockerPull](./img/DockerPull1.png)
+
+   ![DockerRun](./img/DockerRun.png)
+
+   Durante lo sviluppo del nostro gioco, ci è stato richiesto di rappresentare il tavoliere utilizzando caratteri UNICODE per le pedine. Tuttavia, abbiamo optato per un approccio differente nella consegna del nostro sprint. Abbiamo scelto di visualizzare il tavoliere con le lettere N e R per indicare rispettivamente le pedine nere e rosse.
+
+   Per poter visualizzare correttamente il contenuto del gioco (ad esempio le pedine) è consigliato scaricare un font per UNICODE (si lascia libera scelta). Successivamente bisogna avviare il terminale (è preferibile utilizzare il cmd di Windows) e digitare il comando
+   `cd progetto-minsky` per spostarsi nella cartella corretta, e dopo di che sarà possibile digitare il comando `gradlew.bat build` per buildare il file gradle.
+   Dopo aver digitato il comando attivare il font tramite il comando `chcp 65001`
+   Infine avviare l'applicazione digitando il comando              
+   `java -jar -D"stdout.encoding=UTF-8" build/libs/ataxx-all.jar`.
+
+   Nonostante la scelta, siamo riusciti comunque a catturare uno screenshot delle pedine visualizzate in formato UNICODE.
+   </div>
+
+<div style="margin-left: 20px;">
+
+  ![Pedine](./img/Pedine.png)
+  </div>
+   
+
+### **4.3 Guida ai Comandi**
+Una volta avviata l'applicazione, l'utente vedrà una schermata di benvenuto in cui verrà richiesto di digitare un comando. L'elenco dei comandi è reso disponibile all'utente digitando,in un qualsiasi momento, il comando `/help`, `--h` o `-h`.
+I comandi disponibili, oltre al già citato /help, sono:
+
+* `/gioca`   Questo comando permette all'utente di iniziare una nuova partita
+
+* `/vuoto`   Questo comando permette di visualizzare il tavoliere di 49 caselle senza pedine
+* `/tavoliere` Questo comando permette all'utente di visualizzare il tavoliere con le pedine poste nelle posizioni iniziali, pronte ad accettare una nuova mossa
+* `/qualimosse` Questo comando permette al giocatore di visualizzare quali mosse può effettuare la pedina presa in considerazione
+* `/abbandona` Questo comando permette al giocatore di abbandonare una partita andando anche a decretare la sconfitta dello stesso
+* `/esci` Questo comando permette all'utente di chiudere il gioco
+
+<div style="font-size: 16px;">
+
+ #### 4.3.1 Come si Gioca
+ </div>
+
+ Una volta avviata l'applicazione, verrà visualizzata la scritta *Ataxx* sotto al quale verrà suggerito di digitare il comando `/help`, `--h` o `-h` per visualizzare i comandi disponibili.
+ 
+ ![PaginaIniziale](./img/PaginaIniziale.png)
+
+
+Dopo aver appreso l'elenco dei comandi disponibili nell'applicazione, digitare il comando `/indietro` per tornare nuovamente alla schermata principale.
+
+![TastoIndietro](./img/TastoIndietro.png)
+
+Tornati nella schermata principale si potrà iniziare una nuova partita digitando il comando `/gioca`, oppure si potrà chiudere il gioco digitando `/esci`.
+
+![Gioca](./img/Gioca.png)
+![Gioca1](./img/Gioca1.png)
+
+
+Una volta avviata la partita verrà mostrato il tavoliere e verrà chiesto all'utente se vuole inserire un comando o delle coordinate per effettuare una mossa.
+Digitare il comando `comando` per inserire un nuovo comando, oppure `coordinate` per inserire delle coordinate. 
+
+Se l'utente volesse visualizzare il tavoliere vuoto (senza pedine), dovrebbe digitare il comando `/vuoto`.
+
+![InizioPartita](./img/Vuoto.png)
+
+
+A questo punto sarà possibile visualizzare le mosse disponibili digitando il comando `/qualimosse`. Verrà richiesto di inserire le coordinate della riga e della colonna di dove si vuole spostare la pedina.
+
+![QualiMosse](./img/QualiMosse1.png)
+
+Successivamente il giocatore potrà continuare a visualizzare le mosse oppure potrà abbandondare la partita tramite il comando `/abbandona`, decretando così la sua sconfitta. Se il giocatore digita il comando per abbandonare la partita, verrà richiesto di confermare ciò attraverso il comando `si` oppure si può tornare alla partita digitando `no`.
+
+![Abbandona](./img/Abbandona1.png)
+
+Infine si tornerà alla schermata iniziale dove si potrà iniziare una nuova partita oppure si potrà chiudere il gioco tramite `/esci`.
+
+![Esci](./img/Esci.png)
+
+
+### **4.4 Glossario e Termini Chiave**
+All'interno dell'app vengono presentati dei termini che potrebbero causare incomprensioni, eccone alcuni:
+
+ * Tavoliere : Il tavoliere è lo spazio di gioco. E' composto da 49 caselle (7x7) e su di esso verranno mosse le pedine.
+
+ * Pedine: Le pedine sono i protagonisti del gioco. Sono nere o bianche e possono effettuare delle specifiche mosse che sono riportate in [Come si Gioca](#come-si-gioca).
+ </div>
+
+<div style="font-size: 15px;">
+
+## **5. Analisi Retrospettiva**
+In questa sezione verranno trasmesse le analisi retrospettive fatte dal team durante lo *Sprint Feedback*.
+L'obiettivo principale di queste analisi è identificare cosa ha funzionato bene durante il periodo precedente, cosa non ha funzionato e quali miglioramenti possono essere apportati per i futuri Sprint.
+
+<div style="font-size: 16px;">
+
+* ### **5.1 Sprint 0**
+</div>
+
+  <div style="margin-left: 20px;">
+  Lo Sprint 0 aveva lo scopo di dimostrare familiarità con GitHub e il processo agile. Di seguito viene riportata la tabella con gli stati emotivi provati dal team(arrabbiato, triste e felice) durante il lavoro, e le azioni che li hanno scatenati.
+
+  </div>
+
+   <div style="margin-left: 20px;">
+
+   ![SprintRetrospective0](./img/SprintRetrospective.png)
+   </div>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+

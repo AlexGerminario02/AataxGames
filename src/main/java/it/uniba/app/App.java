@@ -39,8 +39,8 @@ public final class App {
 
         Tastiera tastiera = new Tastiera();
         Tavoliere tavoliere = Tavoliere.creaTavoliere();
-        Giocatore giocatore1 = new Giocatore(new Pedina('X', 0, 0), "Nero");
-        Giocatore giocatore2 = new Giocatore(new Pedina('O', 0, 0), "Bianco");
+        Giocatore giocatore1 = new Giocatore(new Pedina('N', 0, 0), "Nero");
+        Giocatore giocatore2 = new Giocatore(new Pedina('R', 0, 0), "Rosso");
         Partita partita = new Partita(giocatore1, giocatore2, tavoliere);
         boolean isRunning = true;
 

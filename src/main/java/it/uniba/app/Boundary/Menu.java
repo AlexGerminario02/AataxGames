@@ -15,14 +15,34 @@ public final class Menu {
     }
 
     /**
-     * funzione per pulire il terminale.
+     * Funzione per pulire il terminale.
      */
     public static void clearScreen() {
-        try {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } catch (IOException | InterruptedException e) {
-            // Gestione dell'eccezione se non è possibile pulire il terminale
-            System.out.println("Impossibile pulire il terminale.");
+        String os = System.getProperty("os.name").toLowerCase();
+
+        if (os.contains("win")) {
+            // Controllo se si sta eseguendo all'interno di Visual Studio Code
+            if (System.getenv("TERM_PROGRAM") != null && System.getenv("TERM_PROGRAM").equals("vscode")) {
+                // Utilizza la sequenza di escape ANSI per pulire lo schermo in Visual Studio Code
+                System.out.print("\u001b[2J\u001b[H");
+                return;
+            } else {
+                // Utilizza il comando cls per pulire lo schermo in cmd
+                try {
+                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                } catch (IOException | InterruptedException e) {
+                    // Gestione dell'eccezione se non è possibile pulire il terminale
+                    System.out.println("Impossibile pulire il terminale.");
+                }
+            }
+        } else {
+            // Utilizza il comando clear per pulire lo schermo in Git Bash e altri terminali Unix-like
+            try {
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            } catch (IOException | InterruptedException e) {
+                // Gestione dell'eccezione se non è possibile pulire il terminale
+                System.out.println("Impossibile pulire il terminale.");
+            }
         }
     }
 

@@ -28,8 +28,8 @@ public class Tavoliere {
     private static final String ANSI_ORANGE = "\u001B[38;2;255;165;0m";
 
     // Costanti per i caratteri dei giocatori
-    private static final char PEDINA_BIANCA = 'X'; // 'X'
-    private static final char PEDINA_NERA = 'O'; // 'O'
+    private static final char PEDINA_ROSSO = 'R'; // 'N'
+    private static final char PEDINA_NERA = 'N'; // 'B'
 
     // Attributi del tavoliere
 
@@ -238,13 +238,13 @@ public class Tavoliere {
     public void inizializzaPedine(final int rigaIniziale, final int colonnaIniziale, final int rigaFinale,
             final int colonnaFinale) {
         // Posiziona una pedina 'X' nella prima riga e nella prima colonna
-        setPedina(new Pedina(PEDINA_BIANCA, rigaIniziale, colonnaIniziale), rigaIniziale, colonne[0]);
+        setPedina(new Pedina(PEDINA_NERA, rigaIniziale, colonnaIniziale), rigaIniziale, colonne[0]);
         // Posiziona una pedina 'O' nella prima riga e nell'ultima colonna
-        setPedina(new Pedina(PEDINA_NERA, rigaIniziale, colonnaFinale), rigaIniziale, colonne[DIM - 1]);
+        setPedina(new Pedina(PEDINA_ROSSO, rigaIniziale, colonnaFinale), rigaIniziale, colonne[DIM - 1]);
         // Posiziona una pedina 'X' nell'ultima riga e nell'ultima colonna
-        setPedina(new Pedina(PEDINA_BIANCA, rigaFinale, colonnaFinale), rigaFinale, colonne[DIM - 1]);
+        setPedina(new Pedina(PEDINA_NERA, rigaFinale, colonnaFinale), rigaFinale, colonne[DIM - 1]);
         // Posiziona una pedina 'O' nell'ultima riga e nella prima colonna
-        setPedina(new Pedina(PEDINA_NERA, rigaFinale, colonnaIniziale), rigaFinale, colonne[0]);
+        setPedina(new Pedina(PEDINA_ROSSO, rigaFinale, colonnaIniziale), rigaFinale, colonne[0]);
     }
 
     /**

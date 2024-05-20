@@ -39,11 +39,10 @@ public class Partita {
      * @param giocatoret2
      * @param tavolieret
      */
-
-     public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final Tavoliere tavolieret) {
-        this.giocatore1 = giocatoret1;
-        this.giocatore2 = giocatoret2;
-        this.tavoliere = tavolieret;
+    public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final Tavoliere tavolieret) {
+        this.giocatore1 = new Giocatore(giocatoret1); //  per creare una nuova istanza di Giocatore
+        this.giocatore2 = new Giocatore(giocatoret2); //per creare una nuova istanza di Giocatore
+        this.tavoliere = new Tavoliere(tavolieret); // ia una copia difensiva dei suoi elementi interni.
         this.tastiera = new Tastiera();
     }
 
@@ -59,6 +58,7 @@ public class Partita {
         if (abbandono) {
            return false;
         }
+        tavoliere.inizializzaPedine(RIGA, RIGA, COLONNA, COLONNA);
         tavoliere.visualizzaTavolierePieno();
         while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
             String decisione = tastiera.readString(Costanti.SCELTA_AVVIA_PARTITA);

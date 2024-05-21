@@ -245,7 +245,7 @@ Prima di poter avviare l'applicazione si devono compiere delle azioni preliminar
   <div style="margin-left: 20px;">
 
   Eseguire l'accesso a Docker tramite account di GitHub in modo tale da poter ottenere l'applicazione. Sarà necessario creare il Personal Access Token di GitHub per poter collegare l'account (clicca [qui](https://docs.github.com/en/enterprise-server@3.9/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) per leggere una guida su come creare il Token). Una volta creato il token assicurasi di memorizzarlo in un file denominato ad esempio `Token.txt`, perchè non sarà più visibile all'interno di GitHub.         
-  Una volta effettuati questi passaggi, recarsi in un qualsiasi terminale a vostra disposizione (**Attenzione!** Assicurarsi che sia un terminale che soddisfi i [Requisiti non Funzionali](#requisiti-non-funzionali)), e digitare il comando `cat ./TOKEN.txt | docker login ghcr.io -u <USERNAME> --password-stdin` sostituendo `<USERNAME>` con il proprio username di GitHub.
+  Una volta effettuati questi passaggi, recarsi in un qualsiasi terminale a vostra disposizione (**Attenzione!** Assicurarsi che sia un terminale che soddisfi i [Requisiti non Funzionali](#32-requisiti-non-funzionali)), e digitare il comando `cat ./TOKEN.txt | docker login ghcr.io -u <USERNAME> --password-stdin` sostituendo `<USERNAME>` con il proprio username di GitHub.
   </div>
 
 <div style="font-size: 16px;">
@@ -311,6 +311,7 @@ Dopo aver appreso l'elenco dei comandi disponibili nell'applicazione, digitare i
 Tornati nella schermata principale si potrà iniziare una nuova partita digitando il comando `/gioca`, oppure si potrà chiudere il gioco digitando `/esci`.
 
 ![Gioca](./img/Gioca.png)
+
 ![Gioca1](./img/Gioca1.png)
 
 
@@ -340,7 +341,7 @@ All'interno dell'app vengono presentati dei termini che potrebbero causare incom
 
  * Tavoliere : Il tavoliere è lo spazio di gioco. E' composto da 49 caselle (7x7) e su di esso verranno mosse le pedine.
 
- * Pedine: Le pedine sono i protagonisti del gioco. Sono nere o bianche e possono effettuare delle specifiche mosse che sono riportate in [Come si Gioca](#come-si-gioca).
+ * Pedine: Le pedine sono i protagonisti del gioco. Sono nere o bianche e possono effettuare delle specifiche mosse che sono riportate in [Come si Gioca](#431-come-si-gioca).
  </div>
 
 <div style="font-size: 15px;">

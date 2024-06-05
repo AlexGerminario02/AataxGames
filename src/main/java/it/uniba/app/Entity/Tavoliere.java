@@ -289,26 +289,19 @@ public class Tavoliere {
      *
      * @return le mosse di tipo B disponibili
      */
-
-    // Modifica alla funzione mosseB
-    public ArrayList<Coordinate> mosseB(final int riga, final char colonna) {
+     public ArrayList<Coordinate> mosseB(final int riga, final int colonna) {
         ArrayList<Coordinate> mosse = new ArrayList<>();
-        // Coordinate delle caselle adiacenti (in orizzontale, verticale e diagonale)
-        int[] deltaRighe = {MENODUE, MENODUE, MENODUE, -1, 0, 0, 1, 1,
-                DUE, DUE, DUE, MENODUE, DUE, DUE, DUE, DUE, -1,
-                MENODUE }; // Aggiunti ulteriori spostamenti verticali
-        int[] deltaColonne = {MENODUE, -1, 1, MENODUE, MENODUE, DUE, MENODUE,
-                DUE, -1, 0, 1, 0, MENODUE, 0, 1, DUE,
-                DUE, DUE }; // Aggiunti ulteriori spostamenti orizzontali
-        // Controlla ogni casella adiacente
+        int[] deltaRighe = {MENODUE, MENODUE, MENODUE, -1, 0, 0, 1, 1, DUE, DUE, DUE, MENODUE, DUE, DUE, DUE, DUE, -1,
+                MENODUE };
+        int[] deltaColonne = {MENODUE, -1, 1, MENODUE, MENODUE, DUE, MENODUE, DUE, -1, 0, 1, 0, MENODUE, 0, 1, DUE,
+                DUE, DUE };
         for (int i = 0; i < deltaRighe.length; i++) {
             int nuovaRiga = riga + deltaRighe[i];
             char nuovaColonna = (char) (colonna + deltaColonne[i]);
-            // Se la casella adiacente è all'interno del tavoliere e vuota, aggiungi la
-            // mossa
+            Coordinate nuovaCoordinata = new Coordinate(nuovaRiga, nuovaColonna);
             if (nuovaRiga >= 1 && nuovaRiga <= DIM && Arrays.binarySearch(colonne, nuovaColonna) >= 0
                     && posizioneVuota(nuovaRiga, nuovaColonna)) {
-                mosse.add(new Coordinate(nuovaRiga, nuovaColonna));
+                mosse.add(nuovaCoordinata);
             }
         }
         return mosse;
@@ -319,7 +312,6 @@ public class Tavoliere {
      *
      * @return le mosse di tipo C disponibili
      */
-
     public ArrayList<Coordinate> mosseC(final int riga, final char colonna) {
         ArrayList<Coordinate> mosseC = new ArrayList<>();
         mosseC.addAll(mosseA(riga, colonna));
@@ -345,13 +337,6 @@ public class Tavoliere {
                 if (pedina != null) {
                     tabelloneStampato[riga][colonna] = new Pedina(pedina);
                 }
-            }
-        }
-
-        // Aggiungi le caselle bloccate al tavoliere stampato
-        for (int riga = 1; riga <= DIM; riga++) {
-            for (char colonna : colonne) {
-                Coordinate coord = new Coordinate(riga, colonna - 'a');
             }
         }
 

@@ -201,6 +201,9 @@ private boolean validaCoordinate(final String coordinate) {
         // Se la mossa è una duplicazione
         if (distanzaRiga <= 1 && distanzaColonna <= 1) {
             mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
+        } else if (distanzaRiga <= 2 && distanzaColonna <= 2) {
+            mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
+            tavoliere.setPedina(null, from.getRiga(), from.getColonna());
         }
 
         return mossaEseguita;

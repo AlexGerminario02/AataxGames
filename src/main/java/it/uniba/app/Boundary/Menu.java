@@ -55,20 +55,9 @@ public final class Menu {
      *                 dell'utente.
      */
     public static void helpPrincipale(final Tastiera tastiera) {
+        clearScreen();
         System.out.println(Costanti.BENVENUTO_HELP);
         System.out.println(Costanti.MENU_COMANDI_PRINCIPALE);
-        String aiuto = "";
-        while (true) {
-            aiuto = tastiera.readString("\nPer poter digitare un comando tornare al menu principale /indietro: ");
-            aiuto = aiuto.trim(); // Rimuove spazi bianchi iniziali e finali
-            if (aiuto.equalsIgnoreCase("/indietro")) {
-                clearScreen();
-                return;
-            } else {
-                System.out.println(
-                        "Comando non riconosciuto. Per favore, digitare '/indietro' per tornare al menu principale.");
-            }
-        }
     }
 
     /**

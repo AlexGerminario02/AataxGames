@@ -56,7 +56,10 @@ public final class App {
                 case "--help":
                 case "-h":
                     Menu.helpPrincipale(tastiera);
+                    Menu.delay(Costanti.TEMPO);
+                    Menu.clearScreen();
                     break;
+
                 case "/esci":
                     if (Menu.esci(tastiera)) {
                         isRunning = false;

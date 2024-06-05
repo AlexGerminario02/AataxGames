@@ -189,7 +189,7 @@ private boolean validaCoordinate(final String coordinate) {
             int nuovaColonna = colonna + deltaColonne[i];
 
             // Verifica se la nuova posizione è valida
-            if (nuovaRiga >= 1 && nuovaRiga <= 7 && nuovaColonna >= 1 && nuovaColonna <= 7) {
+            if (nuovaRiga >= 1 && nuovaRiga <= COLONNA && nuovaColonna >= 1 && nuovaColonna <= COLONNA) {
                 char nuovaColonnaChar = (char) ('a' + nuovaColonna - 1); // Converti l'indice di colonna in carattere
                 Pedina adiacente = tavoliere.getPedina(nuovaRiga, nuovaColonnaChar);
 

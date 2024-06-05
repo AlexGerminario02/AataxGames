@@ -239,6 +239,9 @@ private boolean validaCoordinate(final String coordinate) {
             mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
             tavoliere.setPedina(null, from.getRiga(), from.getColonna());
         }
+        if (mossaEseguita) {
+            catturaPedine(giocatore, to);
+        }
         return mossaEseguita;
     }
 

@@ -63,10 +63,25 @@ public class Partita {
         String coordinateInput = "";
         while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
             System.out.println("Turno " + (turno % 2 == 1 ? "Giocatore Nero" : "Giocatore Bianco") + ":");
+            System.out.println("Inserisci le coordinate (es. a1-a2) o un comando: ");
+            coordinateInput = tastiera.readString("Coordinate: ");
+            if (coordinateInput.startsWith("/")) {
+                gestisciComando(coordinateInput);
+            } else if (validaCoordinate(coordinateInput)) {
+                gestisciCoordinate(coordinateInput);
+            } else {
+                System.out.println("Input inserito non valido. Riprova!");
+            }
         }
+
         return partitaFinita();
        // Ritorna true se la partita è finita
     }
+
+
+
+
+
 
     private boolean partitaFinita() {
         // Implementa la logica per determinare se la partita è finita

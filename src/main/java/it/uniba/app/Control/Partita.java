@@ -174,6 +174,37 @@ private boolean validaCoordinate(final String coordinate) {
         return true;
     }
 
+    // Cattura le pedine avversarie dopo una mossa
+    private void catturaPedine(final Giocatore giocatore, final Coordinate to) {
+        int riga = to.getRiga();
+        int colonna = to.getColonna(); // Assumendo che colonna sia già un intero che rappresenta l'indice
+
+        // Definizione dei delta per le righe e le colonne
+        int[] deltaRighe = {-1, -1, -1, 0, 0, 1, 1, 1 };
+        int[] deltaColonne = {-1, 0, 1, -1, 1, -1, 0, 1 };
+
+        // Verifica le pedine adiacenti
+        for (int i = 0; i < deltaRighe.length; i++) {
+            int nuovaRiga = riga + deltaRighe[i];
+            int nuovaColonna = colonna + deltaColonne[i];
+
+            // Verifica se la nuova posizione è valida
+            if (nuovaRiga >= 1 && nuovaRiga <= 7 && nuovaColonna >= 1 && nuovaColonna <= 7) {
+                char nuovaColonnaChar = (char) ('a' + nuovaColonna - 1); // Converti l'indice di colonna in carattere
+                Pedina adiacente = tavoliere.getPedina(nuovaRiga, nuovaColonnaChar);
+
+                // Se la casella adiacente contiene una pedina avversaria
+                if (adiacente != null && adiacente.getCarattere() != giocatore.getPedina().getCarattere()) {
+                    // Verifica se la pedina è bloccata
+                    if (adiacente.getCarattere() != 'X') {
+                        // Converte la pedina avversaria nel colore del giocatore corrente
+                        adiacente.setCarattere(giocatore.getPedina().getCarattere());
+                    }
+                }
+            }
+        }
+    }
+
      /**
      * Verifica se la mossa che il giocatore effettua è valida.
      * Se la mossa è una duplicazione
@@ -311,8 +342,6 @@ private boolean validaCoordinate(final String coordinate) {
             System.out.println("Muovo la pedina da (" + rigaPedina + ", " + colonnaPedina + ") a (" + rigaCella + ", "
                     + colonnaCella + ")");
             tavoliere.visualizzaTavolierePieno();
-
-
             turno++;
         } else {
             System.out.println("Movimento non valido. Riprova.");

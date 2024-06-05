@@ -100,6 +100,48 @@ private boolean validaColonna(final char colonna) {
 }
 
 
+/**
+ * Modifica il metodo validaCoordinate per accettare 4 parametri separati.
+ * Modifica il metodo validaCoordinate per accettare una stringa vettoriale come
+ * coordinata.
+ * @param coordinate
+ * @return
+ */
+    // Modifica il metodo validaCoordinate per accettare 4 parametri separati
+    // Modifica il metodo validaCoordinate per accettare una stringa vettoriale come
+    // coordinata
+    private boolean validaCoordinate(final String coordinate) {
+        // Verifica che la stringa abbia il formato corretto
+        if (!coordinate.matches("^[a-g][1-7]-[a-g][1-7]$")) {
+            return false;
+        }
+
+        // Estrai le coordinate dalla stringa
+        String[] coordinateArray = coordinate.split("-");
+        char colonnaPedina = coordinateArray[0].charAt(0);
+        int rigaPedina = Character.getNumericValue(coordinateArray[0].charAt(1));
+        char colonnaCella = coordinateArray[1].charAt(0);
+        int rigaCella = Character.getNumericValue(coordinateArray[1].charAt(1));
+
+        // Verifica che le coordinate siano valide
+        if (!validaRiga(rigaPedina) || !validaRiga(rigaCella) || !validaColonna(colonnaPedina)
+                || !validaColonna(colonnaCella)) {
+            return false;
+        }
+
+        // Converte le colonne in numeri interi
+        int colPedina = colonnaPedina - 'a' + 1;
+        int colCella = colonnaCella - 'a' + 1;
+
+        // Crea gli oggetti Coordinate per le coordinate di partenza e di destinazione
+        Coordinate from = new Coordinate(rigaPedina, colPedina);
+        Coordinate to = new Coordinate(rigaCella, colCella);
+
+        // Chiama il metodo mossaValida() per verificare la validità delle coordinate
+        return mossaValida(from, to);
+    }
+
+
     private boolean partitaFinita() {
         // Implementa la logica per determinare se la partita è finita
         return false;

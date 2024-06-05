@@ -8,6 +8,7 @@ import it.uniba.app.Boundary.Menu;
 import it.uniba.app.Boundary.Tastiera;
 import it.uniba.app.Entity.Coordinate;
 import it.uniba.app.Entity.Giocatore;
+import it.uniba.app.Entity.Pedina;
 import it.uniba.app.Entity.Tavoliere;
 
 /**
@@ -171,10 +172,43 @@ private boolean validaColonna(final char colonna) {
             return false;
         }
 
-
         // Se tutte le condizioni sono soddisfatte, la mossa è valida
         return true;
     }
+
+     /**
+     * Verifica se la mossa che il giocatore effettua è valida.
+     * Se la mossa è una duplicazione
+     * @param giocatore
+     * @param from
+     * @param to
+     * @return
+     */
+    public boolean eseguiMossa(final Giocatore giocatore, final Coordinate from, final Coordinate to) {
+        // Verifica se la mossa è valida
+        if (!mossaValida(from, to)) {
+            return false;
+        }
+
+        // Recupera la pedina dalla posizione di partenza
+        Pedina pedina = tavoliere.getPedina(from.getRiga(), (char) ('a' + from.getColonna() - 1));
+        if (pedina == null || pedina.getCarattere() != giocatore.getPedina().getCarattere()) {
+            return false;
+        }
+
+        int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
+        int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
+
+        boolean mossaEseguita = false;
+
+        // Se la mossa è una duplicazione
+        if (distanzaRiga <= 1 && distanzaColonna <= 1) {
+            mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
+        }
+
+        return mossaEseguita;
+    }
+
 
 
     private boolean partitaFinita() {

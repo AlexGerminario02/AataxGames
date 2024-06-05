@@ -391,4 +391,14 @@ public class Tavoliere {
         }
         System.out.println();
     }
+
+    /**
+     * Controlla se la posizione è vuota nel Tavoliere.
+     * @param riga
+     * @param colonna
+     * @return
+     */
+    public boolean posizioneVuota(final int riga, final int colonna) {
+        return scacchiera[riga][colonna] == null;
+    }
 }

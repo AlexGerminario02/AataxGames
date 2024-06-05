@@ -2,6 +2,8 @@ package it.uniba.app.Control;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
+import it.uniba.app.Boundary.Costanti;
 import it.uniba.app.Boundary.Menu;
 import it.uniba.app.Boundary.Tastiera;
 import it.uniba.app.Entity.Coordinate;
@@ -78,12 +80,24 @@ public class Partita {
        // Ritorna true se la partita è finita
     }
 
- // Metodo per validare la colonna
-    private boolean validaColonna(final char colonna) {
+/**
+ * Metodo per validare la colonna in input.
+ * @param colonna
+ * @return
+ */
+private boolean validaColonna(final char colonna) {
     return colonna >= 'a' && colonna <= 'g';
 }
 
-
+/**
+ * Metodo per validare la riga in input.
+ * @param riga
+ * @return
+ */
+ private boolean validaRiga(final int riga) {
+    //eliminazione dei numeri magici con riferimento alle costanti
+    return riga >= Costanti.RIGAI && riga <= Costanti.RIGAF;
+}
 
 
     private boolean partitaFinita() {

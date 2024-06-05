@@ -193,6 +193,7 @@ private boolean validaCoordinate(final String coordinate) {
             return false;
         }
 
+        // Verifica le distanze di riga e colonna
         int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
         int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
 
@@ -202,10 +203,10 @@ private boolean validaCoordinate(final String coordinate) {
         if (distanzaRiga <= 1 && distanzaColonna <= 1) {
             mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
         } else if (distanzaRiga <= 2 && distanzaColonna <= 2) {
+            // Se la mossa è un salto
             mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
             tavoliere.setPedina(null, from.getRiga(), from.getColonna());
         }
-
         return mossaEseguita;
     }
 

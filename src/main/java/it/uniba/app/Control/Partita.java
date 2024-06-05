@@ -353,7 +353,7 @@ private boolean validaCoordinate(final String coordinate) {
                     + colonnaCella + ")");
             tavoliere.visualizzaTavolierePieno();
             // Aggiungi la mossa alla lista delle mosse giocate
-            String mossa = turno + ". " + coordinate + " (" + (turno % 2 == 1 ? "N" : "R") + ")";
+            String mossa = coordinate + " (" + (turno % 2 == 1 ? "N" : "R") + ")";
             storiaMosse.add(mossa);
             turno++;
         } else {
@@ -375,10 +375,17 @@ private boolean validaCoordinate(final String coordinate) {
         if (storiaMosse.isEmpty()) {
             System.out.println("Nessuna mossa è stata giocata finora.");
         } else {
-            System.out.println("Storia delle mosse:");
+            String header = String.format("| %-5s | %-40s |", "N.", "Mossa");
+            String separator = new String(new char[header.length()]).replace("\0", "-");
+
+            System.out.println(separator);
+            System.out.println(header);
+            System.out.println(separator);
+            int counter = 1;
             for (String mossa : storiaMosse) {
-                System.out.println(mossa);
+                System.out.println(String.format("| %-5d | %-40s |", counter++, mossa));
             }
+            System.out.println(separator);
         }
     }
 }

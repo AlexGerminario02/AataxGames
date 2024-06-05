@@ -108,39 +108,36 @@ private boolean validaColonna(final char colonna) {
  * @param coordinate
  * @return
  */
-    // Modifica il metodo validaCoordinate per accettare 4 parametri separati
-    // Modifica il metodo validaCoordinate per accettare una stringa vettoriale come
-    // coordinata
-    private boolean validaCoordinate(final String coordinate) {
-        // Verifica che la stringa abbia il formato corretto
-        if (!coordinate.matches("^[a-g][1-7]-[a-g][1-7]$")) {
-            return false;
-        }
-
-        // Estrai le coordinate dalla stringa
-        String[] coordinateArray = coordinate.split("-");
-        char colonnaPedina = coordinateArray[0].charAt(0);
-        int rigaPedina = Character.getNumericValue(coordinateArray[0].charAt(1));
-        char colonnaCella = coordinateArray[1].charAt(0);
-        int rigaCella = Character.getNumericValue(coordinateArray[1].charAt(1));
-
-        // Verifica che le coordinate siano valide
-        if (!validaRiga(rigaPedina) || !validaRiga(rigaCella) || !validaColonna(colonnaPedina)
-                || !validaColonna(colonnaCella)) {
-            return false;
-        }
-
-        // Converte le colonne in numeri interi
-        int colPedina = colonnaPedina - 'a' + 1;
-        int colCella = colonnaCella - 'a' + 1;
-
-        // Crea gli oggetti Coordinate per le coordinate di partenza e di destinazione
-        Coordinate from = new Coordinate(rigaPedina, colPedina);
-        Coordinate to = new Coordinate(rigaCella, colCella);
-
-        // Chiama il metodo mossaValida() per verificare la validità delle coordinate
-        return mossaValida(from, to);
+private boolean validaCoordinate(final String coordinate) {
+    // Verifica che la stringa abbia il formato corretto
+    if (!coordinate.matches("^[a-g][1-7]-[a-g][1-7]$")) {
+        return false;
     }
+
+    // Estrai le coordinate dalla stringa
+    String[] coordinateArray = coordinate.split("-");
+    char colonnaPedina = coordinateArray[0].charAt(0);
+    int rigaPedina = Character.getNumericValue(coordinateArray[0].charAt(1));
+    char colonnaCella = coordinateArray[1].charAt(0);
+    int rigaCella = Character.getNumericValue(coordinateArray[1].charAt(1));
+
+    // Verifica che le coordinate siano valide
+    if (!validaRiga(rigaPedina) || !validaRiga(rigaCella) || !validaColonna(colonnaPedina)
+            || !validaColonna(colonnaCella)) {
+        return false;
+    }
+
+    // Converte le colonne in numeri interi
+    int colPedina = colonnaPedina - 'a' + 1;
+    int colCella = colonnaCella - 'a' + 1;
+
+    // Crea gli oggetti Coordinate per le coordinate di partenza e di destinazione
+    Coordinate from = new Coordinate(rigaPedina, colPedina);
+    Coordinate to = new Coordinate(rigaCella, colCella);
+
+    // Chiama il metodo mossaValida() per verificare la validità delle coordinate
+    return mossaValida(from, to);
+}
 
 
 /**
@@ -162,7 +159,7 @@ private boolean validaColonna(final char colonna) {
         // destinazione
         int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
         int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
-        if (distanzaRiga > 1 || distanzaColonna > 1
+        if (distanzaRiga > 2 || distanzaColonna > 2
         || (distanzaRiga == 0 && distanzaColonna == 0)) {
             return false;
         }
@@ -196,6 +193,7 @@ private boolean validaColonna(final char colonna) {
             return false;
         }
 
+        // Verifica le distanze di riga e colonna
         int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
         int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
 
@@ -204,8 +202,11 @@ private boolean validaColonna(final char colonna) {
         // Se la mossa è una duplicazione
         if (distanzaRiga <= 1 && distanzaColonna <= 1) {
             mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
+        } else if (distanzaRiga <= 2 && distanzaColonna <= 2) {
+            // Se la mossa è un salto
+            mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
+            tavoliere.setPedina(null, from.getRiga(), from.getColonna());
         }
-
         return mossaEseguita;
     }
 
@@ -298,10 +299,38 @@ private boolean validaColonna(final char colonna) {
     }
 
     private void gestisciCoordinate(final String coordinate) {
-        // Implementa la logica per gestire le coordinate inserite dall'utente
-        System.out.println("Funzione da implementare per gestire le coordinate: " + coordinate);
-        System.out.println("");
+        if (!coordinate.matches("[a-g][1-7]-[a-g][1-7]")) {
+            System.out.println(
+                    "Formato delle coordinate non valido. Inserisci le coordinate nel formato corretto (es. a1-a2).");
+            return;
+        }
 
+        String[] coordinateArray = coordinate.split("-");
+        char colonnaPedina = coordinateArray[0].charAt(0);
+        int rigaPedina = Character.getNumericValue(coordinateArray[0].charAt(1));
+        char colonnaCella = coordinateArray[1].charAt(0);
+        int rigaCella = Character.getNumericValue(coordinateArray[1].charAt(1));
+
+        int col1 = Character.toLowerCase(colonnaPedina) - 'a' + 1;
+        int col2 = Character.toLowerCase(colonnaCella) - 'a' + 1;
+
+        Coordinate from = new Coordinate(rigaPedina, col1);
+        Coordinate to = new Coordinate(rigaCella, col2);
+
+        Giocatore giocatoreCorrente = (turno % 2 == 1) ? giocatore1 : giocatore2;
+
+        boolean successo = eseguiMossa(giocatoreCorrente, from, to);
+        if (successo) {
+            Menu.clearScreen();
+            System.out.println("Muovo la pedina da (" + rigaPedina + ", " + colonnaPedina + ") a (" + rigaCella + ", "
+                    + colonnaCella + ")");
+            tavoliere.visualizzaTavolierePieno();
+
+
+            turno++;
+        } else {
+            System.out.println("Movimento non valido. Riprova.");
+        }
     }
     /**
      * Funzione per resettare lo stato della partita.

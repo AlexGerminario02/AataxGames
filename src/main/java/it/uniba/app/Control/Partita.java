@@ -78,7 +78,10 @@ public class Partita {
        // Ritorna true se la partita è finita
     }
 
-
+ // Metodo per validare la colonna
+    private boolean validaColonna(final char colonna) {
+    return colonna >= 'a' && colonna <= 'g';
+}
 
 
 

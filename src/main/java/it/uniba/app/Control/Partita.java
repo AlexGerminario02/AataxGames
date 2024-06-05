@@ -1,5 +1,7 @@
 package it.uniba.app.Control;
 
+import java.util.ArrayList;
+import java.util.List;
 //import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +20,7 @@ import it.uniba.app.Entity.Tavoliere;
  * Gestisce il flusso del gioco e l'interazione con i giocatori.
  */
 public class Partita {
+    private List<String> storiaMosse;
     //costanti per le dimensioni del tavoliere
     public static final int RIGA = 1;
     public static final int COLONNA = 7;
@@ -46,6 +49,7 @@ public class Partita {
         this.giocatore1 = new Giocatore(giocatoret1); //  per creare una nuova istanza di Giocatore
         this.giocatore2 = new Giocatore(giocatoret2); //per creare una nuova istanza di Giocatore
         this.tavoliere = new Tavoliere(tavolieret); // ia una copia difensiva dei suoi elementi interni.
+        this.storiaMosse = new ArrayList<>();
         this.tastiera = new Tastiera();
         this.turno = 1;
     }
@@ -277,6 +281,9 @@ private boolean validaCoordinate(final String coordinate) {
                  tavoliere.stampaMosseDisponibili(giocatoreCorrente);
                  //tavoliere.stampaMosseDisponibili(mossea, mosseb);
                 break;
+            case "/mosse":
+                mostraMosseGiocate();
+                break;
                 case "/abbandona":
                 boolean confermaAbbandono = false;
                 while (!confermaAbbandono) {
@@ -345,6 +352,9 @@ private boolean validaCoordinate(final String coordinate) {
             System.out.println("Muovo la pedina da (" + rigaPedina + ", " + colonnaPedina + ") a (" + rigaCella + ", "
                     + colonnaCella + ")");
             tavoliere.visualizzaTavolierePieno();
+            // Aggiungi la mossa alla lista delle mosse giocate
+            String mossa = coordinate + " (" + (turno % 2 == 1 ? "N" : "R") + ")";
+            storiaMosse.add(mossa);
             turno++;
         } else {
             System.out.println("Movimento non valido. Riprova.");
@@ -356,5 +366,26 @@ private boolean validaCoordinate(final String coordinate) {
     public void reset() {
     uscitaRichiesta = false;
     abbandono = false;
+    }
+
+    /*
+     * Funzione per mostrare le mosse giocate.
+     */
+    private void mostraMosseGiocate() {
+        if (storiaMosse.isEmpty()) {
+            System.out.println("Nessuna mossa è stata giocata finora.");
+        } else {
+            String header = String.format("| %-5s | %-40s |", "N.", "Mossa");
+            String separator = new String(new char[header.length()]).replace("\0", "-");
+
+            System.out.println(separator);
+            System.out.println(header);
+            System.out.println(separator);
+            int counter = 1;
+            for (String mossa : storiaMosse) {
+                System.out.println(String.format("| %-5d | %-40s |", counter++, mossa));
+            }
+            System.out.println(separator);
+        }
     }
 }

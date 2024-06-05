@@ -3,6 +3,8 @@ package it.uniba.app.Entity;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import it.uniba.app.Boundary.Costanti;
+
 /**
  * <<Entity>>
  * Classe che rappresenta il tavoliere di gioco.
@@ -233,19 +235,24 @@ public class Tavoliere {
     }
 
     /**
-     * Visualizza il tavoliere vuoto con le coordinate sulle righe e sui numeri.
+     * Inizializzazione le pedine nel Tavoliere.
+     * @param rigaIniziale
+     * @param colonnaIniziale
+     * @param rigaFinale
+     * @param colonnaFinale
      */
-    public void inizializzaPedine(final int rigaIniziale, final int colonnaIniziale, final int rigaFinale,
+   public void inizializzaPedine(final int rigaIniziale, final int colonnaIniziale, final int rigaFinale,
             final int colonnaFinale) {
-        // Posiziona una pedina 'X' nella prima riga e nella prima colonna
-        setPedina(new Pedina(PEDINA_NERA, rigaIniziale, colonnaIniziale), rigaIniziale, colonne[0]);
-        // Posiziona una pedina 'O' nella prima riga e nell'ultima colonna
-        setPedina(new Pedina(PEDINA_ROSSO, rigaIniziale, colonnaFinale), rigaIniziale, colonne[DIM - 1]);
-        // Posiziona una pedina 'X' nell'ultima riga e nell'ultima colonna
-        setPedina(new Pedina(PEDINA_NERA, rigaFinale, colonnaFinale), rigaFinale, colonne[DIM - 1]);
-        // Posiziona una pedina 'O' nell'ultima riga e nella prima colonna
-        setPedina(new Pedina(PEDINA_ROSSO, rigaFinale, colonnaIniziale), rigaFinale, colonne[0]);
+        setPedina(new Pedina(PEDINA_NERA, new Coordinate(rigaIniziale, colonnaIniziale)), rigaIniziale,
+                colonnaIniziale);
+        setPedina(new Pedina(PEDINA_ROSSO, new Coordinate(rigaIniziale, colonnaFinale)), rigaIniziale,
+                colonnaFinale);
+        setPedina(new Pedina(PEDINA_NERA, new Coordinate(rigaFinale, colonnaFinale)), rigaFinale,
+                colonnaFinale);
+        setPedina(new Pedina(PEDINA_ROSSO, new Coordinate(rigaFinale, colonnaIniziale)), rigaFinale,
+                colonnaIniziale);
     }
+
 
     /**
      * Restituice il numero di mosse di tipo A disponibili nel gioco.

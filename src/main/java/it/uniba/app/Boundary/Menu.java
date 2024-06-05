@@ -1,6 +1,7 @@
 package it.uniba.app.Boundary;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <<Boundary>>
@@ -55,20 +56,9 @@ public final class Menu {
      *                 dell'utente.
      */
     public static void helpPrincipale(final Tastiera tastiera) {
+        clearScreen();
         System.out.println(Costanti.BENVENUTO_HELP);
         System.out.println(Costanti.MENU_COMANDI_PRINCIPALE);
-        String aiuto = "";
-        while (true) {
-            aiuto = tastiera.readString("\nPer poter digitare un comando tornare al menu principale /indietro: ");
-            aiuto = aiuto.trim(); // Rimuove spazi bianchi iniziali e finali
-            if (aiuto.equalsIgnoreCase("/indietro")) {
-                clearScreen();
-                return;
-            } else {
-                System.out.println(
-                        "Comando non riconosciuto. Per favore, digitare '/indietro' per tornare al menu principale.");
-            }
-        }
     }
 
     /**
@@ -104,6 +94,18 @@ public final class Menu {
     public static void helpGioco(final Tastiera tastiera) {
         System.out.println(Costanti.BENVENUTO_HELP);
         System.out.print(Costanti.MENU_COMANDI_GIOCO);
+    }
+
+    /**
+     * Funzione di delay che accetta un numero di secondi.
+     * @param seconds
+     */
+    public static void delay(final int seconds) {
+        try {
+            TimeUnit.SECONDS.sleep(seconds); // Attendi per un numero di secondi specificato
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

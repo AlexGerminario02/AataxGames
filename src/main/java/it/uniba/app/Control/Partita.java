@@ -2,8 +2,6 @@ package it.uniba.app.Control;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-
-import it.uniba.app.Boundary.Costanti;
 import it.uniba.app.Boundary.Menu;
 import it.uniba.app.Boundary.Tastiera;
 import it.uniba.app.Entity.Coordinate;
@@ -31,6 +29,7 @@ public class Partita {
     private Giocatore giocatore1;
     private Tavoliere tavoliere;
     private Tastiera tastiera;
+    private int turno;
 
     /**
      * Costruttore della classe Partita.
@@ -44,6 +43,7 @@ public class Partita {
         this.giocatore2 = new Giocatore(giocatoret2); //per creare una nuova istanza di Giocatore
         this.tavoliere = new Tavoliere(tavolieret); // ia una copia difensiva dei suoi elementi interni.
         this.tastiera = new Tastiera();
+        this.turno = 1;
     }
 
     /**
@@ -60,22 +60,12 @@ public class Partita {
         }
         tavoliere.inizializzaPedine(RIGA, RIGA, COLONNA, COLONNA);
         tavoliere.visualizzaTavolierePieno();
+        String coordinateInput = "";
         while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
-            String decisione = tastiera.readString(Costanti.SCELTA_AVVIA_PARTITA);
-            switch (decisione) {
-                case "comando":
-                String input = tastiera.readString(Costanti.PROMPT_COMANDO);
-                gestisciComando(input);
-                    break;
-                    case "coordinate":
-                    String coordinate = tastiera.readString(Costanti.COORDINATE);
-                    gestisciCoordinate(coordinate);
-                default:
-                System.out.println(Costanti.ERRORE);
-                    break;
-            }
+            System.out.println("Turno " + (turno % 2 == 1 ? "Giocatore Nero" : "Giocatore Bianco") + ":");
         }
-        return partitaFinita(); // Ritorna true se la partita è finita
+        return partitaFinita();
+       // Ritorna true se la partita è finita
     }
 
     private boolean partitaFinita() {

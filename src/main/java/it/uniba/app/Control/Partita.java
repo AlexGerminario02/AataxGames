@@ -281,6 +281,9 @@ private boolean validaCoordinate(final String coordinate) {
                  tavoliere.stampaMosseDisponibili(giocatoreCorrente);
                  //tavoliere.stampaMosseDisponibili(mossea, mosseb);
                 break;
+            case "/mossa":
+                mostraMosseGiocate();
+                break;
                 case "/abbandona":
                 boolean confermaAbbandono = false;
                 while (!confermaAbbandono) {

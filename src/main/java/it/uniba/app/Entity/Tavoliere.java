@@ -133,19 +133,26 @@ public class Tavoliere {
     }
 
     /**
-     * Imposta la pedina alla posizione specificata sul tavoliere.
-     *
-     * @param pedina  la pedina da impostare
-     * @param riga    la riga della pedina
-     * @param colonna la colonna della pedina (come carattere)
-     * @return true se la pedina è stata impostata con successo, false altrimenti
+     * Posiziona una pedina sulla scacchiera.
+     * @param pedina  La pedina da posizionare.
+     * @param riga    La riga in cui posizionare la pedina.
+     * @param colonna La colonna in cui posizionare la pedina.
+     * @return true se la pedina è stata posizionata con successo, false altrimenti.
      */
-    public boolean setPedina(final Pedina pedina, final int riga, final char colonna) {
-        int indiceColonna = Arrays.binarySearch(colonne, Character.toLowerCase(colonna));
-        if (indiceColonna < 0 || riga < 1 || riga > DIM || scacchiera[riga - 1][indiceColonna] != null) {
-            return false; // Posizione non valida o occupata
+    public boolean setPedina(final Pedina pedina, final int riga, final int colonna) {
+        if (colonna < 1 || colonna > DIM || riga < 1 || riga > DIM) {
+            return false; // Posizione non valida
         }
-        scacchiera[riga - 1][indiceColonna] = pedina;
+
+        if (pedina == null) {
+            scacchiera[riga - 1][colonna - 1] = null;
+            return true;
+        } else if (scacchiera[riga - 1][colonna - 1] != null) {
+            return false; // Posizione occupata
+        }
+
+        scacchiera[riga - 1][colonna - 1] = pedina;
+        pedina.setCoordinate(new Coordinate(riga, colonna));
         return true;
     }
 

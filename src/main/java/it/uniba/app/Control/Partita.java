@@ -142,6 +142,41 @@ private boolean validaColonna(final char colonna) {
     }
 
 
+/**
+ * Verifica se le coordinate inserite in input sono disponibili nel Tavoliere.
+ * @param from
+ * @param to
+ * @return
+ */
+    public boolean mossaValida(final Coordinate from, final Coordinate to) {
+        // Verifica se le coordinate di partenza e di destinazione sono all'interno del
+        // tavoliere
+        if (from.getRiga() < 1 || from.getRiga() > Costanti.RIGAF || to.getRiga() < 1 || to.getRiga()
+         > Costanti.RIGAF || from.getColonna() < 1 || from.getColonna() > Costanti.RIGAF || to.getColonna() < 1
+                || to.getColonna() > Costanti.RIGAF) {
+            return false;
+        }
+
+        // Calcola la distanza in righe e colonne tra le coordinate di partenza e di
+        // destinazione
+        int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
+        int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
+        if (distanzaRiga > 1 || distanzaColonna > 1 ||
+                (distanzaRiga == 0 && distanzaColonna == 0)) {
+            return false;
+        }
+
+        // Verifica se la casella di destinazione è vuota
+        if (!tavoliere.posizioneVuota(to.getRiga() - 1, to.getColonna() - 1)) {
+            return false;
+        }
+
+
+        // Se tutte le condizioni sono soddisfatte, la mossa è valida
+        return true;
+    }
+
+
     private boolean partitaFinita() {
         // Implementa la logica per determinare se la partita è finita
         return false;

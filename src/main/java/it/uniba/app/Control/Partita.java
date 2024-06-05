@@ -281,7 +281,7 @@ private boolean validaCoordinate(final String coordinate) {
                  tavoliere.stampaMosseDisponibili(giocatoreCorrente);
                  //tavoliere.stampaMosseDisponibili(mossea, mosseb);
                 break;
-            case "/mossa":
+            case "/mosse":
                 mostraMosseGiocate();
                 break;
                 case "/abbandona":
@@ -352,6 +352,9 @@ private boolean validaCoordinate(final String coordinate) {
             System.out.println("Muovo la pedina da (" + rigaPedina + ", " + colonnaPedina + ") a (" + rigaCella + ", "
                     + colonnaCella + ")");
             tavoliere.visualizzaTavolierePieno();
+            // Aggiungi la mossa alla lista delle mosse giocate
+            String mossa = turno + ". " + coordinate + " (" + (turno % 2 == 1 ? "N" : "R") + ")";
+            storiaMosse.add(mossa);
             turno++;
         } else {
             System.out.println("Movimento non valido. Riprova.");

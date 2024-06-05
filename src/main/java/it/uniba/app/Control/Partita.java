@@ -1,5 +1,6 @@
 package it.uniba.app.Control;
 
+import java.util.ArrayList;
 import java.util.List;
 //import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -48,6 +49,7 @@ public class Partita {
         this.giocatore1 = new Giocatore(giocatoret1); //  per creare una nuova istanza di Giocatore
         this.giocatore2 = new Giocatore(giocatoret2); //per creare una nuova istanza di Giocatore
         this.tavoliere = new Tavoliere(tavolieret); // ia una copia difensiva dei suoi elementi interni.
+        this.storiaMosse = new ArrayList<>();
         this.tastiera = new Tastiera();
         this.turno = 1;
     }

@@ -3,8 +3,6 @@ package it.uniba.app.Entity;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import it.uniba.app.Boundary.Costanti;
-
 /**
  * <<Entity>>
  * Classe che rappresenta il tavoliere di gioco.
@@ -26,8 +24,12 @@ public class Tavoliere {
     public static final int COLONNAFINALE = 7;
     private static final String LINE_SEPARATOR = "+-----";
     private static final String EMPTY_CELL = "|  .  ";
-    private static final String ANSI_YELLOW = "\u001B[38;2;255;255;0m";
-    private static final String ANSI_ORANGE = "\u001B[38;2;255;165;0m";
+    public static final String ANSI_GRAY_BACKGROUND = "\u001B[47m";
+    public static final String ANSI_YELLOW = "\u001B[48;2;255;255;0m";
+    public static final String ANSI_ORANGE = "\u001B[48;2;255;165;0m";
+    public static final String ANSI_PURPLE = "\u001B[45m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_WHITE = "\u001B[47m";
 
     // Costanti per i caratteri dei giocatori
     private static final char PEDINA_ROSSO = 'R'; // 'N'
@@ -326,38 +328,77 @@ public class Tavoliere {
     }
 
     /**
-     * Stampa le mosse disponibili sul tavoliere.
+     * Stampa le mosse disponibili sul tavoliere per il giocatore corrente.
      *
-     * @param mosseA Lista delle mosse disponibili di tipo A.
-     * @param mosseB Lista delle mosse disponibili di tipo B.
+     * @param giocatoreCorrente Il giocatore corrente.
      */
-    public void stampaMosseDisponibili(final ArrayList<Coordinate> mosseA, final ArrayList<Coordinate> mosseB) {
+    public void stampaMosseDisponibili(final Giocatore giocatoreCorrente) {
         // Inizializza le pedine del tavoliere
-        inizializzaPedine(RIGAINIZIALE, COLONNAINIZIALE, RIGAFINALE, COLONNAFINALE);
         Pedina[][] tabelloneStampato = new Pedina[DIM][DIM];
-        for (int i = 0; i < DIM; i++) {
-            for (int j = 0; j < DIM; j++) {
-                if (scacchiera[i][j] != null) {
-                    tabelloneStampato[i][j] = new Pedina(scacchiera[i][j].getCarattere(), i, j);
+        boolean[][] pedineRaggiunteDaA = new boolean[DIM][DIM];
+        boolean[][] pedineRaggiunteDaB = new boolean[DIM][DIM];
+
+        // Aggiungi le pedine al tavoliere stampato
+        for (int riga = 0; riga < DIM; riga++) {
+            for (int colonna = 0; colonna < DIM; colonna++) {
+                Pedina pedina = getPedina(riga + 1, (char) ('a' + colonna));
+                if (pedina != null) {
+                    tabelloneStampato[riga][colonna] = new Pedina(pedina);
                 }
             }
         }
 
-        // Segna le mosse disponibili di tipo A sul tavoliere
-        for (Coordinate mossa : mosseA) {
-            int riga = mossa.getRiga();
-            char colonna = mossa.getColonna();
-            tabelloneStampato[riga - 1][colonna - 'a'] = new Pedina('A', riga, colonna);
+        // Aggiungi le caselle bloccate al tavoliere stampato
+        for (int riga = 1; riga <= DIM; riga++) {
+            for (char colonna : colonne) {
+                Coordinate coord = new Coordinate(riga, colonna - 'a');
+            }
         }
 
-        // Segna le mosse disponibili di tipo B sul tavoliere
-        for (Coordinate mossa : mosseB) {
-            int riga = mossa.getRiga();
-            char colonna = mossa.getColonna();
-            tabelloneStampato[riga - 1][colonna - 'a'] = new Pedina('B', riga, colonna);
+        // Aggiungi le mosse disponibili sul tavoliere stampato
+        for (int riga = 1; riga <= DIM; riga++) {
+            for (char colonna : colonne) {
+                Pedina pedina = getPedina(riga, colonna);
+                if (pedina != null && pedina.getCarattere() == giocatoreCorrente.getPedina().getCarattere()) {
+                    ArrayList<Coordinate> mossea = mosseA(riga, colonna);
+                    ArrayList<Coordinate> mosseb = mosseB(riga, colonna);
+                    for (Coordinate mossa : mossea) {
+                        int rigaMossa = mossa.getRiga() - 1;
+                        int colonnaMossa = mossa.getColonna() - 'a';
+                        if (rigaMossa >= 0 && rigaMossa < DIM && colonnaMossa >= 0 && colonnaMossa < DIM) {
+                            tabelloneStampato[rigaMossa][colonnaMossa] = new Pedina('A', mossa);
+                            pedineRaggiunteDaA[rigaMossa][colonnaMossa] = true;
+                        }
+                    }
+                    for (Coordinate mossa : mosseb) {
+                        int rigaMossa = mossa.getRiga() - 1;
+                        int colonnaMossa = mossa.getColonna() - 'a';
+                        if (rigaMossa >= 0 && rigaMossa < DIM && colonnaMossa >= 0 && colonnaMossa < DIM) {
+                            if (!pedineRaggiunteDaA[rigaMossa][colonnaMossa]) {
+                                if (tabelloneStampato[rigaMossa][colonnaMossa] == null) {
+                                    tabelloneStampato[rigaMossa][colonnaMossa] = new Pedina('B', mossa);
+                                } else if (tabelloneStampato[rigaMossa][colonnaMossa].getCarattere() == 'C') {
+                                    tabelloneStampato[rigaMossa][colonnaMossa] = new Pedina('B', mossa);
+                                }
+                            }
+                            pedineRaggiunteDaB[rigaMossa][colonnaMossa] = true;
+                        }
+                    }
+                }
+            }
         }
+
+        // Aggiungi la C alle caselle raggiunte sia da mosse di tipo A che di tipo B
+        for (int i = 0; i < DIM; i++) {
+            for (int j = 0; j < DIM; j++) {
+                if (pedineRaggiunteDaA[i][j] && pedineRaggiunteDaB[i][j]) {
+                    tabelloneStampato[i][j] = new Pedina('C', new Coordinate(i + 1, (char) ('a' + j)));
+                }
+            }
+        }
+
         // Stampa l'intestazione delle colonne
-        System.out.print("    ");
+        System.out.print("  ");
         for (char colonna : colonne) {
             System.out.print("   " + colonna + "  ");
         }
@@ -375,12 +416,14 @@ public class Tavoliere {
                 System.out.print("|  ");
                 Pedina pedina = tabelloneStampato[i - 1][colonna - 'a'];
                 if (pedina != null) {
-                    if (pedina.getCarattere() == 'A') {
-                        System.out.print(ANSI_YELLOW + pedina.getCarattere() + "\u001B[0m  ");
+                    if (pedina.getCarattere() == 'X') {
+                        System.out.print(ANSI_WHITE + "  " + ANSI_RESET + " ");
+                    } else if (pedina.getCarattere() == 'A') {
+                        System.out.print(ANSI_YELLOW + "  " + ANSI_RESET + " ");
                     } else if (pedina.getCarattere() == 'B') {
-                        System.out.print(ANSI_ORANGE + pedina.getCarattere() + "\u001B[0m  ");
+                        System.out.print(ANSI_ORANGE + "  " + ANSI_RESET + " ");
                     } else if (pedina.getCarattere() == 'C') {
-                        System.out.print("\u001B[35m" + pedina.getCarattere() + "\u001B[0m  "); // 'Z' in rosa
+                        System.out.print(ANSI_PURPLE + "  " + ANSI_RESET + " ");
                     } else {
                         System.out.print(pedina.getCarattere() + "  ");
                     }
@@ -399,12 +442,13 @@ public class Tavoliere {
         System.out.println("+");
 
         // Stampa l'intestazione delle colonne in fondo
-        System.out.print("    ");
+        System.out.print("  ");
         for (char colonna : colonne) {
             System.out.print("   " + colonna + "  ");
         }
         System.out.println();
     }
+
 
     /**
      * Controlla se la posizione è vuota nel Tavoliere.

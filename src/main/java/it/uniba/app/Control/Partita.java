@@ -1,6 +1,6 @@
 package it.uniba.app.Control;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import it.uniba.app.Boundary.Costanti;
@@ -162,8 +162,8 @@ private boolean validaColonna(final char colonna) {
         // destinazione
         int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
         int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
-        if (distanzaRiga > 1 || distanzaColonna > 1 ||
-                (distanzaRiga == 0 && distanzaColonna == 0)) {
+        if (distanzaRiga > 1 || distanzaColonna > 1
+        || (distanzaRiga == 0 && distanzaColonna == 0)) {
             return false;
         }
 
@@ -237,21 +237,24 @@ private boolean validaColonna(final char colonna) {
                 break;
             case "/qualimosse":
                 // Coordinate delle pedine del giocatore 1 (X)
-                Coordinate[] pedineGiocatore1 = {
+               /*  Coordinate[] pedineGiocatore1 = {
                         new Coordinate(RIGA, 'a'), // Pedina in cella[1,1]
                         new Coordinate(COLONNA, 'g') // Pedina in cella[7,7]
                 };
+                */
 
+                /*
                 ArrayList<Coordinate> mossea = new ArrayList<>();
                 ArrayList<Coordinate> mosseb = new ArrayList<>();
+                */
                 // ArrayList<Coordinate> mossec = new ArrayList<>();
-                for (Coordinate pedina : pedineGiocatore1) {
-                    mossea.addAll(tavoliere.mosseA(pedina.getRiga(), pedina.getColonna()));
-                    mosseb.addAll(tavoliere.mosseB(pedina.getRiga(), pedina.getColonna()));
+               // for (Coordinate pedina : pedineGiocatore1) {
+                    //mossea.addAll(tavoliere.mosseA(pedina.getRiga(), pedina.getColonna()));
+                    //mosseb.addAll(tavoliere.mosseB(pedina.getRiga(), pedina.getColonna()));
                     // mossec.addAll(tavoliere.mosseC(pedina.getRiga(), pedina.getColonna()));
-                }
+               // }
 
-                tavoliere.stampaMosseDisponibili(mossea, mosseb);
+                //tavoliere.stampaMosseDisponibili(mossea, mosseb);
                 break;
                 case "/abbandona":
                 boolean confermaAbbandono = false;

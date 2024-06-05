@@ -18,6 +18,7 @@ import it.uniba.app.Entity.Tavoliere;
  * Gestisce il flusso del gioco e l'interazione con i giocatori.
  */
 public class Partita {
+    //costanti per le dimensioni del tavoliere
     public static final int RIGA = 1;
     public static final int COLONNA = 7;
     public static final char A = 'a';
@@ -173,6 +174,37 @@ private boolean validaCoordinate(final String coordinate) {
         return true;
     }
 
+    // Cattura le pedine avversarie dopo una mossa
+    private void catturaPedine(final Giocatore giocatore, final Coordinate to) {
+        int riga = to.getRiga();
+        int colonna = to.getColonna(); // Assumendo che colonna sia già un intero che rappresenta l'indice
+
+        // Definizione dei delta per le righe e le colonne
+        int[] deltaRighe = {-1, -1, -1, 0, 0, 1, 1, 1 };
+        int[] deltaColonne = {-1, 0, 1, -1, 1, -1, 0, 1 };
+
+        // Verifica le pedine adiacenti
+        for (int i = 0; i < deltaRighe.length; i++) {
+            int nuovaRiga = riga + deltaRighe[i];
+            int nuovaColonna = colonna + deltaColonne[i];
+
+            // Verifica se la nuova posizione è valida
+            if (nuovaRiga >= 1 && nuovaRiga <= COLONNA && nuovaColonna >= 1 && nuovaColonna <= COLONNA) {
+                char nuovaColonnaChar = (char) ('a' + nuovaColonna - 1); // Converti l'indice di colonna in carattere
+                Pedina adiacente = tavoliere.getPedina(nuovaRiga, nuovaColonnaChar);
+
+                // Se la casella adiacente contiene una pedina avversaria
+                if (adiacente != null && adiacente.getCarattere() != giocatore.getPedina().getCarattere()) {
+                    // Verifica se la pedina è bloccata
+                    if (adiacente.getCarattere() != 'X') {
+                        // Converte la pedina avversaria nel colore del giocatore corrente
+                        adiacente.setCarattere(giocatore.getPedina().getCarattere());
+                    }
+                }
+            }
+        }
+    }
+
      /**
      * Verifica se la mossa che il giocatore effettua è valida.
      * Se la mossa è una duplicazione
@@ -207,6 +239,9 @@ private boolean validaCoordinate(final String coordinate) {
             mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
             tavoliere.setPedina(null, from.getRiga(), from.getColonna());
         }
+        if (mossaEseguita) {
+            catturaPedine(giocatore, to);
+        }
         return mossaEseguita;
     }
 
@@ -237,25 +272,10 @@ private boolean validaCoordinate(final String coordinate) {
                 tavoliere.visualizzaTavolierePieno();
                 break;
             case "/qualimosse":
-                // Coordinate delle pedine del giocatore 1 (X)
-               /*  Coordinate[] pedineGiocatore1 = {
-                        new Coordinate(RIGA, 'a'), // Pedina in cella[1,1]
-                        new Coordinate(COLONNA, 'g') // Pedina in cella[7,7]
-                };
-                */
-
-                /*
-                ArrayList<Coordinate> mossea = new ArrayList<>();
-                ArrayList<Coordinate> mosseb = new ArrayList<>();
-                */
-                // ArrayList<Coordinate> mossec = new ArrayList<>();
-               // for (Coordinate pedina : pedineGiocatore1) {
-                    //mossea.addAll(tavoliere.mosseA(pedina.getRiga(), pedina.getColonna()));
-                    //mosseb.addAll(tavoliere.mosseB(pedina.getRiga(), pedina.getColonna()));
-                    // mossec.addAll(tavoliere.mosseC(pedina.getRiga(), pedina.getColonna()));
-               // }
-
-                //tavoliere.stampaMosseDisponibili(mossea, mosseb);
+                 // Coordinate delle pedine del giocatore 1 (X)
+                 Giocatore giocatoreCorrente = turno % 2 == 1 ? giocatore1 : giocatore2;
+                 tavoliere.stampaMosseDisponibili(giocatoreCorrente);
+                 //tavoliere.stampaMosseDisponibili(mossea, mosseb);
                 break;
                 case "/abbandona":
                 boolean confermaAbbandono = false;
@@ -325,8 +345,6 @@ private boolean validaCoordinate(final String coordinate) {
             System.out.println("Muovo la pedina da (" + rigaPedina + ", " + colonnaPedina + ") a (" + rigaCella + ", "
                     + colonnaCella + ")");
             tavoliere.visualizzaTavolierePieno();
-
-
             turno++;
         } else {
             System.out.println("Movimento non valido. Riprova.");

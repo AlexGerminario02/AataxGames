@@ -1,6 +1,7 @@
 package it.uniba.app.Boundary;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <<Boundary>>
@@ -93,6 +94,18 @@ public final class Menu {
     public static void helpGioco(final Tastiera tastiera) {
         System.out.println(Costanti.BENVENUTO_HELP);
         System.out.print(Costanti.MENU_COMANDI_GIOCO);
+    }
+
+    /**
+     * Funzione di delay che accetta un numero di secondi.
+     * @param seconds
+     */
+    public static void delay(final int seconds) {
+        try {
+            TimeUnit.SECONDS.sleep(seconds); // Attendi per un numero di secondi specificato
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

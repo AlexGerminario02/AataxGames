@@ -1,5 +1,6 @@
 package it.uniba.app.Control;
 
+import java.util.List;
 //import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +19,7 @@ import it.uniba.app.Entity.Tavoliere;
  * Gestisce il flusso del gioco e l'interazione con i giocatori.
  */
 public class Partita {
+    private List<String> storiaMosse;
     //costanti per le dimensioni del tavoliere
     public static final int RIGA = 1;
     public static final int COLONNA = 7;
@@ -356,5 +358,19 @@ private boolean validaCoordinate(final String coordinate) {
     public void reset() {
     uscitaRichiesta = false;
     abbandono = false;
+    }
+
+    /*
+     * Funzione per mostrare le mosse giocate.
+     */
+    private void mostraMosseGiocate() {
+        if (storiaMosse.isEmpty()) {
+            System.out.println("Nessuna mossa è stata giocata finora.");
+        } else {
+            System.out.println("Storia delle mosse:");
+            for (String mossa : storiaMosse) {
+                System.out.println(mossa);
+            }
+        }
     }
 }

@@ -76,7 +76,7 @@ In questo report verranno illustrati in modo dettagliato i vari processi di svil
 In questa sezione verrà mostrato il modello di dominio realizzato in UML tramite il software StarUML.
 </div>
 
-![ModelloDiDominio](./img/ModelloDiDominio.png)
+![ModelloDiDominio](./img/ModelloDominio.png)
 
 ## **3. REQUISITI SPECIFICI**
 

@@ -1,36 +1,33 @@
 package it.uniba.app.Entity;
 
+
 /**
  * <<Entity>>
  * Classe che rappresenta una pedina.
  * Una pedina è un'entità che ha un carattere e una posizione
- * (riga e colonna) sulla scacchiera.
- */
+ * (riga e colonna) sulla scacchiera.
+ */
 public class Pedina {
     // Attributi della pedina
     private char carattere;
-    private int riga;
-    private int colonna;
-
+    private Coordinate coordinate;
     /**
      * Costruttore della classe Pedina.
      * @param caratteri
-     * @param row
-     * @param column
+     * @param coordinates
      */
-    public Pedina(final char caratteri, final int row, final int column) {
+    public Pedina(final char caratteri, final Coordinate coordinates) {
         this.carattere = caratteri;
-        this.riga = row;
-        this.colonna = column;
+        this.coordinate = coordinates;
     }
+
     /**
      * Costruttore di copia della classe Pedina.
      * @param copia L'istanza di Pedina da copiare.
      */
     public Pedina(final Pedina copia) {
         this.carattere = copia.carattere;
-        this.riga = copia.riga;
-        this.colonna = copia.colonna;
+        this.coordinate = new Coordinate(copia.coordinate.getRiga(), copia.coordinate.getColonna());
     }
 
     // Metodi getter e setter
@@ -42,20 +39,14 @@ public class Pedina {
         this.carattere = caratteri;
     }
 
-    public final int getRiga() {
-        return riga;
-    }
-    public final void setRiga(final int row) {
-        this.riga = row;
+    public final Coordinate getCoordinate() {
+        return coordinate;
     }
 
-    public final int getColonna() {
-        return colonna;
+    public final void setCoordinate(final Coordinate coordinates) {
+        this.coordinate = coordinates;
     }
 
-    public final void setColonna(final int column) {
-        this.colonna = column;
-    }
 
     // Metodo toString
     @Override
@@ -64,9 +55,7 @@ public class Pedina {
                 +
                 "carattere=" + carattere
                 +
-                ", riga=" + riga
-                +
-                ", colonna=" + colonna
+                ", coordinate=" + coordinate
                 +
                 '}';
     }

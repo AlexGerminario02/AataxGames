@@ -159,7 +159,7 @@ private boolean validaCoordinate(final String coordinate) {
         // destinazione
         int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
         int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
-        if (distanzaRiga > 1 || distanzaColonna > 1
+        if (distanzaRiga > 2 || distanzaColonna > 2
         || (distanzaRiga == 0 && distanzaColonna == 0)) {
             return false;
         }

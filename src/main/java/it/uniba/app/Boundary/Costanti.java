@@ -17,11 +17,14 @@ public final class Costanti {
     public static final int TEMPO = 7;
     public static final char PEDINA_X = 'X'; // 'B' per bianco
     public static final String LINE_SEPARATOR = "+-----";
+    public static final String EMPTY_CELL = "|  .  ";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_WHITE = "\u001B[47m";
     public static final String ANSI_YELLOW = "\u001B[48;2;255;255;0m";
     public static final String ANSI_ORANGE = "\u001B[48;2;255;165;0m";
     public static final String ANSI_PURPLE = "\u001B[45m";
+    public static final char PEDINA_ROSSO = 'R'; // 'N'
+    public static final char PEDINA_NERA = 'N'; // 'B's
 
     public static final int RIGAI = 1;
     public static final int COLONNAI = 1;

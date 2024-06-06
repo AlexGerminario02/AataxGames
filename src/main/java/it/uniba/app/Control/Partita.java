@@ -58,19 +58,20 @@ public class Partita {
      * Funzione che Avvia la partita.
      */
 
-    public boolean avviaPartita() {
+     public boolean avviaPartita() {
         if (uscitaRichiesta) {
-            return true;
-            // L'uscita è stata richiesta
+            return true; // L'uscita è stata richiesta
         }
         if (abbandono) {
-           return false;
+            return false;
         }
+        boolean ritorno = false;
         tavoliere.inizializzaPedine(RIGA, RIGA, COLONNA, COLONNA);
         tavoliere.visualizzaTavolierePieno();
         String coordinateInput = "";
         while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
             System.out.println("Turno " + (turno % 2 == 1 ? "Giocatore Nero" : "Giocatore Bianco") + ":");
+
             // Controlla se il giocatore corrente ha mosse disponibili
             if (!giocatoreHaMosseDisponibili(turno)) {
                 System.out.println("Non hai mosse disponibili. Il turno passa al giocatore avversario.");
@@ -80,6 +81,7 @@ public class Partita {
 
             System.out.println("Inserisci le coordinate (es. a1-a2) o un comando: ");
             coordinateInput = tastiera.readString("Coordinate: ");
+
             if (coordinateInput.startsWith("/")) {
                 gestisciComando(coordinateInput);
             } else if (validaCoordinate(coordinateInput)) {
@@ -89,8 +91,18 @@ public class Partita {
             }
         }
 
-        return partitaFinita();
-       // Ritorna true se la partita è finita
+        // Controlla se la partita è finita o è stata richiesta l'uscita
+        if ((!partitaFinita() && abbandono)) {
+            ritorno = false;
+        } else if (!partitaFinita() && uscitaRichiesta) {
+            return true;
+        } else if (partitaFinita()) {
+            calcolaVincitore();
+            Menu.delay(Costanti.TEMPO);
+            Menu.clearScreen();
+        }
+
+        return ritorno; // Di default ritorna false se nessuna condizione precedente è soddisfatta
     }
 
 /**

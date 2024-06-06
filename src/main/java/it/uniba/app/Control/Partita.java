@@ -36,6 +36,7 @@ public class Partita {
     private Giocatore giocatore2;
     private Giocatore giocatore1;
     private Tavoliere tavoliere;
+    private List<Coordinate> caselleBloccateb = new ArrayList<>();
     private Tastiera tastiera;
     private int turno;
 
@@ -57,25 +58,41 @@ public class Partita {
     }
 
     /**
-     * Funzione che Avvia la partita.
-     */
+ * .
+ * @param caselleBloccate
+ * @return
+ */
+    // Metodo avviaPartita modificato per uscita corretta
+    // Metodo avviaPartita modificato per uscita corretta
+    public final boolean avviaPartita(final List<Coordinate> caselleBloccate) {
+        //partitaInCorso = true;
 
-     public boolean avviaPartita() {
+        this.caselleBloccateb.addAll(caselleBloccate); // Aggiungi le caselle bloccate iniziali all'elenco
+
+        if (caselleBloccate != null && !caselleBloccate.isEmpty()) {
+            for (Coordinate coordinate : caselleBloccate) {
+                tavoliere.inizializzaCaselleBloccate(coordinate);
+                tavoliere.bloccaCasella(coordinate);
+            }
+        }
         boolean ritorno = false;
         Menu.clearScreen();
+
         tavoliere.inizializzaPedine(RIGA, RIGA, COLONNA, COLONNA);
         tavoliere.visualizzaTavolierePieno();
         String coordinateInput = "";
         while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
-            System.out.println("Turno " + (Math.abs(turno) % 2 == 1 ? "Giocatore Nero" : "Giocatore Rosso") + ":");
+            System.out.println("Turno " + (Math.abs(turno) % 2 == 1 ? "Giocatore Nero" : "Giocatore Bianco") + ":");
             // Controlla se il giocatore corrente ha mosse disponibili
             if (!giocatoreHaMosseDisponibili(turno)) {
                 System.out.println("Non hai mosse disponibili. Il turno passa al giocatore avversario.");
                 turno++;
                 continue; // Passa il turno senza richiedere input
             }
+            System.out.println("celle bloccate: " + caselleBloccate);
             System.out.println("Inserisci le coordinate (es. a1-a2) o un comando: ");
-            coordinateInput = tastiera.readString("Digita: ");
+            coordinateInput = tastiera.readString("Coordinate: ");
+
             if (coordinateInput.startsWith("/")) {
                 gestisciComando(coordinateInput);
             } else if (validaCoordinate(coordinateInput)) {
@@ -84,15 +101,19 @@ public class Partita {
                 System.out.println("Input inserito non valido. Riprova!");
             }
         }
+
         if ((!partitaFinita() && abbandono)) {
+            resettaCelleBloccate(caselleBloccateb);
             ritorno = false;
+
         } else if (!partitaFinita() && uscitaRichiesta) {
             return true;
         } else if (partitaFinita()) {
             calcolaVincitore();
-            Menu.delay(Costanti.TEMPO);
+            Menu.delay(Costanti.TIME7);
             Menu.clearScreen();
         }
+
         return ritorno;
     }
 
@@ -545,4 +566,12 @@ public static boolean isValidCoordinate(final String coordinate) {
             System.out.println(separator);
         }
     }
+
+    /**
+ * .
+ * @param caselleBloccate
+ */
+public void resettaCelleBloccate(final List<Coordinate> caselleBloccate) {
+    caselleBloccate.clear();
+}
 }

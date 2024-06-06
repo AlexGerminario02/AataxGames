@@ -384,14 +384,14 @@ private Giocatore calcolaVincitore() {
                 uscitaRichiesta = Menu.esci(tastiera);
                 break;
             case "/tempo":
-                CalcoloTempoDiGioco();
+                calcoloTempoDiGioco();
                 break;
             default:
                 System.out.println("Comando non valido. Riprova.");
         }
     }
 
-    private void CalcoloTempoDiGioco() {
+    private void calcoloTempoDiGioco() {
         long tempoTrascorso = System.currentTimeMillis() - tempoInizioPartita;
         long ore = tempoTrascorso / Costanti.ORE;
         long minuti = (tempoTrascorso % Costanti.ORE) / Costanti.MINUTI;

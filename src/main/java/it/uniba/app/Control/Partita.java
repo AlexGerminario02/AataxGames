@@ -426,6 +426,62 @@ public static Coordinate parseCoordinate(final String coordinateInput) {
     return new Coordinate(riga, colonna);
 }
 
+    /**
+     * .
+     * @param input
+     * @param caselleDaBloccare
+     * @param tavoliere
+     */
+    public static void gestioneBlocca(final String input, final List<Coordinate> caselleDaBloccare,
+            final Tavoliere tavoliere) {
+        if (input.toLowerCase().startsWith("/blocca")) {
+            String[] parts = input.split(" ");
+            if (parts.length > 1) {
+                String coordString = parts[1].trim();
+                Coordinate coordinate = Partita.parseCoordinate(coordString);
+                if (coordinate != null && Partita.isValidCoordinate(coordString)) {
+                    if (caselleDaBloccare.size() < Costanti.LIMITE_BLOCCA) {
+                        if (!caselleDaBloccare.contains(coordinate)) {
+                            if (tavoliere.bloccaCasella(coordinate)) {
+                                caselleDaBloccare.add(coordinate);
+                                System.out.println("Casella bloccata con successo: " + coordinate);
+                            } else {
+                                System.out.println("Errore nel bloccare la casella: " + coordinate);
+                            }
+                        } else {
+                            System.out.println("Casella già bloccata: " + coordString);
+                        }
+                    } else {
+                        System.out.println("Non puoi bloccare più di 9 caselle.");
+                    }
+                } else {
+                    System.out.println(
+                        "Coordinata non valida. Usa il comando /blocca seguito da una coordinata valida.");
+                }
+            } else {
+                System.out.println("Comando non valido. Usa il comando /blocca seguito da una coordinata.");
+            }
+            // Stampa le caselle attualmente bloccate
+            System.out.print("Caselle attualmente bloccate: ");
+            for (int i = 0; i < caselleDaBloccare.size(); i++) {
+                if (i != 0) {
+                    System.out.print(", ");
+                }
+                System.out.print(caselleDaBloccare.get(i));
+            }
+            System.out.println();
+        }
+    }
+
+    /**
+ * .
+ * @param coordinate
+ */
+public static boolean isValidCoordinate(final String coordinate) {
+    // Aggiungi la logica di validazione della coordinata, ad esempio
+    return coordinate.matches("^[a-g][1-7]$"); // Supponendo che le coordinate valide siano da a1 a h8
+}
+
     private void gestisciCoordinate(final String coordinate) {
         if (!coordinate.matches("[a-g][1-7]-[a-g][1-7]")) {
             System.out.println(

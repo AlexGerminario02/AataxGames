@@ -3,7 +3,7 @@ package it.uniba.app.Control;
 import java.util.ArrayList;
 import java.util.List;
 //import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+
 
 import it.uniba.app.Boundary.Costanti;
 import it.uniba.app.Boundary.Menu;
@@ -58,14 +58,9 @@ public class Partita {
      * Funzione che Avvia la partita.
      */
 
-    public boolean avviaPartita() {
-        if (uscitaRichiesta) {
-            return true;
-            // L'uscita è stata richiesta
-        }
-        if (abbandono) {
-           return false;
-        }
+     public boolean avviaPartita() {
+        boolean ritorno = false;
+        Menu.clearScreen();
         tavoliere.inizializzaPedine(RIGA, RIGA, COLONNA, COLONNA);
         tavoliere.visualizzaTavolierePieno();
         String coordinateInput = "";
@@ -77,7 +72,6 @@ public class Partita {
                 turno++;
                 continue; // Passa il turno senza richiedere input
             }
-
             System.out.println("Inserisci le coordinate (es. a1-a2) o un comando: ");
             coordinateInput = tastiera.readString("Coordinate: ");
             if (coordinateInput.startsWith("/")) {
@@ -88,9 +82,16 @@ public class Partita {
                 System.out.println("Input inserito non valido. Riprova!");
             }
         }
-
-        return partitaFinita();
-       // Ritorna true se la partita è finita
+        if ((!partitaFinita() && abbandono)) {
+            ritorno = false;
+        } else if (!partitaFinita() && uscitaRichiesta) {
+            return true;
+        } else if (partitaFinita()) {
+            calcolaVincitore();
+            Menu.delay(Costanti.TEMPO);
+            Menu.clearScreen();
+        }
+        return ritorno;
     }
 
 /**
@@ -258,9 +259,19 @@ private boolean validaCoordinate(final String coordinate) {
 
 
 
-    private boolean partitaFinita() {
-        // Implementa la logica per determinare se la partita è finita
-        return false;
+
+/**
+ * Funzione per verificare se la partita è finita.
+ */
+  public boolean partitaFinita() {
+        for (int riga = 1; riga <= COLONNA; riga++) {
+            for (char colonna = 'a'; colonna <= 'g'; colonna++) {
+                if (tavoliere.getPedina(riga, colonna) == null) {
+                    return false; // Se c'è almeno una casella vuota, il tavoliere non è pieno
+                }
+            }
+        }
+        return true;
     }
 
     private char getPedinaGiocatoreCorrente(final int turnot) {
@@ -286,6 +297,32 @@ private boolean validaCoordinate(final String coordinate) {
             }
         }
         return false; // Nessuna mossa disponibile per il giocatore corrente
+}
+
+/**
+ * Calcola il vincitore basato sul numero di pedine.
+ * @return
+ */
+private Giocatore calcolaVincitore() {
+    int pedineGiocatore1 = tavoliere.contaPedine(giocatore1.getPedina().getCarattere(), tavoliere);
+    int pedineGiocatore2 = tavoliere.contaPedine(giocatore2.getPedina().getCarattere(), tavoliere);
+
+    if (pedineGiocatore1 > pedineGiocatore2) {
+        System.out.println("La partita è finita. Il vincitore è: " + giocatore1.getNome());
+        System.out.println("Punteggio: " + giocatore1.getNome() + " " + pedineGiocatore1 + " - "
+                + giocatore2.getNome() + " " + pedineGiocatore2);
+        return giocatore1;
+    } else if (pedineGiocatore2 > pedineGiocatore1) {
+        System.out.println("La partita è finita. Il vincitore è: " + giocatore2.getNome());
+        System.out.println("Punteggio: " + giocatore2.getNome() + " " + pedineGiocatore2 + " - "
+                + giocatore1.getNome() + " " + pedineGiocatore1);
+        return giocatore2;
+    } else {
+        System.out.println("La partita è finita con un pareggio.");
+        System.out.println("Punteggio: " + giocatore1.getNome() + " " + pedineGiocatore1 + " - "
+                + giocatore2.getNome() + " " + pedineGiocatore2);
+        return null;
+    }
 }
     /**
      * Funzione che gestisce i comandi del menu.
@@ -320,27 +357,20 @@ private boolean validaCoordinate(final String coordinate) {
                 while (!confermaAbbandono) {
                     String conferma = tastiera.readString(MSG_ABBANDONA_PARTITA);
                     if (conferma.equalsIgnoreCase("si")) {
-                        // Determina quale giocatore ha abbandonato
-                        if (tavoliere.getTurno() % 2 == 0) {
+                        if (turno % 2 == 0) {
                             System.out.println("Il giocatore " + giocatore2.getNome() + CONFERMA_ABBANDONO);
                         } else {
                             System.out.println("Il giocatore " + giocatore1.getNome() + CONFERMA_ABBANDONO);
                         }
-                        // Determina il giocatore opposto
-                        Giocatore giocatoreOpposto = (tavoliere.getTurno() % 2 == 0) ? giocatore1 : giocatore2;
+                        Giocatore giocatoreOpposto = (turno % 2 == 0) ? giocatore1 : giocatore2;
                         int numeroPedineGiocatoreOpposto = tavoliere
                                 .contaPedine(giocatoreOpposto.getPedina().getCarattere(), tavoliere);
                         System.out.println("Il giocatore " + giocatoreOpposto.getNome() + " ha vinto per "
                                 + numeroPedineGiocatoreOpposto + " a 0.");
                         abbandono = true;
                         confermaAbbandono = true;
-                        try {
-                        TimeUnit.SECONDS.sleep(TIME); // Attendi 6 secondi
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    // Pulisci lo schermo dopo 6 secondi
-                    Menu.clearScreen();
+                        Menu.delay(TIME);
+                        Menu.clearScreen();
                     } else if (conferma.equalsIgnoreCase("no")) {
                         confermaAbbandono = true;
                     } else {

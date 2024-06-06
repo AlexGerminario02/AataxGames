@@ -30,6 +30,9 @@ public final class Costanti {
     public static final int RIGA_6 = 6;
     public static final int RIGA_7 = 7;
     public static final int LIMITE_BLOCCA = 9;
+    public static final int TIME5 = 5;
+    public static final int TIME6 = 6;
+    public static final int TIME7 = 7;
 
     public static final String BENVENUTO_HELP =
        "  _   _   _____   _       ____  \n"

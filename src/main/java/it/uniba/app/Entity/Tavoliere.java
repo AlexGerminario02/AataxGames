@@ -3,6 +3,8 @@ package it.uniba.app.Entity;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import it.uniba.app.Boundary.Costanti;
+
 /**
  * <<Entity>>
  * Classe che rappresenta il tavoliere di gioco.
@@ -443,5 +445,16 @@ public class Tavoliere {
      */
     public boolean posizioneVuota(final int riga, final int colonna) {
         return scacchiera[riga][colonna] == null;
+    }
+
+    /**
+     * .
+     * @param coordinateBloccata
+    */
+    public final void inizializzaCaselleBloccate(final Coordinate coordinateBloccata) {
+        int riga = coordinateBloccata.getRiga();
+        int colonna = coordinateBloccata.getColonna() + 1;
+        setPedina(new Pedina(Costanti.PEDINA_X, new Coordinate(riga + 1, colonna + 1)), riga, colonna);
+
     }
 }

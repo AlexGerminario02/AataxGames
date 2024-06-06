@@ -15,6 +15,7 @@ public final class Costanti {
     public static final String COMANDO_HELP_GIOCO = "Inserisci il comando /indietro per continuare: ";
     public static final String ERRORE = "Comando inserito non valido";
     public static final int TEMPO = 7;
+    public static final char PEDINA_X = 'X'; // 'B' per bianco
 
     public static final int RIGAI = 1;
     public static final int COLONNAI = 1;

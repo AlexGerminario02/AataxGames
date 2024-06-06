@@ -297,6 +297,32 @@ private boolean validaCoordinate(final String coordinate) {
         }
         return false; // Nessuna mossa disponibile per il giocatore corrente
 }
+
+/**
+ * Calcola il vincitore basato sul numero di pedine.
+ * @return
+ */
+private Giocatore calcolaVincitore() {
+    int pedineGiocatore1 = tavoliere.contaPedine(giocatore1.getPedina().getCarattere(), tavoliere);
+    int pedineGiocatore2 = tavoliere.contaPedine(giocatore2.getPedina().getCarattere(), tavoliere);
+
+    if (pedineGiocatore1 > pedineGiocatore2) {
+        System.out.println("La partita è finita. Il vincitore è: " + giocatore1.getNome());
+        System.out.println("Punteggio: " + giocatore1.getNome() + " " + pedineGiocatore1 + " - "
+                + giocatore2.getNome() + " " + pedineGiocatore2);
+        return giocatore1;
+    } else if (pedineGiocatore2 > pedineGiocatore1) {
+        System.out.println("La partita è finita. Il vincitore è: " + giocatore2.getNome());
+        System.out.println("Punteggio: " + giocatore2.getNome() + " " + pedineGiocatore2 + " - "
+                + giocatore1.getNome() + " " + pedineGiocatore1);
+        return giocatore2;
+    } else {
+        System.out.println("La partita è finita con un pareggio.");
+        System.out.println("Punteggio: " + giocatore1.getNome() + " " + pedineGiocatore1 + " - "
+                + giocatore2.getNome() + " " + pedineGiocatore2);
+        return null;
+    }
+}
     /**
      * Funzione che gestisce i comandi del menu.
      *

@@ -400,6 +400,32 @@ private Giocatore calcolaVincitore() {
         System.out.println("Tempo di gioco: " + ore + ":" + minuti + ":" + secondi);
     }
 
+    /**
+ * .
+ * @param coordinateInput
+ * @return
+ */
+public static Coordinate parseCoordinate(final String coordinateInput) {
+    if (coordinateInput.length() < 2) {
+        return null;
+    }
+    char colonnaChar = Character.toLowerCase(coordinateInput.charAt(0));
+    int riga;
+    try {
+        riga = Integer.parseInt(coordinateInput.substring(1));
+    } catch (NumberFormatException e) {
+        return null;
+    }
+
+    if (colonnaChar < 'a' || colonnaChar > 'g' || riga < 1 || riga > Costanti.RIGAF) {
+        return null;
+    }
+
+    int colonna = colonnaChar - 'a';
+
+    return new Coordinate(riga, colonna);
+}
+
     private void gestisciCoordinate(final String coordinate) {
         if (!coordinate.matches("[a-g][1-7]-[a-g][1-7]")) {
             System.out.println(

@@ -3,7 +3,7 @@ package it.uniba.app.Control;
 import java.util.ArrayList;
 import java.util.List;
 //import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+
 
 import it.uniba.app.Boundary.Costanti;
 import it.uniba.app.Boundary.Menu;
@@ -59,29 +59,21 @@ public class Partita {
      */
 
      public boolean avviaPartita() {
-        if (uscitaRichiesta) {
-            return true; // L'uscita è stata richiesta
-        }
-        if (abbandono) {
-            return false;
-        }
         boolean ritorno = false;
+        Menu.clearScreen();
         tavoliere.inizializzaPedine(RIGA, RIGA, COLONNA, COLONNA);
         tavoliere.visualizzaTavolierePieno();
         String coordinateInput = "";
         while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
             System.out.println("Turno " + (turno % 2 == 1 ? "Giocatore Nero" : "Giocatore Bianco") + ":");
-
             // Controlla se il giocatore corrente ha mosse disponibili
             if (!giocatoreHaMosseDisponibili(turno)) {
                 System.out.println("Non hai mosse disponibili. Il turno passa al giocatore avversario.");
                 turno++;
                 continue; // Passa il turno senza richiedere input
             }
-
             System.out.println("Inserisci le coordinate (es. a1-a2) o un comando: ");
             coordinateInput = tastiera.readString("Coordinate: ");
-
             if (coordinateInput.startsWith("/")) {
                 gestisciComando(coordinateInput);
             } else if (validaCoordinate(coordinateInput)) {
@@ -90,8 +82,6 @@ public class Partita {
                 System.out.println("Input inserito non valido. Riprova!");
             }
         }
-
-        // Controlla se la partita è finita o è stata richiesta l'uscita
         if ((!partitaFinita() && abbandono)) {
             ritorno = false;
         } else if (!partitaFinita() && uscitaRichiesta) {
@@ -101,8 +91,7 @@ public class Partita {
             Menu.delay(Costanti.TEMPO);
             Menu.clearScreen();
         }
-
-        return ritorno; // Di default ritorna false se nessuna condizione precedente è soddisfatta
+        return ritorno;
     }
 
 /**
@@ -368,27 +357,20 @@ private Giocatore calcolaVincitore() {
                 while (!confermaAbbandono) {
                     String conferma = tastiera.readString(MSG_ABBANDONA_PARTITA);
                     if (conferma.equalsIgnoreCase("si")) {
-                        // Determina quale giocatore ha abbandonato
-                        if (tavoliere.getTurno() % 2 == 0) {
+                        if (turno % 2 == 0) {
                             System.out.println("Il giocatore " + giocatore2.getNome() + CONFERMA_ABBANDONO);
                         } else {
                             System.out.println("Il giocatore " + giocatore1.getNome() + CONFERMA_ABBANDONO);
                         }
-                        // Determina il giocatore opposto
-                        Giocatore giocatoreOpposto = (tavoliere.getTurno() % 2 == 0) ? giocatore1 : giocatore2;
+                        Giocatore giocatoreOpposto = (turno % 2 == 0) ? giocatore1 : giocatore2;
                         int numeroPedineGiocatoreOpposto = tavoliere
                                 .contaPedine(giocatoreOpposto.getPedina().getCarattere(), tavoliere);
                         System.out.println("Il giocatore " + giocatoreOpposto.getNome() + " ha vinto per "
                                 + numeroPedineGiocatoreOpposto + " a 0.");
                         abbandono = true;
                         confermaAbbandono = true;
-                        try {
-                        TimeUnit.SECONDS.sleep(TIME); // Attendi 6 secondi
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    // Pulisci lo schermo dopo 6 secondi
-                    Menu.clearScreen();
+                        Menu.delay(TIME);
+                        Menu.clearScreen();
                     } else if (conferma.equalsIgnoreCase("no")) {
                         confermaAbbandono = true;
                     } else {

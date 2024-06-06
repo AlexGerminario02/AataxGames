@@ -20,6 +20,9 @@ public final class Costanti {
     public static final int COLONNAI = 1;
     public static final int RIGAF = 7;
     public static final int COLONNAF = 7;
+    public static final int ORE = 3600000;
+    public static final int MINUTI = 60000;
+    public static final int SECONDI = 1000;
 
     public static final String BENVENUTO_HELP =
        "  _   _   _____   _       ____  \n"

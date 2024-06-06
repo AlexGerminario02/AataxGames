@@ -24,6 +24,7 @@ public class Partita {
     //costanti per le dimensioni del tavoliere
     public static final int RIGA = 1;
     public static final int COLONNA = 7;
+    private long tempoInizioPartita;
     public static final char A = 'a';
     public static final char B = 'b';
     public static final int TIME = 6;
@@ -52,6 +53,7 @@ public class Partita {
         this.storiaMosse = new ArrayList<>();
         this.tastiera = new Tastiera();
         this.turno = 1;
+        this.tempoInizioPartita = System.currentTimeMillis();
     }
 
     /**
@@ -65,7 +67,7 @@ public class Partita {
         tavoliere.visualizzaTavolierePieno();
         String coordinateInput = "";
         while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
-            System.out.println("Turno " + (Math.abs(turno) % 2 == 1 ? "Giocatore Nero" : "Giocatore Bianco") + ":");
+            System.out.println("Turno " + (Math.abs(turno) % 2 == 1 ? "Giocatore Nero" : "Giocatore Rosso") + ":");
             // Controlla se il giocatore corrente ha mosse disponibili
             if (!giocatoreHaMosseDisponibili(turno)) {
                 System.out.println("Non hai mosse disponibili. Il turno passa al giocatore avversario.");
@@ -73,7 +75,7 @@ public class Partita {
                 continue; // Passa il turno senza richiedere input
             }
             System.out.println("Inserisci le coordinate (es. a1-a2) o un comando: ");
-            coordinateInput = tastiera.readString("Coordinate: ");
+            coordinateInput = tastiera.readString("Digita: ");
             if (coordinateInput.startsWith("/")) {
                 gestisciComando(coordinateInput);
             } else if (validaCoordinate(coordinateInput)) {
@@ -381,9 +383,21 @@ private Giocatore calcolaVincitore() {
             case "/esci":
                 uscitaRichiesta = Menu.esci(tastiera);
                 break;
+            case "/tempo":
+                calcoloTempoDiGioco();
+                break;
             default:
                 System.out.println("Comando non valido. Riprova.");
         }
+    }
+
+    private void calcoloTempoDiGioco() {
+        long tempoTrascorso = System.currentTimeMillis() - tempoInizioPartita;
+        long ore = tempoTrascorso / Costanti.ORE;
+        long minuti = (tempoTrascorso % Costanti.ORE) / Costanti.MINUTI;
+        long secondi = ((tempoTrascorso % Costanti.ORE) % Costanti.MINUTI) / Costanti.SECONDI;
+
+        System.out.println("Tempo di gioco: " + ore + ":" + minuti + ":" + secondi);
     }
 
     private void gestisciCoordinate(final String coordinate) {

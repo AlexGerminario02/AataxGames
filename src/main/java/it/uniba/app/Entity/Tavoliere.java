@@ -355,6 +355,16 @@ public class Tavoliere {
             }
         }
 
+        // Aggiungi le caselle bloccate al tavoliere stampato
+        for (int riga = 1; riga <= DIM; riga++) {
+            for (char colonna : colonne) {
+                Coordinate coord = new Coordinate(riga, colonna - 'a');
+                if (isCasellaBloccata(coord)) {
+                    tabelloneStampato[riga - 1][colonna - 'a'] = new Pedina('X', coord);
+                }
+            }
+        }
+
         // Aggiungi le mosse disponibili sul tavoliere stampato
         for (int riga = 1; riga <= DIM; riga++) {
             for (char colonna : colonne) {
@@ -417,13 +427,13 @@ public class Tavoliere {
                 Pedina pedina = tabelloneStampato[i - 1][colonna - 'a'];
                 if (pedina != null) {
                     if (pedina.getCarattere() == 'X') {
-                        System.out.print(ANSI_WHITE + "  " + ANSI_RESET + " ");
+                        System.out.print(Costanti.ANSI_WHITE + "  " + Costanti.ANSI_RESET + " ");
                     } else if (pedina.getCarattere() == 'A') {
-                        System.out.print(ANSI_YELLOW + "  " + ANSI_RESET + " ");
+                        System.out.print(Costanti.ANSI_YELLOW + "  " + Costanti.ANSI_RESET + " ");
                     } else if (pedina.getCarattere() == 'B') {
-                        System.out.print(ANSI_ORANGE + "  " + ANSI_RESET + " ");
+                        System.out.print(Costanti.ANSI_ORANGE + "  " + Costanti.ANSI_RESET + " ");
                     } else if (pedina.getCarattere() == 'C') {
-                        System.out.print(ANSI_PURPLE + "  " + ANSI_RESET + " ");
+                        System.out.print(Costanti.ANSI_PURPLE + "  " + Costanti.ANSI_RESET + " ");
                     } else {
                         System.out.print(pedina.getCarattere() + "  ");
                     }

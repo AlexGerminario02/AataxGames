@@ -19,6 +19,9 @@ public final class Costanti {
     public static final String LINE_SEPARATOR = "+-----";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_WHITE = "\u001B[47m";
+    public static final String ANSI_YELLOW = "\u001B[48;2;255;255;0m";
+    public static final String ANSI_ORANGE = "\u001B[48;2;255;165;0m";
+    public static final String ANSI_PURPLE = "\u001B[45m";
 
     public static final int RIGAI = 1;
     public static final int COLONNAI = 1;

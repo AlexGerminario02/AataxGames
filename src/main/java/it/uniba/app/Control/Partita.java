@@ -65,7 +65,7 @@ public class Partita {
         tavoliere.visualizzaTavolierePieno();
         String coordinateInput = "";
         while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
-            System.out.println("Turno " + (turno % 2 == 1 ? "Giocatore Nero" : "Giocatore Bianco") + ":");
+            System.out.println("Turno " + (Math.abs(turno) % 2 == 1 ? "Giocatore Nero" : "Giocatore Bianco") + ":");
             // Controlla se il giocatore corrente ha mosse disponibili
             if (!giocatoreHaMosseDisponibili(turno)) {
                 System.out.println("Non hai mosse disponibili. Il turno passa al giocatore avversario.");
@@ -275,7 +275,7 @@ private boolean validaCoordinate(final String coordinate) {
     }
 
     private char getPedinaGiocatoreCorrente(final int turnot) {
-               return (turno % 2 == 1) ? 'N' : 'R';
+               return (Math.abs(turno) % 2 == 1) ? 'N' : 'R';
     }
 
     /**
@@ -345,7 +345,7 @@ private Giocatore calcolaVincitore() {
                 break;
             case "/qualimosse":
                  // Coordinate delle pedine del giocatore 1 (X)
-                 Giocatore giocatoreCorrente = turno % 2 == 1 ? giocatore1 : giocatore2;
+                 Giocatore giocatoreCorrente = Math.abs(turno) % 2 == 1 ? giocatore1 : giocatore2;
                  tavoliere.stampaMosseDisponibili(giocatoreCorrente);
                  //tavoliere.stampaMosseDisponibili(mossea, mosseb);
                 break;
@@ -414,7 +414,7 @@ private Giocatore calcolaVincitore() {
                     + colonnaCella + ")");
             tavoliere.visualizzaTavolierePieno();
             // Aggiungi la mossa alla lista delle mosse giocate
-            String mossa = coordinate + " (" + (turno % 2 == 1 ? "N" : "R") + ")";
+            String mossa = coordinate + " (" + (Math.abs(turno) % 2 == 1 ? "N" : "R") + ")";
             storiaMosse.add(mossa);
             turno++;
         } else {

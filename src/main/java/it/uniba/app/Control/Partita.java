@@ -538,14 +538,17 @@ public static boolean isValidCoordinate(final String coordinate) {
             System.out.println("Movimento non valido. Riprova.");
         }
     }
-    /**
-     * Funzione per resettare lo stato della partita.
+   /**
+     * .
+     * @param caselleBloccate
      */
-    public void reset() {
+ // Reimposta lo stato della partita
+ public void reset(final List<Coordinate> caselleBloccate) {
     uscitaRichiesta = false;
     abbandono = false;
-    }
-
+    turno = 1;
+    caselleBloccate.clear();
+}
     /*
      * Funzione per mostrare le mosse giocate.
      */

@@ -178,7 +178,7 @@ public class Tavoliere {
      * Visualizza il tavoliere pieno con le coordinate sulle righe e sui numeri.
      */
     public void visualizzaTavolierePieno() {
-        System.out.print("   ");
+        System.out.print("  ");
         for (char colonna : colonne) {
             System.out.print("   " + colonna + "  ");
         }
@@ -186,14 +186,24 @@ public class Tavoliere {
         for (int i = 1; i <= DIM; i++) {
             System.out.print("  ");
             for (char colonna : colonne) {
-                System.out.print(LINE_SEPARATOR);
+                System.out.print(Costanti.LINE_SEPARATOR);
             }
             System.out.println("+");
             System.out.print(i + " ");
             for (char colonna : colonne) {
                 System.out.print("|  ");
+                Coordinate coord = new Coordinate(i, colonna - 'a');
                 Pedina pedina = getPedina(i, colonna);
-                if (pedina != null) {
+                if (isCasellaBloccata(coord)) {
+                    Pedina pedinaBloccata = getPedina(i, colonna);
+                    if (pedinaBloccata != null) {
+                        if (pedinaBloccata.getCarattere() == 'X') {
+                            System.out.print(Costanti.ANSI_WHITE + "  " + Costanti.ANSI_RESET + " ");
+                        }
+                    } else {
+                        System.out.print("Y  "); // Stampa X se la casella è bloccata ma non c'è una pedina
+                    }
+                } else if (pedina != null) {
                     System.out.print(pedina.getCarattere() + "  ");
                 } else {
                     System.out.print(".  ");
@@ -203,10 +213,10 @@ public class Tavoliere {
         }
         System.out.print("  ");
         for (char colonna : colonne) {
-            System.out.print(LINE_SEPARATOR);
+            System.out.print(Costanti.LINE_SEPARATOR);
         }
         System.out.println("+");
-        System.out.print("   ");
+        System.out.print("  ");
         for (char colonna : colonne) {
             System.out.print("   " + colonna + "  ");
         }

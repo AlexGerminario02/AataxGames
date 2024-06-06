@@ -261,6 +261,26 @@ private boolean validaCoordinate(final String coordinate) {
     }
 
     /**
+     * Calcola se un giocatore ha mosse disponibili.
+     *
+     * @param turnot
+     */
+    public boolean giocatoreHaMosseDisponibili(final int turnot) {
+        char pedinaCorrente = getPedinaGiocatoreCorrente(turno);
+        for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
+            for (char colonna = 'a'; colonna <= 'g'; colonna++) {
+                Pedina pedina = tavoliere.getPedina(riga, colonna);
+                if (pedina != null && pedina.getCarattere() == pedinaCorrente) {
+                    ArrayList<Coordinate> mosseC = tavoliere.mosseC(riga, colonna);
+                    if (!mosseC.isEmpty()) {
+                        return true; // Se c'è almeno una mossa disponibile, il gioco può continuare
+                    }
+                }
+            }
+        }
+        return false; // Nessuna mossa disponibile per il giocatore corrente
+}
+    /**
      * Funzione che gestisce i comandi del menu.
      *
      * @param comando

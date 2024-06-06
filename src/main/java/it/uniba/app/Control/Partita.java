@@ -82,7 +82,7 @@ public class Partita {
         tavoliere.visualizzaTavolierePieno();
         String coordinateInput = "";
         while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
-            System.out.println("Turno " + (Math.abs(turno) % 2 == 1 ? "Giocatore Nero" : "Giocatore Bianco") + ":");
+            System.out.println("Turno " + (Math.abs(turno) % 2 == 1 ? "Giocatore Nero" : "Giocatore Rosso") + ":");
             // Controlla se il giocatore corrente ha mosse disponibili
             if (!giocatoreHaMosseDisponibili(turno)) {
                 System.out.println("Non hai mosse disponibili. Il turno passa al giocatore avversario.");
@@ -91,7 +91,7 @@ public class Partita {
             }
             System.out.println("celle bloccate: " + caselleBloccate);
             System.out.println("Inserisci le coordinate (es. a1-a2) o un comando: ");
-            coordinateInput = tastiera.readString("Coordinate: ");
+            coordinateInput = tastiera.readString("Digita: ");
 
             if (coordinateInput.startsWith("/")) {
                 gestisciComando(coordinateInput);

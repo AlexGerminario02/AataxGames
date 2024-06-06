@@ -258,9 +258,19 @@ private boolean validaCoordinate(final String coordinate) {
 
 
 
-    private boolean partitaFinita() {
-        // Implementa la logica per determinare se la partita è finita
-        return false;
+
+/**
+ * Funzione per verificare se la partita è finita.
+ */
+  public boolean partitaFinita() {
+        for (int riga = 1; riga <= COLONNA; riga++) {
+            for (char colonna = 'a'; colonna <= 'g'; colonna++) {
+                if (tavoliere.getPedina(riga, colonna) == null) {
+                    return false; // Se c'è almeno una casella vuota, il tavoliere non è pieno
+                }
+            }
+        }
+        return true;
     }
 
     private char getPedinaGiocatoreCorrente(final int turnot) {

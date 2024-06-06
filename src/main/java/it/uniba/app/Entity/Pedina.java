@@ -40,7 +40,7 @@ public class Pedina {
     }
 
     public final Coordinate getCoordinate() {
-        return coordinate;
+        return new Coordinate(coordinate.getRiga(), coordinate.getColonna());
     }
 
     public final void setCoordinate(final Coordinate coordinates) {

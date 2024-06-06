@@ -486,4 +486,33 @@ public final boolean isCasellaBloccata(final Coordinate coord) {
     }
     return false;
 }
+
+    /**
+ * .
+ * @param coord
+ * @return
+ */
+public final boolean bloccaCasella(final Coordinate coord) {
+    /*
+     * if (caselleBloccate.size() >= 9) {
+     * return false;
+     * }
+     */
+
+    int riga = coord.getRiga();
+    char colonna = (char) (coord.getColonna() + 'a');
+
+    // Verifica se la cella è sulla riga 4 o sulla colonna 'd'
+    if ((riga == Costanti.RIGA_4 && (colonna == 'a' || colonna == 'b' || colonna == 'c' || colonna == 'd'
+    || colonna == 'e' || colonna == 'f' || colonna == 'g')) || (colonna == 'd'
+                    && (riga == 1 || riga == 2 || riga == Costanti.RIGA_3
+                    || riga == Costanti.RIGA_4 || riga == Costanti.RIGA_5
+                    || riga == Costanti.RIGA_6 || riga == Costanti.RIGA_7))) {
+        caselleBloccate.add(coord);
+        return true;
+    } else {
+        System.out.println("Non è possibile bloccare questa casella per le regole definite.");
+        return false;
+    }
+}
 }

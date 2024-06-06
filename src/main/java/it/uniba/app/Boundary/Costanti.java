@@ -24,6 +24,11 @@ public final class Costanti {
     public static final int ORE = 3600000;
     public static final int MINUTI = 60000;
     public static final int SECONDI = 1000;
+    public static final int RIGA_3 = 3;
+    public static final int RIGA_4 = 4;
+    public static final int RIGA_5 = 5;
+    public static final int RIGA_6 = 6;
+    public static final int RIGA_7 = 7;
 
     public static final String BENVENUTO_HELP =
        "  _   _   _____   _       ____  \n"

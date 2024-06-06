@@ -71,6 +71,13 @@ public class Partita {
         String coordinateInput = "";
         while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
             System.out.println("Turno " + (turno % 2 == 1 ? "Giocatore Nero" : "Giocatore Bianco") + ":");
+            // Controlla se il giocatore corrente ha mosse disponibili
+            if (!giocatoreHaMosseDisponibili(turno)) {
+                System.out.println("Non hai mosse disponibili. Il turno passa al giocatore avversario.");
+                turno++;
+                continue; // Passa il turno senza richiedere input
+            }
+
             System.out.println("Inserisci le coordinate (es. a1-a2) o un comando: ");
             coordinateInput = tastiera.readString("Coordinate: ");
             if (coordinateInput.startsWith("/")) {

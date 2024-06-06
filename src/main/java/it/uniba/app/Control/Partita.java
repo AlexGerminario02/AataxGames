@@ -36,6 +36,7 @@ public class Partita {
     private Giocatore giocatore2;
     private Giocatore giocatore1;
     private Tavoliere tavoliere;
+    private List<Coordinate> caselleBloccateb = new ArrayList<>();
     private Tastiera tastiera;
     private int turno;
 
@@ -57,12 +58,26 @@ public class Partita {
     }
 
     /**
-     * Funzione che Avvia la partita.
-     */
+ * .
+ * @param caselleBloccate
+ * @return
+ */
+    // Metodo avviaPartita modificato per uscita corretta
+    // Metodo avviaPartita modificato per uscita corretta
+    public final boolean avviaPartita(final List<Coordinate> caselleBloccate) {
+        //partitaInCorso = true;
 
-     public boolean avviaPartita() {
+        this.caselleBloccateb.addAll(caselleBloccate); // Aggiungi le caselle bloccate iniziali all'elenco
+
+        if (caselleBloccate != null && !caselleBloccate.isEmpty()) {
+            for (Coordinate coordinate : caselleBloccate) {
+                tavoliere.inizializzaCaselleBloccate(coordinate);
+                tavoliere.bloccaCasella(coordinate);
+            }
+        }
         boolean ritorno = false;
         Menu.clearScreen();
+
         tavoliere.inizializzaPedine(RIGA, RIGA, COLONNA, COLONNA);
         tavoliere.visualizzaTavolierePieno();
         String coordinateInput = "";
@@ -74,8 +89,10 @@ public class Partita {
                 turno++;
                 continue; // Passa il turno senza richiedere input
             }
+            System.out.println("celle bloccate: " + caselleBloccate);
             System.out.println("Inserisci le coordinate (es. a1-a2) o un comando: ");
             coordinateInput = tastiera.readString("Digita: ");
+
             if (coordinateInput.startsWith("/")) {
                 gestisciComando(coordinateInput);
             } else if (validaCoordinate(coordinateInput)) {
@@ -84,15 +101,19 @@ public class Partita {
                 System.out.println("Input inserito non valido. Riprova!");
             }
         }
+
         if ((!partitaFinita() && abbandono)) {
+            resettaCelleBloccate(caselleBloccateb);
             ritorno = false;
+
         } else if (!partitaFinita() && uscitaRichiesta) {
             return true;
         } else if (partitaFinita()) {
             calcolaVincitore();
-            Menu.delay(Costanti.TEMPO);
+            Menu.delay(Costanti.TIME7);
             Menu.clearScreen();
         }
+
         return ritorno;
     }
 
@@ -400,6 +421,88 @@ private Giocatore calcolaVincitore() {
         System.out.println("Tempo di gioco: " + ore + ":" + minuti + ":" + secondi);
     }
 
+    /**
+ * .
+ * @param coordinateInput
+ * @return
+ */
+public static Coordinate parseCoordinate(final String coordinateInput) {
+    if (coordinateInput.length() < 2) {
+        return null;
+    }
+    char colonnaChar = Character.toLowerCase(coordinateInput.charAt(0));
+    int riga;
+    try {
+        riga = Integer.parseInt(coordinateInput.substring(1));
+    } catch (NumberFormatException e) {
+        return null;
+    }
+
+    if (colonnaChar < 'a' || colonnaChar > 'g' || riga < 1 || riga > Costanti.RIGAF) {
+        return null;
+    }
+
+    int colonna = colonnaChar - 'a';
+
+    return new Coordinate(riga, colonna);
+}
+
+    /**
+     * .
+     * @param input
+     * @param caselleDaBloccare
+     * @param tavoliere
+     */
+    public static void gestioneBlocca(final String input, final List<Coordinate> caselleDaBloccare,
+            final Tavoliere tavoliere) {
+        if (input.toLowerCase().startsWith("/blocca")) {
+            String[] parts = input.split(" ");
+            if (parts.length > 1) {
+                String coordString = parts[1].trim();
+                Coordinate coordinate = Partita.parseCoordinate(coordString);
+                if (coordinate != null && Partita.isValidCoordinate(coordString)) {
+                    if (caselleDaBloccare.size() < Costanti.LIMITE_BLOCCA) {
+                        if (!caselleDaBloccare.contains(coordinate)) {
+                            if (tavoliere.bloccaCasella(coordinate)) {
+                                caselleDaBloccare.add(coordinate);
+                                System.out.println("Casella bloccata con successo: " + coordinate);
+                            } else {
+                                System.out.println("Errore nel bloccare la casella: " + coordinate);
+                            }
+                        } else {
+                            System.out.println("Casella già bloccata: " + coordString);
+                        }
+                    } else {
+                        System.out.println("Non puoi bloccare più di 9 caselle.");
+                    }
+                } else {
+                    System.out.println(
+                        "Coordinata non valida. Usa il comando /blocca seguito da una coordinata valida.");
+                }
+            } else {
+                System.out.println("Comando non valido. Usa il comando /blocca seguito da una coordinata.");
+            }
+            // Stampa le caselle attualmente bloccate
+            System.out.print("Caselle attualmente bloccate: ");
+            for (int i = 0; i < caselleDaBloccare.size(); i++) {
+                if (i != 0) {
+                    System.out.print(", ");
+                }
+                System.out.print(caselleDaBloccare.get(i));
+            }
+            System.out.println();
+        }
+    }
+
+    /**
+ * .
+ * @param coordinate
+ */
+public static boolean isValidCoordinate(final String coordinate) {
+    // Aggiungi la logica di validazione della coordinata, ad esempio
+    return coordinate.matches("^[a-g][1-7]$"); // Supponendo che le coordinate valide siano da a1 a h8
+}
+
     private void gestisciCoordinate(final String coordinate) {
         if (!coordinate.matches("[a-g][1-7]-[a-g][1-7]")) {
             System.out.println(
@@ -435,14 +538,17 @@ private Giocatore calcolaVincitore() {
             System.out.println("Movimento non valido. Riprova.");
         }
     }
-    /**
-     * Funzione per resettare lo stato della partita.
+   /**
+     * .
+     * @param caselleBloccate
      */
-    public void reset() {
+ // Reimposta lo stato della partita
+ public void reset(final List<Coordinate> caselleBloccate) {
     uscitaRichiesta = false;
     abbandono = false;
-    }
-
+    turno = 1;
+    caselleBloccate.clear();
+}
     /*
      * Funzione per mostrare le mosse giocate.
      */
@@ -463,4 +569,12 @@ private Giocatore calcolaVincitore() {
             System.out.println(separator);
         }
     }
+
+    /**
+ * .
+ * @param caselleBloccate
+ */
+public void resettaCelleBloccate(final List<Coordinate> caselleBloccate) {
+    caselleBloccate.clear();
+}
 }

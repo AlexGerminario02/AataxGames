@@ -108,4 +108,13 @@ public final class Menu {
         }
     }
 
+    /**
+     * Metodo per stampare il benvenuto con i colori.
+     */
+    public static void stampaBenvenuto() {
+        System.out.println(Costanti.BENVENUTO_ASCII);
+        System.out.println(Costanti.INTRODUZIONE);
+        System.out.println(Costanti.REGOLE);
+    }
+
 }

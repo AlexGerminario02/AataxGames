@@ -15,6 +15,16 @@ public final class Costanti {
     public static final String COMANDO_HELP_GIOCO = "Inserisci il comando /indietro per continuare: ";
     public static final String ERRORE = "Comando inserito non valido";
     public static final int TEMPO = 7;
+    public static final char PEDINA_X = 'X'; // 'B' per bianco
+    public static final String LINE_SEPARATOR = "+-----";
+    public static final String EMPTY_CELL = "|  .  ";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_WHITE = "\u001B[47m";
+    public static final String ANSI_YELLOW = "\u001B[48;2;255;255;0m";
+    public static final String ANSI_ORANGE = "\u001B[48;2;255;165;0m";
+    public static final String ANSI_PURPLE = "\u001B[45m";
+    public static final char PEDINA_ROSSO = 'R'; // 'N'
+    public static final char PEDINA_NERA = 'N'; // 'B's
 
     public static final int RIGAI = 1;
     public static final int COLONNAI = 1;
@@ -23,6 +33,15 @@ public final class Costanti {
     public static final int ORE = 3600000;
     public static final int MINUTI = 60000;
     public static final int SECONDI = 1000;
+    public static final int RIGA_3 = 3;
+    public static final int RIGA_4 = 4;
+    public static final int RIGA_5 = 5;
+    public static final int RIGA_6 = 6;
+    public static final int RIGA_7 = 7;
+    public static final int LIMITE_BLOCCA = 9;
+    public static final int TIME5 = 5;
+    public static final int TIME6 = 6;
+    public static final int TIME7 = 7;
 
     public static final String BENVENUTO_HELP =
        "  _   _   _____   _       ____  \n"

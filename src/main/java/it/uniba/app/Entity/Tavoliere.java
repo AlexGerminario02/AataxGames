@@ -2,13 +2,15 @@ package it.uniba.app.Entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import it.uniba.app.Boundary.Costanti;
 
 /**
  * <<Entity>>
  * Classe che rappresenta il tavoliere di gioco.
  * Questa classe gestisce lo stato del tavoliere, le mosse disponibili e la
- * visualizzazione del tavoliere.
- *  
+ * visualizzazione del tavoliere.
  */
 @SuppressWarnings("unused")
 
@@ -22,23 +24,13 @@ public class Tavoliere {
     public static final int COLONNAINIZIALE = 1;
     public static final int RIGAFINALE = 7;
     public static final int COLONNAFINALE = 7;
-    private static final String LINE_SEPARATOR = "+-----";
-    private static final String EMPTY_CELL = "|  .  ";
-    public static final String ANSI_GRAY_BACKGROUND = "\u001B[47m";
-    public static final String ANSI_YELLOW = "\u001B[48;2;255;255;0m";
-    public static final String ANSI_ORANGE = "\u001B[48;2;255;165;0m";
-    public static final String ANSI_PURPLE = "\u001B[45m";
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_WHITE = "\u001B[47m";
-
-    // Costanti per i caratteri dei giocatori
-    private static final char PEDINA_ROSSO = 'R'; // 'N'
-    private static final char PEDINA_NERA = 'N'; // 'B'
 
     // Attributi del tavoliere
 
     /** La matrice che rappresenta lo stato del tavoliere. */
     private Pedina[][] scacchiera;
+
+    private List<Coordinate> caselleBloccate;
 
     /** La dimensione del tavoliere (numero di righe e colonne). */
     private static final int DIM = 7;
@@ -65,6 +57,8 @@ public class Tavoliere {
      */
     public Tavoliere(final int dim) {
         this.scacchiera = new Pedina[dim][dim];
+        caselleBloccate = new ArrayList<>();
+
         this.turno = 1;
     }
 
@@ -77,7 +71,7 @@ public class Tavoliere {
      *
      * @param copia l'istanza di Tavoliere da cui copiare i valori
      */
-     public Tavoliere(final Tavoliere copia) {
+    public Tavoliere(final Tavoliere copia) {
         int dim = copia.scacchiera.length;
         this.scacchiera = new Pedina[dim][dim];
         for (int i = 0; i < dim; i++) {
@@ -87,6 +81,8 @@ public class Tavoliere {
                 }
             }
         }
+        caselleBloccate = new ArrayList<>();
+
         this.turno = copia.turno;
     }
 
@@ -168,12 +164,11 @@ public class Tavoliere {
     public boolean posizioneVuota(final int riga, final char colonna) {
         return getPedina(riga, colonna) == null;
     }
-
-    /**
-     * Visualizza il tavoliere pieno con le coordinate sulle righe e sui numeri.
-     */
-    public void visualizzaTavolierePieno() {
-        System.out.print("   ");
+/**
+ * .
+ */
+    public final void visualizzaTavoliereVuoto() {
+        System.out.print("  ");
         for (char colonna : colonne) {
             System.out.print("   " + colonna + "  ");
         }
@@ -181,104 +176,63 @@ public class Tavoliere {
         for (int i = 1; i <= DIM; i++) {
             System.out.print("  ");
             for (char colonna : colonne) {
-                System.out.print(LINE_SEPARATOR);
+                System.out.print(Costanti.LINE_SEPARATOR);
             }
             System.out.println("+");
             System.out.print(i + " ");
             for (char colonna : colonne) {
-                System.out.print("|  ");
-                Pedina pedina = getPedina(i, colonna);
-                if (pedina != null) {
-                    System.out.print(pedina.getCarattere() + "  ");
-                } else {
-                    System.out.print(".  ");
-                }
+                System.out.print(Costanti.EMPTY_CELL);
             }
             System.out.println("| " + i); // Numero di riga a destra
         }
         System.out.print("  ");
         for (char colonna : colonne) {
-            System.out.print(LINE_SEPARATOR);
+            System.out.print(Costanti.LINE_SEPARATOR);
         }
         System.out.println("+");
-        System.out.print("   ");
+        System.out.print("  ");
         for (char colonna : colonne) {
             System.out.print("   " + colonna + "  ");
         }
         System.out.println();
+
     }
 
     /**
      * Visualizza il tavoliere vuoto con le coordinate sulle righe e sui numeri.
      */
-
-    public void visualizzaTavoliereVuoto() {
-        System.out.print("    ");
-        for (char colonna : colonne) {
-            System.out.print("   " + colonna + "  ");
-        }
-        System.out.println();
-        for (int i = 1; i <= DIM; i++) {
-            System.out.print("  ");
-            for (char colonna : colonne) {
-                System.out.print(LINE_SEPARATOR);
-            }
-            System.out.println("+");
-            System.out.print(i + " ");
-            for (char colonna : colonne) {
-                System.out.print(EMPTY_CELL);
-            }
-            System.out.println("| " + i); // Numero di riga a destra
-        }
-        System.out.print("  ");
-        for (char colonna : colonne) {
-            System.out.print(LINE_SEPARATOR);
-        }
-        System.out.println("+");
-        System.out.print("    ");
-        for (char colonna : colonne) {
-            System.out.print("   " + colonna + "  ");
-        }
-        System.out.println();
-
-    }
-
-    /**
-     * Inizializzazione le pedine nel Tavoliere.
-     * @param rigaIniziale
-     * @param colonnaIniziale
-     * @param rigaFinale
-     * @param colonnaFinale
-     */
-   public void inizializzaPedine(final int rigaIniziale, final int colonnaIniziale, final int rigaFinale,
+    public void inizializzaPedine(final int rigaIniziale, final int colonnaIniziale, final int rigaFinale,
             final int colonnaFinale) {
-        setPedina(new Pedina(PEDINA_NERA, new Coordinate(rigaIniziale, colonnaIniziale)), rigaIniziale,
+        // Posiziona una pedina 'X' nella prima riga e nella prima colonna
+        setPedina(new Pedina(Costanti.PEDINA_NERA, new Coordinate(rigaIniziale, colonnaIniziale)), rigaIniziale,
                 colonnaIniziale);
-        setPedina(new Pedina(PEDINA_ROSSO, new Coordinate(rigaIniziale, colonnaFinale)), rigaIniziale,
+        // Posiziona una pedina 'O' nella prima riga e nell'ultima colonna
+        setPedina(new Pedina(Costanti.PEDINA_ROSSO, new Coordinate(rigaIniziale, colonnaFinale)), rigaIniziale,
                 colonnaFinale);
-        setPedina(new Pedina(PEDINA_NERA, new Coordinate(rigaFinale, colonnaFinale)), rigaFinale,
+        // Posiziona una pedina 'X' nell'ultima riga e nell'ultima colonna
+        setPedina(new Pedina(Costanti.PEDINA_NERA, new Coordinate(rigaFinale, colonnaFinale)), rigaFinale,
                 colonnaFinale);
-        setPedina(new Pedina(PEDINA_ROSSO, new Coordinate(rigaFinale, colonnaIniziale)), rigaFinale,
+        // Posiziona una pedina 'O' nell'ultima riga e nella prima colonna
+        setPedina(new Pedina(Costanti.PEDINA_ROSSO, new Coordinate(rigaFinale, colonnaIniziale)), rigaFinale,
                 colonnaIniziale);
     }
-
 
     /**
      * Restituice il numero di mosse di tipo A disponibili nel gioco.
      *
      * @return le mosse di tipo A disponibili
      */
-    public ArrayList<Coordinate> mosseA(final int riga, final char colonna) {
+    public ArrayList<Coordinate> mosseA(final int riga, final int colonna) {
         ArrayList<Coordinate> mosse = new ArrayList<>();
         int[] deltaRighe = {-1, -1, -1, 0, 0, 1, 1, 1 };
         int[] deltaColonne = {-1, 0, 1, -1, 1, -1, 0, 1 };
         for (int i = 0; i < deltaRighe.length; i++) {
             int nuovaRiga = riga + deltaRighe[i];
             char nuovaColonna = (char) (colonna + deltaColonne[i]);
-            if (nuovaRiga >= 1 && nuovaRiga <= DIM && Arrays.binarySearch(colonne,
-                    nuovaColonna) >= 0
-                    && posizioneVuota(nuovaRiga, nuovaColonna)) {
-                mosse.add(new Coordinate(nuovaRiga, nuovaColonna));
+            Coordinate nuovaCoordinata = new Coordinate(nuovaRiga, nuovaColonna);
+            if (nuovaRiga >= 1 && nuovaRiga <= DIM && Arrays.binarySearch(colonne, nuovaColonna) >= 0
+                    && posizioneVuota(nuovaRiga, nuovaColonna) && !isCasellaBloccata(nuovaCoordinata)) {
+                mosse.add(nuovaCoordinata);
             }
         }
         return mosse;
@@ -289,7 +243,8 @@ public class Tavoliere {
      *
      * @return le mosse di tipo B disponibili
      */
-     public ArrayList<Coordinate> mosseB(final int riga, final int colonna) {
+
+    public ArrayList<Coordinate> mosseB(final int riga, final int colonna) {
         ArrayList<Coordinate> mosse = new ArrayList<>();
         int[] deltaRighe = {MENODUE, MENODUE, MENODUE, -1, 0, 0, 1, 1, DUE, DUE, DUE, MENODUE, DUE, DUE, DUE, DUE, -1,
                 MENODUE };
@@ -300,7 +255,7 @@ public class Tavoliere {
             char nuovaColonna = (char) (colonna + deltaColonne[i]);
             Coordinate nuovaCoordinata = new Coordinate(nuovaRiga, nuovaColonna);
             if (nuovaRiga >= 1 && nuovaRiga <= DIM && Arrays.binarySearch(colonne, nuovaColonna) >= 0
-                    && posizioneVuota(nuovaRiga, nuovaColonna)) {
+                    && posizioneVuota(nuovaRiga, nuovaColonna) && !isCasellaBloccata(nuovaCoordinata)) {
                 mosse.add(nuovaCoordinata);
             }
         }
@@ -312,7 +267,8 @@ public class Tavoliere {
      *
      * @return le mosse di tipo C disponibili
      */
-    public ArrayList<Coordinate> mosseC(final int riga, final char colonna) {
+
+    public ArrayList<Coordinate> mosseC(final int riga, final int colonna) {
         ArrayList<Coordinate> mosseC = new ArrayList<>();
         mosseC.addAll(mosseA(riga, colonna));
         mosseC.addAll(mosseB(riga, colonna));
@@ -336,6 +292,16 @@ public class Tavoliere {
                 Pedina pedina = getPedina(riga + 1, (char) ('a' + colonna));
                 if (pedina != null) {
                     tabelloneStampato[riga][colonna] = new Pedina(pedina);
+                }
+            }
+        }
+
+        // Aggiungi le caselle bloccate al tavoliere stampato
+        for (int riga = 1; riga <= DIM; riga++) {
+            for (char colonna : colonne) {
+                Coordinate coord = new Coordinate(riga, colonna - 'a');
+                if (isCasellaBloccata(coord)) {
+                    tabelloneStampato[riga - 1][colonna - 'a'] = new Pedina('X', coord);
                 }
             }
         }
@@ -402,13 +368,13 @@ public class Tavoliere {
                 Pedina pedina = tabelloneStampato[i - 1][colonna - 'a'];
                 if (pedina != null) {
                     if (pedina.getCarattere() == 'X') {
-                        System.out.print(ANSI_WHITE + "  " + ANSI_RESET + " ");
+                        System.out.print(Costanti.ANSI_WHITE + "  " + Costanti.ANSI_RESET + " ");
                     } else if (pedina.getCarattere() == 'A') {
-                        System.out.print(ANSI_YELLOW + "  " + ANSI_RESET + " ");
+                        System.out.print(Costanti.ANSI_YELLOW + "  " + Costanti.ANSI_RESET + " ");
                     } else if (pedina.getCarattere() == 'B') {
-                        System.out.print(ANSI_ORANGE + "  " + ANSI_RESET + " ");
+                        System.out.print(Costanti.ANSI_ORANGE + "  " + Costanti.ANSI_RESET + " ");
                     } else if (pedina.getCarattere() == 'C') {
-                        System.out.print(ANSI_PURPLE + "  " + ANSI_RESET + " ");
+                        System.out.print(Costanti.ANSI_PURPLE + "  " + Costanti.ANSI_RESET + " ");
                     } else {
                         System.out.print(pedina.getCarattere() + "  ");
                     }
@@ -433,15 +399,127 @@ public class Tavoliere {
         }
         System.out.println();
     }
+/**
+ * .
+ * @param coordinateBloccata
+ */
+    public final void inizializzaCaselleBloccate(final Coordinate coordinateBloccata) {
+        int riga = coordinateBloccata.getRiga();
+        int colonna = coordinateBloccata.getColonna() + 1;
+        setPedina(new Pedina(Costanti.PEDINA_X, new Coordinate(riga + 1, colonna + 1)), riga, colonna);
 
+    }
+/**
+ * .
+ * @param coord
+ * @return
+ */
+    public final boolean isBloccata(final Coordinate coord) {
+        int riga = coord.getRiga() - 1; // Converti da 1-based a 0-based
+        int colonna = coord.getColonna() - 1; // Converti da 1-based a 0-based
+        // Controlla se la posizione contiene una pedina bloccata con simbolo 'X'
+        return scacchiera[riga][colonna] != null && scacchiera[riga][colonna].getCarattere() == 'X';
+    }
+/**
+ * .
+ * @param coord
+ * @return
+ */
+    public final boolean isCasellaBloccata(final Coordinate coord) {
+        for (Coordinate blocked : caselleBloccate) {
+            if (blocked.getRiga() == coord.getRiga() && blocked.getColonna() == coord.getColonna()) {
+                return true;
+            }
+        }
+        return false;
+    }
+/**
+ * .
+ * @param coord
+ * @return
+ */
+    public final boolean bloccaCasella(final Coordinate coord) {
+        /*
+         * if (caselleBloccate.size() >= 9) {
+         * return false;
+         * }
+         */
+
+        int riga = coord.getRiga();
+        char colonna = (char) (coord.getColonna() + 'a');
+
+        // Verifica se la cella è sulla riga 4 o sulla colonna 'd'
+        if ((riga == Costanti.RIGA_4 && (colonna == 'a' || colonna == 'b' || colonna == 'c' || colonna == 'd'
+        || colonna == 'e' || colonna == 'f' || colonna == 'g')) || (colonna == 'd'
+                        && (riga == 1 || riga == 2 || riga == Costanti.RIGA_3
+                        || riga == Costanti.RIGA_4 || riga == Costanti.RIGA_5
+                        || riga == Costanti.RIGA_6 || riga == Costanti.RIGA_7))) {
+            caselleBloccate.add(coord);
+            return true;
+        } else {
+            System.out.println("Non è possibile bloccare questa casella per le regole definite.");
+            return false;
+        }
+    }
 
     /**
-     * Controlla se la posizione è vuota nel Tavoliere.
+     * .
      * @param riga
      * @param colonna
      * @return
      */
     public boolean posizioneVuota(final int riga, final int colonna) {
+        // Controlla se la posizione è vuota
         return scacchiera[riga][colonna] == null;
     }
+
+    /**
+     * Visualizza il tavoliere pieno con le coordinate sulle righe e sui numeri.
+     */
+    public void visualizzaTavolierePieno() {
+        System.out.print("  ");
+        for (char colonna : colonne) {
+            System.out.print("   " + colonna + "  ");
+        }
+        System.out.println();
+        for (int i = 1; i <= DIM; i++) {
+            System.out.print("  ");
+            for (char colonna : colonne) {
+                System.out.print(Costanti.LINE_SEPARATOR);
+            }
+            System.out.println("+");
+            System.out.print(i + " ");
+            for (char colonna : colonne) {
+                System.out.print("|  ");
+                Coordinate coord = new Coordinate(i, colonna - 'a');
+                Pedina pedina = getPedina(i, colonna);
+                if (isCasellaBloccata(coord)) {
+                    Pedina pedinaBloccata = getPedina(i, colonna);
+                    if (pedinaBloccata != null) {
+                        if (pedinaBloccata.getCarattere() == 'X') {
+                            System.out.print(Costanti.ANSI_WHITE + "  " + Costanti.ANSI_RESET + " ");
+                        }
+                    } else {
+                        System.out.print("Y  "); // Stampa X se la casella è bloccata ma non c'è una pedina
+                    }
+                } else if (pedina != null) {
+                    System.out.print(pedina.getCarattere() + "  ");
+                } else {
+                    System.out.print(".  ");
+                }
+            }
+            System.out.println("| " + i); // Numero di riga a destra
+        }
+        System.out.print("  ");
+        for (char colonna : colonne) {
+            System.out.print(Costanti.LINE_SEPARATOR);
+        }
+        System.out.println("+");
+        System.out.print("  ");
+        for (char colonna : colonne) {
+            System.out.print("   " + colonna + "  ");
+        }
+        System.out.println();
+    }
+
 }

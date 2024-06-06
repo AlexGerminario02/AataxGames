@@ -2,6 +2,7 @@ package it.uniba.app.Entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import it.uniba.app.Boundary.Costanti;
 
@@ -41,6 +42,8 @@ public class Tavoliere {
 
     /** La matrice che rappresenta lo stato del tavoliere. */
     private Pedina[][] scacchiera;
+
+    private List<Coordinate> caselleBloccate;
 
     /** La dimensione del tavoliere (numero di righe e colonne). */
     private static final int DIM = 7;
@@ -468,5 +471,19 @@ public final boolean isBloccata(final Coordinate coord) {
     int colonna = coord.getColonna() - 1; // Converti da 1-based a 0-based
     // Controlla se la posizione contiene una pedina bloccata con simbolo 'X'
     return scacchiera[riga][colonna] != null && scacchiera[riga][colonna].getCarattere() == 'X';
+}
+
+    /**
+ * .
+ * @param coord
+ * @return
+ */
+public final boolean isCasellaBloccata(final Coordinate coord) {
+    for (Coordinate blocked : caselleBloccate) {
+        if (blocked.getRiga() == coord.getRiga() && blocked.getColonna() == coord.getColonna()) {
+            return true;
+        }
+    }
+    return false;
 }
 }

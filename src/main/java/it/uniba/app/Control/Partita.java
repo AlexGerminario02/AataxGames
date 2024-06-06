@@ -383,9 +383,21 @@ private Giocatore calcolaVincitore() {
             case "/esci":
                 uscitaRichiesta = Menu.esci(tastiera);
                 break;
+            case "/tempo":
+                CalcoloTempoDiGioco();
+                break;
             default:
                 System.out.println("Comando non valido. Riprova.");
         }
+    }
+
+    private void CalcoloTempoDiGioco() {
+        long tempoTrascorso = System.currentTimeMillis() - tempoInizioPartita;
+        long ore = tempoTrascorso / Costanti.ORE;
+        long minuti = (tempoTrascorso % Costanti.ORE) / Costanti.MINUTI;
+        long secondi = ((tempoTrascorso % Costanti.ORE) % Costanti.MINUTI) / Costanti.SECONDI;
+
+        System.out.println("Tempo di gioco: " + ore + ":" + minuti + ":" + secondi);
     }
 
     private void gestisciCoordinate(final String coordinate) {

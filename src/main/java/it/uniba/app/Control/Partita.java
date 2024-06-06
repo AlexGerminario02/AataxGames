@@ -24,6 +24,7 @@ public class Partita {
     //costanti per le dimensioni del tavoliere
     public static final int RIGA = 1;
     public static final int COLONNA = 7;
+    private long tempoInizioPartita;
     public static final char A = 'a';
     public static final char B = 'b';
     public static final int TIME = 6;
@@ -52,6 +53,7 @@ public class Partita {
         this.storiaMosse = new ArrayList<>();
         this.tastiera = new Tastiera();
         this.turno = 1;
+        this.tempoInizioPartita = System.currentTimeMillis();
     }
 
     /**

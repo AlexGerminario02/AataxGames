@@ -256,6 +256,10 @@ private boolean validaCoordinate(final String coordinate) {
         return false;
     }
 
+    private char getPedinaGiocatoreCorrente(final int turnot) {
+               return (turno % 2 == 1) ? 'N' : 'R';
+    }
+
     /**
      * Funzione che gestisce i comandi del menu.
      *

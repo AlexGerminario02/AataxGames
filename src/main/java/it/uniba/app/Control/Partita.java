@@ -405,7 +405,7 @@ private Giocatore calcolaVincitore() {
         Coordinate from = new Coordinate(rigaPedina, col1);
         Coordinate to = new Coordinate(rigaCella, col2);
 
-        Giocatore giocatoreCorrente = (turno % 2 == 1) ? giocatore1 : giocatore2;
+        Giocatore giocatoreCorrente = (Math.abs(turno) % 2 == 1) ? giocatore1 : giocatore2;
 
         boolean successo = eseguiMossa(giocatoreCorrente, from, to);
         if (successo) {

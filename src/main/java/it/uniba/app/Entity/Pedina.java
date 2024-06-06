@@ -18,7 +18,7 @@ public class Pedina {
      */
     public Pedina(final char caratteri, final Coordinate coordinates) {
         this.carattere = caratteri;
-        this.coordinate = coordinates;
+        this.coordinate = new Coordinate(coordinates.getRiga(), coordinates.getColonna());
     }
 
     /**

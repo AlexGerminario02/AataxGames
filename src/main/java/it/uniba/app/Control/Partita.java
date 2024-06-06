@@ -71,6 +71,13 @@ public class Partita {
         String coordinateInput = "";
         while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
             System.out.println("Turno " + (turno % 2 == 1 ? "Giocatore Nero" : "Giocatore Bianco") + ":");
+            // Controlla se il giocatore corrente ha mosse disponibili
+            if (!giocatoreHaMosseDisponibili(turno)) {
+                System.out.println("Non hai mosse disponibili. Il turno passa al giocatore avversario.");
+                turno++;
+                continue; // Passa il turno senza richiedere input
+            }
+
             System.out.println("Inserisci le coordinate (es. a1-a2) o un comando: ");
             coordinateInput = tastiera.readString("Coordinate: ");
             if (coordinateInput.startsWith("/")) {
@@ -256,6 +263,30 @@ private boolean validaCoordinate(final String coordinate) {
         return false;
     }
 
+    private char getPedinaGiocatoreCorrente(final int turnot) {
+               return (turno % 2 == 1) ? 'N' : 'R';
+    }
+
+    /**
+     * Calcola se un giocatore ha mosse disponibili.
+     *
+     * @param turnot
+     */
+    public boolean giocatoreHaMosseDisponibili(final int turnot) {
+        char pedinaCorrente = getPedinaGiocatoreCorrente(turno);
+        for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
+            for (char colonna = 'a'; colonna <= 'g'; colonna++) {
+                Pedina pedina = tavoliere.getPedina(riga, colonna);
+                if (pedina != null && pedina.getCarattere() == pedinaCorrente) {
+                    ArrayList<Coordinate> mosseC = tavoliere.mosseC(riga, colonna);
+                    if (!mosseC.isEmpty()) {
+                        return true; // Se c'è almeno una mossa disponibile, il gioco può continuare
+                    }
+                }
+            }
+        }
+        return false; // Nessuna mossa disponibile per il giocatore corrente
+}
     /**
      * Funzione che gestisce i comandi del menu.
      *

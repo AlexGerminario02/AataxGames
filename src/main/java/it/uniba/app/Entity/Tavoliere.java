@@ -71,6 +71,7 @@ public class Tavoliere {
     public Tavoliere(final int dim) {
         this.scacchiera = new Pedina[dim][dim];
         this.turno = 1;
+        this.caselleBloccate = new ArrayList<>();
     }
 
     /**

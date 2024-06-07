@@ -67,9 +67,8 @@ public class Partita {
     public final boolean avviaPartita(final List<Coordinate> caselleBloccate) {
         //partitaInCorso = true;
 
-        this.caselleBloccateb.addAll(caselleBloccate); // Aggiungi le caselle bloccate iniziali all'elenco
-
         if (caselleBloccate != null && !caselleBloccate.isEmpty()) {
+        this.caselleBloccateb.addAll(caselleBloccate); // Aggiungi le caselle bloccate iniziali all'elenco
             for (Coordinate coordinate : caselleBloccate) {
                 tavoliere.inizializzaCaselleBloccate(coordinate);
                 tavoliere.bloccaCasella(coordinate);

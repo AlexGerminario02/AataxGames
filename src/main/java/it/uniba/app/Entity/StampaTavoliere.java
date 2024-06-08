@@ -29,8 +29,8 @@ public class StampaTavoliere {
         this.tavoliere = tavolieres;
         this.blocca = bloccas;
         this.mossagiocatore = mossa;
-        this.mossaa = new Duplicazione(scacchiera, mossa);
-        this.mossab = new Salto(scacchiera, mossa);
+        this.mossaa = new Duplicazione(mossa);
+        this.mossab = new Salto(mossa);
     }
     /**
      * Visualizza il tavoliere vuoto.

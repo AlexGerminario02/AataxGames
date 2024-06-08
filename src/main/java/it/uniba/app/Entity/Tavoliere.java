@@ -39,9 +39,10 @@ public class Tavoliere {
      */
     public Tavoliere(final int dim) {
         this.scacchiera = new Pedina[dim][dim];
-        caselleBloccate = new ArrayList<>();
         this.turno = 1;
     }
+
+
 /**
      * Costruttore per creare una copia di un tavoliere.
      *
@@ -66,7 +67,11 @@ public class Tavoliere {
      * @return la scacchiera
      */
     public Pedina[][] getScacchiera() {
-        return this.scacchiera;
+        Pedina[][] scacchieraCopy = new Pedina[scacchiera.length][];
+        for (int i = 0; i < scacchiera.length; i++) {
+            scacchieraCopy[i] = scacchiera[i].clone();
+        }
+        return scacchieraCopy;
     }
 
  /**

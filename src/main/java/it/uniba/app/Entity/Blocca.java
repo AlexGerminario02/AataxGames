@@ -1,5 +1,6 @@
 package it.uniba.app.Entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import it.uniba.app.Boundary.Costanti;
 
@@ -12,18 +13,29 @@ public class Blocca {
     public static final int DIM = 7;
     private Pedina[][] scacchiera;
     private List<Coordinate> caselleBloccateg;
-    private Tavoliere tavoliere;
 
-        /**
+    /**
      * Costruttore della classe Blocca.
      * @param scacchierab La matrice che rappresenta la scacchiera.
      * @param caselleBloccate La lista delle coordinate delle caselle bloccate.
-     * @param tavolieret Il tavoliere associato al blocco.
      */
-    public Blocca(final Pedina[][] scacchierab, final List<Coordinate> caselleBloccate, final Tavoliere tavolieret) {
-        this.scacchiera = scacchierab;
-        this.caselleBloccateg = caselleBloccate;
-        this.tavoliere = tavolieret;
+    public Blocca(final Pedina[][] scacchierab, final List<Coordinate> caselleBloccate) {
+        // Creiamo una copia difensiva della matrice scacchiera
+        this.scacchiera = new Pedina[scacchierab.length][];
+        for (int i = 0; i < scacchierab.length; i++) {
+            this.scacchiera[i] = scacchierab[i].clone();
+        }
+
+        // Creiamo una copia difensiva della lista delle caselle bloccate
+        this.caselleBloccateg = new ArrayList<>(caselleBloccate);
+    }
+
+ /**
+     * Copy constructor.
+     * @param original The original Blocca instance to copy.
+     */
+    public Blocca(final Blocca original) {
+        this(original.scacchiera, original.caselleBloccateg);
     }
 
     /**
@@ -31,7 +43,7 @@ public class Blocca {
      * @param caselleBloccate La lista delle coordinate delle caselle bloccate da resettare.
      */
 public void resettaCelleBloccate(final List<Coordinate> caselleBloccate) {
-    caselleBloccateg.clear();
+    caselleBloccate.clear();
 }
 
 /**

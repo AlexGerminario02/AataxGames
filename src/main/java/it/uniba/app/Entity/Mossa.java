@@ -20,9 +20,23 @@ public class Mossa {
      * @param mossebb Le mosse di salto associate.
      */
     public Mossa(final Pedina[][] scacchieram, final Duplicazione mosseaa, final Salto mossebb) {
-        this.scacchiera = scacchieram;
+        // Creiamo una copia difensiva della matrice scacchiera
+        this.scacchiera = new Pedina[scacchieram.length][];
+        for (int i = 0; i < scacchieram.length; i++) {
+            this.scacchiera[i] = scacchieram[i].clone();
+        }
+
+        // Assumiamo che Duplicazione e Salto siano immutabili, altrimenti bisognerebbe fare una copia difensiva
         this.mossea = mosseaa;
         this.mosseb = mossebb;
+    }
+
+    /**
+     * Copy constructor.
+     * @param original The original Mossa instance to copy.
+     */
+    public Mossa(final Mossa original) {
+        this(original.scacchiera, original.mossea, original.mosseb);
     }
 
     /**
@@ -54,5 +68,5 @@ public class Mossa {
             return false;
         }
         return scacchiera[riga - 1][indiceColonna] == null;
-   }
+    }
 }

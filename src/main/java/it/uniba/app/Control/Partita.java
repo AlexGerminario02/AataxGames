@@ -85,8 +85,8 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
     this.mossaPartita = new Mossa(scacchiera, null, null);
 
     // Inizializza mossaa e mossab con l'oggetto mossa già inizializzato
-    this.mossaa = new Duplicazione(scacchiera, mossaPartita);
-    this.mossab = new Salto(scacchiera, mossaPartita);
+    this.mossaa = new Duplicazione(mossaPartita);
+    this.mossab = new Salto(mossaPartita);
 
     // Reinizializza l'oggetto mossa con gli oggetti duplicazione e salto validi
     this.mossaPartita = new Mossa(scacchiera, mossaa, mossab);

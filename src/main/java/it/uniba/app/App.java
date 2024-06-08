@@ -37,9 +37,9 @@ public final class App {
 public static void main(final String[] args) {
     Tastiera tastiera = new Tastiera();
     Tavoliere tavoliere = Tavoliere.creaTavoliere();
-    Blocca blocca = new Blocca(tavoliere.getScacchiera(), new ArrayList<>(), tavoliere);
-    Duplicazione mossaa = new Duplicazione(tavoliere.getScacchiera(), null);
-    Salto mossab = new Salto(tavoliere.getScacchiera(), null);
+    Blocca blocca = new Blocca(tavoliere.getScacchiera(), new ArrayList<>());
+    Duplicazione mossaa = new Duplicazione(null);
+    Salto mossab = new Salto(null);
     Mossa mossa = new Mossa(tavoliere.getScacchiera(), mossaa, mossab);
     StampaTavoliere stamp = new StampaTavoliere(tavoliere, blocca, mossa);
     boolean isRunning = true;

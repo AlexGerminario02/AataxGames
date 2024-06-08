@@ -17,11 +17,9 @@ public class Salto {
 
     /**
      * Costruttore della classe Salto.
-     * @param scacchieras La scacchiera su cui eseguire le mosse.
      * @param mossas L'istanza di Mossa associata.
      */
-    public Salto(final Pedina[][] scacchieras, final Mossa mossas) {
-        this.scacchiera = scacchieras;
+    public Salto(final Mossa mossas) {
         this.mossa = mossas;
     }
 

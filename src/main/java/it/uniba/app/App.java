@@ -37,9 +37,9 @@ public final class App {
 public static void main(final String[] args) {
     Tastiera tastiera = new Tastiera();
     Tavoliere tavoliere = Tavoliere.creaTavoliere();
-    Blocca blocca = new Blocca(tavoliere.getScacchiera(), new ArrayList<>(), tavoliere);
-    Duplicazione mossaa = new Duplicazione(tavoliere.getScacchiera(), null);
-    Salto mossab = new Salto(tavoliere.getScacchiera(), null);
+    Blocca blocca = new Blocca(tavoliere.getScacchiera(), new ArrayList<>());
+    Duplicazione mossaa = new Duplicazione(null);
+    Salto mossab = new Salto(null);
     Mossa mossa = new Mossa(tavoliere.getScacchiera(), mossaa, mossab);
     StampaTavoliere stamp = new StampaTavoliere(tavoliere, blocca, mossa);
     boolean isRunning = true;
@@ -69,8 +69,8 @@ public static void main(final String[] args) {
                 break;
 
             case "/gioca":
-                Giocatore giocatore1 = new Giocatore(new Pedina('N', new Coordinate(0, 0)), "Nero");
-                Giocatore giocatore2 = new Giocatore(new Pedina('R', new Coordinate(0, 0)), "Bianco");
+            Giocatore giocatore1 = new Giocatore(new Pedina("\u26C1", new Coordinate(0, 0)), "Nero");
+            Giocatore giocatore2 = new Giocatore(new Pedina("\u26C3", new Coordinate(0, 0)), "Bianco");
                 partita = new Partita(giocatore1, giocatore2, tavoliere, blocca, mossaa, mossab);
                 Menu.clearScreen();
                 if (partita.avviaPartita(caselleDaBloccare)) {
@@ -82,12 +82,11 @@ public static void main(final String[] args) {
 
             case "/vuoto":
                 Menu.clearScreen();
-                //System.out.println(Costanti.GAME);
+                System.out.println(Costanti.GAME);
                 stamp.visualizzaTavoliereVuoto();
                 break;
             default:
                 System.out.println("Scelta non valida. Premi un pulsante valido\n");
-                Menu.delay(1);
                 Menu.clearScreen();
         }
     }

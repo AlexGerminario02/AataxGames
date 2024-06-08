@@ -15,11 +15,9 @@ public class Duplicazione {
 
     /**
      * Costruttore della classe Duplicazione.
-     * @param scacchierad La scacchiera su cui duplicare la mossa.
      * @param mossad La mossa da duplicare.
      */
-    public Duplicazione(final Pedina[][] scacchierad, final Mossa mossad) {
-        this.scacchiera = scacchierad;
+    public Duplicazione(final Mossa mossad) {
         this.mossa = mossad;
     }
 

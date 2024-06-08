@@ -1,7 +1,6 @@
 package it.uniba.app.Boundary;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * <<Boundary>>
@@ -96,17 +95,7 @@ public final class Menu {
         System.out.print(Costanti.MENU_COMANDI_GIOCO);
     }
 
-    /**
-     * Funzione di delay che accetta un numero di secondi.
-     * @param seconds
-     */
-    public static void delay(final int seconds) {
-        try {
-            TimeUnit.SECONDS.sleep(seconds); // Attendi per un numero di secondi specificato
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     /**
      * Metodo per stampare il benvenuto con i colori.
@@ -115,6 +104,22 @@ public final class Menu {
         System.out.println(Costanti.BENVENUTO_ASCII);
         System.out.println(Costanti.INTRODUZIONE);
         System.out.println(Costanti.REGOLE);
+    }
+
+/**
+     * Indenta il testo con un numero specificato di spazi.
+     * @param text
+     * @param spaces
+     * @return
+     */
+    public static String indent(final String  text, final int spaces) {
+        String indent = " ".repeat(spaces);
+        String[] lines = text.split("\n");
+        StringBuilder indentedText = new StringBuilder();
+        for (String line : lines) {
+            indentedText.append(indent).append(line).append("\n");
+        }
+        return indentedText.toString();
     }
 
 }

@@ -85,8 +85,8 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
     this.mossaPartita = new Mossa(scacchiera, null, null);
 
     // Inizializza mossaa e mossab con l'oggetto mossa già inizializzato
-    this.mossaa = new Duplicazione(scacchiera, mossaPartita);
-    this.mossab = new Salto(scacchiera, mossaPartita);
+    this.mossaa = new Duplicazione(mossaPartita);
+    this.mossab = new Salto(mossaPartita);
 
     // Reinizializza l'oggetto mossa con gli oggetti duplicazione e salto validi
     this.mossaPartita = new Mossa(scacchiera, mossaa, mossab);
@@ -113,10 +113,9 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
      */
     public final boolean avviaPartita(final List<Coordinate> caselleBloccate) {
         partitaInCorso = true;
+        if (!caselleBloccate.isEmpty()) {
+            this.caselleBloccateb.addAll(caselleBloccate); // Aggiungi le caselle bloccate iniziali all'elenco
 
-        this.caselleBloccateb.addAll(caselleBloccate); // Aggiungi le caselle bloccate iniziali all'elenco
-
-        if (caselleBloccate != null && !caselleBloccate.isEmpty()) {
             for (Coordinate coordinate : caselleBloccate) {
                 tavoliere.inizializzaCaselleBloccate(coordinate);
                 blocca.bloccaCasella(coordinate);
@@ -126,7 +125,7 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
         Menu.clearScreen();
 
         tavoliere.inizializzaPedine(RIGA, RIGA, COLONNA, COLONNA);
-        //System.out.println(Costanti.GAME);
+        System.out.println(Costanti.GAME);
         stampatav.visualizzaTavolierePieno();
         String coordinateInput = "";
         while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
@@ -146,7 +145,7 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
                 gestisciCoordinate(coordinateInput);
             } else {
                 Menu.clearScreen();
-                //System.out.println(Costanti.GAME);
+                System.out.println(Costanti.GAME);
                 stampatav.visualizzaTavolierePieno();
                 System.out.println("Input inserito non valido. Riprova!");
             }
@@ -252,11 +251,12 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
         boolean successo = eseguiMossa(giocatoreCorrente, from, to);
         if (successo) {
             Menu.clearScreen();
-            //System.out.println(Costanti.GAME);
+            System.out.println(Costanti.GAME);
             stampatav.visualizzaTavolierePieno();
 
             // Aggiungi la mossa alla lista delle mosse giocate
-            String mossa = turno + ". " + coordinate + " (" + (turno % 2 == 1 ? "N" : "R") + ")";
+            String mossa = turno + ". " + coordinate + " (" + (Math.abs(turno) % 2 == 1
+            ? Costanti.PEDINA_NERA : Costanti.PEDINA_BIANCA) + ")";
             storiaMosse.add(mossa);
             turno++;
         } else {
@@ -279,7 +279,7 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
 
         // Recupera la pedina dalla posizione di partenza
         Pedina pedina = tavoliere.getPedina(from.getRiga(), (char) ('a' + from.getColonna() - 1));
-        if (pedina == null || pedina.getCarattere() != giocatore.getPedina().getCarattere()) {
+        if (pedina == null || !pedina.getCarattere().equals(giocatore.getPedina().getCarattere())) {
             return false;
         }
 
@@ -331,9 +331,9 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
                 Pedina adiacente = tavoliere.getPedina(nuovaRiga, nuovaColonnaChar);
 
                 // Se la casella adiacente contiene una pedina avversaria
-                if (adiacente != null && adiacente.getCarattere() != giocatore.getPedina().getCarattere()) {
+                if (adiacente != null && !adiacente.getCarattere().equals(giocatore.getPedina().getCarattere())) {
                     // Verifica se la pedina è bloccata
-                    if (adiacente.getCarattere() != 'X') {
+                    if (adiacente.getCarattere() != Costanti.PEDINA_X) {
                         // Converte la pedina avversaria nel colore del giocatore corrente
                         adiacente.setCarattere(giocatore.getPedina().getCarattere());
                     }
@@ -407,8 +407,8 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
  * @param turnot il turno corrente
  * @return il carattere della pedina del giocatore corrente ('N' per Nero, 'R' per Rosso)
  */
-    private char getPedinaGiocatoreCorrente(final int turnot) {
-        return (Math.abs(turno) % 2 == 1) ? 'N' : 'R';
+    private String getPedinaGiocatoreCorrente(final int turnot) {
+        return (Math.abs(turno) % 2 == 1) ? Costanti.PEDINA_NERA : Costanti.PEDINA_BIANCA;
     }
     /**
      * Verifica se il giocatore corrente ha mosse disponibili.
@@ -422,11 +422,11 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
         throw new IllegalStateException("L'oggetto Mossa non è stato inizializzato.");
     }
 
-    char pedinaCorrente = getPedinaGiocatoreCorrente(turno);
+    String pedinaCorrente = getPedinaGiocatoreCorrente(turno);
     for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
         for (char colonna = 'a'; colonna <= 'g'; colonna++) {
             Pedina pedina = tavoliere.getPedina(riga, colonna);
-            if (pedina != null && pedina.getCarattere() == pedinaCorrente) {
+            if (pedina != null && pedina.getCarattere().equals(pedinaCorrente)) {
                 ArrayList<Coordinate> mosseC = mossaPartita.mosseC(riga, colonna);
                 if (!mosseC.isEmpty()) {
                     return true; // Se c'è almeno una mossa disponibile, il gioco può continuare
@@ -449,14 +449,14 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
 
         if (pedineGiocatore1 > pedineGiocatore2) {
             System.out.println();
-            //System.out.println(Costanti.ALIENO);
+            System.out.println(Costanti.ALIENO);
             System.out.println("La partita è finita. sei stato rapito da: " + giocatore1.getNome());
             System.out.println("Punteggio: " + giocatore1.getNome() + " " + pedineGiocatore1 + " - "
                     + giocatore2.getNome() + " " + pedineGiocatore2);
             return giocatore1;
         } else if (pedineGiocatore2 > pedineGiocatore1) {
             System.out.println();
-           // System.out.println(Costanti.ALIENO);
+            System.out.println(Costanti.ALIENO);
             System.out.println("La partita è finita. sei stato rapito da: " + giocatore2.getNome());
             System.out.println("Punteggio: " + giocatore2.getNome() + " " + pedineGiocatore2 + " - "
                     + giocatore1.getNome() + " " + pedineGiocatore1);
@@ -479,30 +479,33 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
             case "/help":
             case "-h":
             case "--help":
+                Menu.clearScreen();
+                System.out.println(Costanti.GAME);
+                stampatav.visualizzaTavolierePieno();
                 Menu.helpGioco(tastiera);
                 break;
             case "/vuoto":
                 Menu.clearScreen();
-                //System.out.println(Costanti.GAME);
+                System.out.println(Costanti.GAME);
                 stampatav.visualizzaTavoliereVuoto();
                 break;
             case "/tavoliere":
                 Menu.clearScreen();
-                //System.out.println(Costanti.GAME);
+                System.out.println(Costanti.GAME);
                 stampatav.visualizzaTavolierePieno();
                 break;
             case "/qualimosse":
                 Menu.clearScreen();
                 Giocatore giocatoreCorrente = Math.abs(turno) % 2 == 1 ? giocatore1 : giocatore2;
                 // Stampa le mosse disponibili per tutte le pedine del giocatore corrente
-                //System.out.println(Costanti.GAME);
+                System.out.println(Costanti.GAME);
                 stampatav.stampaMosseDisponibili(giocatoreCorrente);
                 break;
             case "/mosse":
                 Menu.clearScreen();
-                //System.out.println(Costanti.GAME);
+                System.out.println(Costanti.GAME);
                 stampatav.visualizzaTavolierePieno();
-                //mostraMosseGiocate();
+                mostraMosseGiocate();
                 break;
             case "/abbandona":
                 boolean confermaAbbandono = false;
@@ -510,7 +513,7 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
                     String conferma = tastiera.readString(Costanti.MSG_ABBANDONA_PARTITA);
                     if (conferma.equalsIgnoreCase("si")) {
                         Menu.clearScreen();
-                        //System.out.println(Costanti.ALIENI);
+                        System.out.println(Costanti.ALIENI);
                         System.out.println();
                         System.out.println(Costanti.RED
                         + "Vi stiamo osservando. La vostra forza sarà messa alla prova. Non arrendetevi mai"
@@ -522,7 +525,7 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
                         }
                         Giocatore giocatoreOpposto = (turno % 2 == 0) ? giocatore1 : giocatore2;
                         int numeroPedineGiocatoreOpposto = tavoliere
-                                .contaPedine(giocatoreOpposto.getPedina().getCarattere(), tavoliere);
+                        .contaPedine(giocatoreOpposto.getPedina().getCarattere(), tavoliere);
                         System.out.println("Il giocatore " + giocatoreOpposto.getNome() + " ha vinto per "
                                 + numeroPedineGiocatoreOpposto + " a 0.");
                         abbandono = true;
@@ -539,43 +542,48 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
                 break;
             case "/tempo":
                 Menu.clearScreen();
-                //System.out.println(Costanti.GAME);
+                System.out.println(Costanti.GAME);
                 stampatav.visualizzaTavolierePieno();
                 stampaTempoDiGioco();
                 break;
 
             default:
                 Menu.clearScreen();
-                //System.out.println(Costanti.GAME);
+                System.out.println(Costanti.GAME);
                 stampatav.visualizzaTavolierePieno();
                 System.out.println("Comando non valido. Riprova.");
         }
     }
 /*
  * Mostra le mosse giocate finora durante la partita.
+ */
 
-   private void mostraMosseGiocate() {
-        if (storiaMosse.isEmpty()) {
-            System.out.println(Menu.indent("Nessuna mossa è stata giocata finora.", Costanti.TIME6));
-        } else {
-            String header = String.format("║ %-5s | %-40s ║", "N.", "Mossa");
-            String separator = new String(new char[header.length()]).replace("\0", "═");
+ private void mostraMosseGiocate() {
+    if (storiaMosse.isEmpty()) {
+        System.out.println(Menu.indent("Nessuna mossa è stata giocata finora.", Costanti.TIME6));
+    } else {
+        String header = String.format("║ %-5s | %-40s ║", "N.", "Mossa");
+        String separator = new String(new char[header.length()]).replace("\0", "═");
 
-            String giocoMosse = Costanti.RED + "╔" + separator.substring(1, separator.length() - 1) + "╗\n"
-                + "║" + Costanti.ANSI_RESET + String.format(" %-5s | %-40s ", "N.", "Mossa") + Costanti.RED + "║\n"
-                + "╠" + separator.substring(1, separator.length() - 1) + "╣\n"; // Questa è la linea centrale corretta
-            int counter = 1;
-            for (String mossa : storiaMosse) {
-                giocoMosse += "║" + Costanti.ANSI_RESET
-                + String.format(" %-5d | %-40s ", counter++, mossa) + Costanti.RED + "║\n";
-            }
-            giocoMosse += "╚" + separator.substring(1, separator.length() - 1) + "╝" + Costanti.ANSI_RESET;
+        StringBuilder giocoMosse = new StringBuilder();
+        giocoMosse.append(Costanti.RED).append("╔").append(separator.substring(1, separator.length() - 1)).append("╗\n")
+                  .append("║").append(Costanti.ANSI_RESET).append(String.format(" %-5s | %-40s ", "N.", "Mossa"))
+                  .append(Costanti.RED).append("║\n")
+                  .append("╠").append(separator.substring(1, separator.length() - 1)).append("╣\n");
 
-            System.out.println((giocoMosse));
-            System.out.println(Costanti.SEPARATORE_2 + Costanti.ANSI_RESET);
+        int counter = 1;
+        for (String mossa : storiaMosse) {
+            giocoMosse.append("║").append(Costanti.ANSI_RESET)
+                      .append(String.format(" %-5d | %-40s ", counter++, mossa)).append(Costanti.RED).append("║\n");
         }
+        giocoMosse.append("╚").append(separator.substring(1, separator.length() - 1))
+        .append("╝").append(Costanti.ANSI_RESET);
+
+        System.out.println(giocoMosse.toString());
+        System.out.println(Costanti.SEPARATORE_2 + Costanti.ANSI_RESET);
     }
-        */
+}
+
 /**
  * Reimposta lo stato della partita.
  *
@@ -605,7 +613,7 @@ private void stampaTempoDiGioco() {
             + "║" + Costanti.ANSI_RESET + "        " + tempoFormattato + "        " + Costanti.RED + "║\n"
             + "╚════════════════════════╝" + Costanti.ANSI_RESET;
 
-    //System.out.println(Menu.indent(giocoTempo, Costanti.TIME7));
+    System.out.println(Menu.indent(giocoTempo, Costanti.TIME7));
     System.out.println(Costanti.SEPARATORE_2 + Costanti.ANSI_RESET);
 }
 

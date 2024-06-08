@@ -9,14 +9,14 @@ package it.uniba.app.Entity;
  */
 public class Pedina {
     // Attributi della pedina
-    private char carattere;
+    private String carattere;
     private Coordinate coordinate;
     /**
      * Costruttore della classe Pedina.
      * @param caratteri
      * @param coordinates
      */
-    public Pedina(final char caratteri, final Coordinate coordinates) {
+    public Pedina(final String caratteri, final Coordinate coordinates) {
         this.carattere = caratteri;
         this.coordinate = new Coordinate(coordinates.getRiga(), coordinates.getColonna());
     }
@@ -31,11 +31,11 @@ public class Pedina {
     }
 
     // Metodi getter e setter
-    public final char getCarattere() {
+    public final String getCarattere() {
         return carattere;
     }
 
-    public final void setCarattere(final char caratteri) {
+    public final void setCarattere(final String caratteri) {
         this.carattere = caratteri;
     }
 

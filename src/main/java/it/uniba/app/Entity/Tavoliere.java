@@ -39,9 +39,10 @@ public class Tavoliere {
      */
     public Tavoliere(final int dim) {
         this.scacchiera = new Pedina[dim][dim];
-        caselleBloccate = new ArrayList<>();
         this.turno = 1;
     }
+
+
 /**
      * Costruttore per creare una copia di un tavoliere.
      *
@@ -66,7 +67,11 @@ public class Tavoliere {
      * @return la scacchiera
      */
     public Pedina[][] getScacchiera() {
-        return this.scacchiera;
+        Pedina[][] scacchieraCopy = new Pedina[scacchiera.length][];
+        for (int i = 0; i < scacchiera.length; i++) {
+            scacchieraCopy[i] = scacchiera[i].clone();
+        }
+        return scacchieraCopy;
     }
 
  /**
@@ -76,12 +81,12 @@ public class Tavoliere {
      * @param tavoliere        il tavoliere
      * @return il numero di pedine con il carattere specificato
      */
-    public final int contaPedine(final char caratterePedina, final Tavoliere tavoliere) {
+    public final int contaPedine(final String caratterePedina, final Tavoliere tavoliere) {
         int count = 0;
         for (int i = 0; i < DIM; i++) {
             for (int j = 0; j < DIM; j++) {
                 Pedina pedina = scacchiera[i][j];
-                if (pedina != null && pedina.getCarattere() == caratterePedina) {
+                if (pedina != null && pedina.getCarattere().equals(caratterePedina)) {
                     count++;
                 }
             }
@@ -159,11 +164,11 @@ public class Tavoliere {
             final int colonnaFinale) {
         setPedina(new Pedina(Costanti.PEDINA_NERA, new Coordinate(rigaIniziale, colonnaIniziale)), rigaIniziale,
                 colonnaIniziale);
-        setPedina(new Pedina(Costanti.PEDINA_ROSSO, new Coordinate(rigaIniziale, colonnaFinale)), rigaIniziale,
+        setPedina(new Pedina(Costanti.PEDINA_BIANCA, new Coordinate(rigaIniziale, colonnaFinale)), rigaIniziale,
                 colonnaFinale);
         setPedina(new Pedina(Costanti.PEDINA_NERA, new Coordinate(rigaFinale, colonnaFinale)), rigaFinale,
                 colonnaFinale);
-        setPedina(new Pedina(Costanti.PEDINA_ROSSO, new Coordinate(rigaFinale, colonnaIniziale)), rigaFinale,
+        setPedina(new Pedina(Costanti.PEDINA_BIANCA, new Coordinate(rigaFinale, colonnaIniziale)), rigaFinale,
                 colonnaIniziale);
     }
 

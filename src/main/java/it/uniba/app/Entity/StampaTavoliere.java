@@ -29,8 +29,8 @@ public class StampaTavoliere {
         this.tavoliere = tavolieres;
         this.blocca = bloccas;
         this.mossagiocatore = mossa;
-        this.mossaa = new Duplicazione(scacchiera, mossa);
-        this.mossab = new Salto(scacchiera, mossa);
+        this.mossaa = new Duplicazione(mossa);
+        this.mossab = new Salto(mossa);
     }
     /**
      * Visualizza il tavoliere vuoto.
@@ -92,7 +92,7 @@ public class StampaTavoliere {
                 if (blocca.isCasellaBloccata(coord)) {
                     Pedina pedinaBloccata = tavoliere.getPedina(i, colonna);
                     if (pedinaBloccata != null) {
-                        if (pedinaBloccata.getCarattere() == 'X') {
+                        if (pedinaBloccata.getCarattere() == Costanti.PEDINA_X) {
                             System.out.print(Costanti.ANSI_WHITE + "  " + Costanti.ANSI_RESET + " ");
                         }
                     } else {
@@ -145,7 +145,7 @@ public class StampaTavoliere {
             for (char colonna : colonne) {
                 Coordinate coord = new Coordinate(riga, colonna);
                 if (blocca.isCasellaBloccata(coord)) {
-                    tabelloneStampato[riga - 1][colonna - 'a'] = new Pedina('X', coord);
+                    tabelloneStampato[riga - 1][colonna - 'a'] = new Pedina(Costanti.PEDINA_X, coord);
                 }
             }
         }
@@ -154,7 +154,7 @@ public class StampaTavoliere {
         for (int riga = 1; riga <= DIM; riga++) {
             for (char colonna : colonne) {
                 Pedina pedina = tavoliere.getPedina(riga, colonna);
-                if (pedina != null && pedina.getCarattere() == giocatoreCorrente.getPedina().getCarattere()) {
+                if (pedina != null && pedina.getCarattere().equals(giocatoreCorrente.getPedina().getCarattere())) {
                     ArrayList<Coordinate> mossea = mossaa.mosseA(riga, colonna);
                     ArrayList<Coordinate> mosseb = mossab.mosseB(riga, colonna);
                     for (Coordinate mossa : mossea) {
@@ -163,7 +163,7 @@ public class StampaTavoliere {
                         if (rigaMossa >= 0 && rigaMossa < DIM && colonnaMossa >= 0 && colonnaMossa < DIM) {
                             // Ensure the move doesn't override the current player's piece or blocked cells
                             if (tabelloneStampato[rigaMossa][colonnaMossa] == null) {
-                                tabelloneStampato[rigaMossa][colonnaMossa] = new Pedina('A', mossa);
+                                tabelloneStampato[rigaMossa][colonnaMossa] = new Pedina("AA", mossa);
                             }
                             pedineRaggiunteDaA[rigaMossa][colonnaMossa] = true;
                         }
@@ -174,9 +174,9 @@ public class StampaTavoliere {
                         if (rigaMossa >= 0 && rigaMossa < DIM && colonnaMossa >= 0 && colonnaMossa < DIM) {
                             // Ensure the move doesn't override the current player's piece or blocked cells
                             if (tabelloneStampato[rigaMossa][colonnaMossa] == null) {
-                                tabelloneStampato[rigaMossa][colonnaMossa] = new Pedina('B', mossa);
-                            } else if (tabelloneStampato[rigaMossa][colonnaMossa].getCarattere() == 'A') {
-                                tabelloneStampato[rigaMossa][colonnaMossa] = new Pedina('C', mossa);
+                                tabelloneStampato[rigaMossa][colonnaMossa] = new Pedina("BB", mossa);
+                            } else if (tabelloneStampato[rigaMossa][colonnaMossa].getCarattere() == "AA") {
+                                tabelloneStampato[rigaMossa][colonnaMossa] = new Pedina("CC", mossa);
                             }
                             pedineRaggiunteDaB[rigaMossa][colonnaMossa] = true;
                         }
@@ -188,12 +188,12 @@ public class StampaTavoliere {
         // Aggiungi la C alle caselle raggiunte sia da mosse di tipo A che di tipo B
         for (int i = 0; i < DIM; i++) {
             for (int j = 0; j < DIM; j++) {
-                if (tabelloneStampato[i][j] != null && (tabelloneStampato[i][j].getCarattere() == 'X'
-                || tabelloneStampato[i][j].getCarattere() == giocatoreCorrente.getPedina().getCarattere())) {
+                if (tabelloneStampato[i][j] != null && (tabelloneStampato[i][j].getCarattere().equals(Costanti.PEDINA_X)
+                || tabelloneStampato[i][j].getCarattere().equals(giocatoreCorrente.getPedina().getCarattere()))) {
                     continue; // Skip blocked cells and current player's pieces
                 }
                 if (pedineRaggiunteDaA[i][j] && pedineRaggiunteDaB[i][j]) {
-                    tabelloneStampato[i][j] = new Pedina('C', new Coordinate(i + 1, (char) ('a' + j)));
+                    tabelloneStampato[i][j] = new Pedina("CC", new Coordinate(i + 1, (char) ('a' + j)));
                 }
             }
         }
@@ -217,13 +217,13 @@ public class StampaTavoliere {
                 System.out.print(Costanti.RED + "|  " + Costanti.ANSI_RESET);
                 Pedina pedina = tabelloneStampato[i - 1][colonna - 'a'];
                 if (pedina != null) {
-                    if (pedina.getCarattere() == 'X') {
+                    if (pedina.getCarattere() == Costanti.PEDINA_X) {
                         System.out.print(Costanti.ANSI_WHITE + "   " + Costanti.ANSI_RESET);
-                    } else if (pedina.getCarattere() == 'A') {
+                    } else if (pedina.getCarattere() == "AA") {
                         System.out.print(Costanti.ANSI_YELLOW + "   " + Costanti.ANSI_RESET);
-                    } else if (pedina.getCarattere() == 'B') {
+                    } else if (pedina.getCarattere() == "BB") {
                         System.out.print(Costanti.ANSI_ORANGE + "   " + Costanti.ANSI_RESET);
-                    } else if (pedina.getCarattere() == 'C') {
+                    } else if (pedina.getCarattere() == "CC") {
                         System.out.print(Costanti.ANSI_PURPLE + "   " + Costanti.ANSI_RESET);
                     } else {
                         System.out.print(pedina.getCarattere() + "  ");
@@ -248,7 +248,7 @@ System.out.println(Costanti.RED + "| " + Costanti.ANSI_RESET + Costanti.BLU + i 
             System.out.print("   " + Costanti.RED + colonna + Costanti.ANSI_RESET + "  ");
         }
         System.out.println(Costanti.SEPARATORE + Costanti.ANSI_RESET);
-       // System.out.println(Costanti.MENU_MOSSE);
+        System.out.println(Costanti.MENU_MOSSE);
         System.out.println(Costanti.SEPARATORE_2 + Costanti.ANSI_RESET);
         System.out.println();
     }

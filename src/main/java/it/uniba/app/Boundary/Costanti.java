@@ -42,6 +42,8 @@ public final class Costanti {
     public static final int TIME5 = 5;
     public static final int TIME6 = 6;
     public static final int TIME7 = 7;
+    public static final int DUE = 2;
+    public static final int MENODUE = -2;
 
     public static final String BENVENUTO_HELP =
        "  _   _   _____   _       ____  \n"

@@ -126,7 +126,7 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
         Menu.clearScreen();
 
         tavoliere.inizializzaPedine(RIGA, RIGA, COLONNA, COLONNA);
-        //System.out.println(Costanti.GAME);
+        System.out.println(Costanti.GAME);
         stampatav.visualizzaTavolierePieno();
         String coordinateInput = "";
         while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
@@ -146,7 +146,7 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
                 gestisciCoordinate(coordinateInput);
             } else {
                 Menu.clearScreen();
-                //System.out.println(Costanti.GAME);
+                System.out.println(Costanti.GAME);
                 stampatav.visualizzaTavolierePieno();
                 System.out.println("Input inserito non valido. Riprova!");
             }
@@ -252,7 +252,7 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
         boolean successo = eseguiMossa(giocatoreCorrente, from, to);
         if (successo) {
             Menu.clearScreen();
-            //System.out.println(Costanti.GAME);
+            System.out.println(Costanti.GAME);
             stampatav.visualizzaTavolierePieno();
 
             // Aggiungi la mossa alla lista delle mosse giocate
@@ -449,14 +449,14 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
 
         if (pedineGiocatore1 > pedineGiocatore2) {
             System.out.println();
-            //System.out.println(Costanti.ALIENO);
+            System.out.println(Costanti.ALIENO);
             System.out.println("La partita è finita. sei stato rapito da: " + giocatore1.getNome());
             System.out.println("Punteggio: " + giocatore1.getNome() + " " + pedineGiocatore1 + " - "
                     + giocatore2.getNome() + " " + pedineGiocatore2);
             return giocatore1;
         } else if (pedineGiocatore2 > pedineGiocatore1) {
             System.out.println();
-           // System.out.println(Costanti.ALIENO);
+            System.out.println(Costanti.ALIENO);
             System.out.println("La partita è finita. sei stato rapito da: " + giocatore2.getNome());
             System.out.println("Punteggio: " + giocatore2.getNome() + " " + pedineGiocatore2 + " - "
                     + giocatore1.getNome() + " " + pedineGiocatore1);
@@ -479,28 +479,31 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
             case "/help":
             case "-h":
             case "--help":
+                Menu.clearScreen();
+                System.out.println(Costanti.GAME);
+                stampatav.visualizzaTavolierePieno();
                 Menu.helpGioco(tastiera);
                 break;
             case "/vuoto":
                 Menu.clearScreen();
-                //System.out.println(Costanti.GAME);
+                System.out.println(Costanti.GAME);
                 stampatav.visualizzaTavoliereVuoto();
                 break;
             case "/tavoliere":
                 Menu.clearScreen();
-                //System.out.println(Costanti.GAME);
+                System.out.println(Costanti.GAME);
                 stampatav.visualizzaTavolierePieno();
                 break;
             case "/qualimosse":
                 Menu.clearScreen();
                 Giocatore giocatoreCorrente = Math.abs(turno) % 2 == 1 ? giocatore1 : giocatore2;
                 // Stampa le mosse disponibili per tutte le pedine del giocatore corrente
-                //System.out.println(Costanti.GAME);
+                System.out.println(Costanti.GAME);
                 stampatav.stampaMosseDisponibili(giocatoreCorrente);
                 break;
             case "/mosse":
                 Menu.clearScreen();
-                //System.out.println(Costanti.GAME);
+                System.out.println(Costanti.GAME);
                 stampatav.visualizzaTavolierePieno();
                 mostraMosseGiocate();
                 break;
@@ -510,7 +513,7 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
                     String conferma = tastiera.readString(Costanti.MSG_ABBANDONA_PARTITA);
                     if (conferma.equalsIgnoreCase("si")) {
                         Menu.clearScreen();
-                        //System.out.println(Costanti.ALIENI);
+                        System.out.println(Costanti.ALIENI);
                         System.out.println();
                         System.out.println(Costanti.RED
                         + "Vi stiamo osservando. La vostra forza sarà messa alla prova. Non arrendetevi mai"
@@ -539,14 +542,14 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
                 break;
             case "/tempo":
                 Menu.clearScreen();
-                //System.out.println(Costanti.GAME);
+                System.out.println(Costanti.GAME);
                 stampatav.visualizzaTavolierePieno();
                 stampaTempoDiGioco();
                 break;
 
             default:
                 Menu.clearScreen();
-                //System.out.println(Costanti.GAME);
+                System.out.println(Costanti.GAME);
                 stampatav.visualizzaTavolierePieno();
                 System.out.println("Comando non valido. Riprova.");
         }

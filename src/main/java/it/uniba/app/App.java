@@ -82,7 +82,7 @@ public static void main(final String[] args) {
 
             case "/vuoto":
                 Menu.clearScreen();
-                //System.out.println(Costanti.GAME);
+                System.out.println(Costanti.GAME);
                 stamp.visualizzaTavoliereVuoto();
                 break;
             default:

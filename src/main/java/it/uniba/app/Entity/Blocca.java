@@ -43,7 +43,7 @@ public final boolean isBloccata(final Coordinate coord) {
     int riga = coord.getRiga() - 1; // Converti da 1-based a 0-based
     int colonna = coord.getColonna() - 1; // Converti da 1-based a 0-based
     // Controlla se la posizione contiene una pedina bloccata con simbolo 'X'
-    return scacchiera[riga][colonna] != null && scacchiera[riga][colonna].getCarattere() == "XX";
+    return scacchiera[riga][colonna] != null && scacchiera[riga][colonna].getCarattere() == Costanti.PEDINA_X;
 }
     /**
      * Verifica se una casella è bloccata.

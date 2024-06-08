@@ -92,7 +92,7 @@ public class StampaTavoliere {
                 if (blocca.isCasellaBloccata(coord)) {
                     Pedina pedinaBloccata = tavoliere.getPedina(i, colonna);
                     if (pedinaBloccata != null) {
-                        if (pedinaBloccata.getCarattere() == "\u2B24") {
+                        if (pedinaBloccata.getCarattere() == Costanti.PEDINA_X) {
                             System.out.print(Costanti.ANSI_WHITE + "  " + Costanti.ANSI_RESET + " ");
                         }
                     } else {
@@ -145,7 +145,7 @@ public class StampaTavoliere {
             for (char colonna : colonne) {
                 Coordinate coord = new Coordinate(riga, colonna);
                 if (blocca.isCasellaBloccata(coord)) {
-                    tabelloneStampato[riga - 1][colonna - 'a'] = new Pedina("\u2B24", coord);
+                    tabelloneStampato[riga - 1][colonna - 'a'] = new Pedina(Costanti.PEDINA_X, coord);
                 }
             }
         }
@@ -188,7 +188,7 @@ public class StampaTavoliere {
         // Aggiungi la C alle caselle raggiunte sia da mosse di tipo A che di tipo B
         for (int i = 0; i < DIM; i++) {
             for (int j = 0; j < DIM; j++) {
-                if (tabelloneStampato[i][j] != null && (tabelloneStampato[i][j].getCarattere() == "XX"
+                if (tabelloneStampato[i][j] != null && (tabelloneStampato[i][j].getCarattere() == Costanti.PEDINA_X
                 || tabelloneStampato[i][j].getCarattere() == giocatoreCorrente.getPedina().getCarattere())) {
                     continue; // Skip blocked cells and current player's pieces
                 }

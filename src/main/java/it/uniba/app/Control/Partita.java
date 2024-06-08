@@ -333,7 +333,7 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
                 // Se la casella adiacente contiene una pedina avversaria
                 if (adiacente != null && adiacente.getCarattere() != giocatore.getPedina().getCarattere()) {
                     // Verifica se la pedina è bloccata
-                    if (adiacente.getCarattere() != "XX") {
+                    if (adiacente.getCarattere() != Costanti.PEDINA_X) {
                         // Converte la pedina avversaria nel colore del giocatore corrente
                         adiacente.setCarattere(giocatore.getPedina().getCarattere());
                     }
@@ -408,7 +408,7 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
  * @return il carattere della pedina del giocatore corrente ('N' per Nero, 'R' per Rosso)
  */
     private String getPedinaGiocatoreCorrente(final int turnot) {
-        return (Math.abs(turno) % 2 == 1) ? "\u26C1" : "\u26C3";
+        return (Math.abs(turno) % 2 == 1) ? Costanti.PEDINA_NERA : Costanti.PEDINA_BIANCA;
     }
     /**
      * Verifica se il giocatore corrente ha mosse disponibili.

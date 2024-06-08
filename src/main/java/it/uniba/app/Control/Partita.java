@@ -113,7 +113,7 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
      */
     public final boolean avviaPartita(final List<Coordinate> caselleBloccate) {
         partitaInCorso = true;
-
+        if (caselleBloccate != null) {
         this.caselleBloccateb.addAll(caselleBloccate); // Aggiungi le caselle bloccate iniziali all'elenco
 
         if (caselleBloccate != null && !caselleBloccate.isEmpty()) {
@@ -122,6 +122,7 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
                 blocca.bloccaCasella(coordinate);
             }
         }
+    }
         boolean ritorno = false;
         Menu.clearScreen();
 
@@ -256,7 +257,8 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
             stampatav.visualizzaTavolierePieno();
 
             // Aggiungi la mossa alla lista delle mosse giocate
-            String mossa = turno + ". " + coordinate + " (" + (turno % 2 == 1 ? "N" : "R") + ")";
+            String mossa = turno + ". " + coordinate + " (" + (Math.abs(turno) % 2 == 1
+            ? Costanti.PEDINA_NERA : Costanti.PEDINA_BIANCA) + ")";
             storiaMosse.add(mossa);
             turno++;
         } else {
@@ -279,7 +281,7 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
 
         // Recupera la pedina dalla posizione di partenza
         Pedina pedina = tavoliere.getPedina(from.getRiga(), (char) ('a' + from.getColonna() - 1));
-        if (pedina == null || pedina.getCarattere() != giocatore.getPedina().getCarattere()) {
+        if (pedina == null || !pedina.getCarattere().equals(giocatore.getPedina().getCarattere())) {
             return false;
         }
 
@@ -331,7 +333,7 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
                 Pedina adiacente = tavoliere.getPedina(nuovaRiga, nuovaColonnaChar);
 
                 // Se la casella adiacente contiene una pedina avversaria
-                if (adiacente != null && adiacente.getCarattere() != giocatore.getPedina().getCarattere()) {
+                if (adiacente != null && !adiacente.getCarattere().equals(giocatore.getPedina().getCarattere())) {
                     // Verifica se la pedina è bloccata
                     if (adiacente.getCarattere() != Costanti.PEDINA_X) {
                         // Converte la pedina avversaria nel colore del giocatore corrente
@@ -426,7 +428,7 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
     for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
         for (char colonna = 'a'; colonna <= 'g'; colonna++) {
             Pedina pedina = tavoliere.getPedina(riga, colonna);
-            if (pedina != null && pedina.getCarattere() == pedinaCorrente) {
+            if (pedina != null && pedina.getCarattere().equals(pedinaCorrente)) {
                 ArrayList<Coordinate> mosseC = mossaPartita.mosseC(riga, colonna);
                 if (!mosseC.isEmpty()) {
                     return true; // Se c'è almeno una mossa disponibile, il gioco può continuare
@@ -558,27 +560,31 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
  * Mostra le mosse giocate finora durante la partita.
  */
 
-   private void mostraMosseGiocate() {
-        if (storiaMosse.isEmpty()) {
-            System.out.println(Menu.indent("Nessuna mossa è stata giocata finora.", Costanti.TIME6));
-        } else {
-            String header = String.format("║ %-5s | %-40s ║", "N.", "Mossa");
-            String separator = new String(new char[header.length()]).replace("\0", "═");
+ private void mostraMosseGiocate() {
+    if (storiaMosse.isEmpty()) {
+        System.out.println(Menu.indent("Nessuna mossa è stata giocata finora.", Costanti.TIME6));
+    } else {
+        String header = String.format("║ %-5s | %-40s ║", "N.", "Mossa");
+        String separator = new String(new char[header.length()]).replace("\0", "═");
 
-            String giocoMosse = Costanti.RED + "╔" + separator.substring(1, separator.length() - 1) + "╗\n"
-                + "║" + Costanti.ANSI_RESET + String.format(" %-5s | %-40s ", "N.", "Mossa") + Costanti.RED + "║\n"
-                + "╠" + separator.substring(1, separator.length() - 1) + "╣\n"; // Questa è la linea centrale corretta
-            int counter = 1;
-            for (String mossa : storiaMosse) {
-                giocoMosse += "║" + Costanti.ANSI_RESET
-                + String.format(" %-5d | %-40s ", counter++, mossa) + Costanti.RED + "║\n";
-            }
-            giocoMosse += "╚" + separator.substring(1, separator.length() - 1) + "╝" + Costanti.ANSI_RESET;
+        StringBuilder giocoMosse = new StringBuilder();
+        giocoMosse.append(Costanti.RED).append("╔").append(separator.substring(1, separator.length() - 1)).append("╗\n")
+                  .append("║").append(Costanti.ANSI_RESET).append(String.format(" %-5s | %-40s ", "N.", "Mossa"))
+                  .append(Costanti.RED).append("║\n")
+                  .append("╠").append(separator.substring(1, separator.length() - 1)).append("╣\n");
 
-            System.out.println((giocoMosse));
-            System.out.println(Costanti.SEPARATORE_2 + Costanti.ANSI_RESET);
+        int counter = 1;
+        for (String mossa : storiaMosse) {
+            giocoMosse.append("║").append(Costanti.ANSI_RESET)
+                      .append(String.format(" %-5d | %-40s ", counter++, mossa)).append(Costanti.RED).append("║\n");
         }
+        giocoMosse.append("╚").append(separator.substring(1, separator.length() - 1))
+        .append("╝").append(Costanti.ANSI_RESET);
+
+        System.out.println(giocoMosse.toString());
+        System.out.println(Costanti.SEPARATORE_2 + Costanti.ANSI_RESET);
     }
+}
 
 /**
  * Reimposta lo stato della partita.

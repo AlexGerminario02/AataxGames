@@ -154,7 +154,7 @@ public class StampaTavoliere {
         for (int riga = 1; riga <= DIM; riga++) {
             for (char colonna : colonne) {
                 Pedina pedina = tavoliere.getPedina(riga, colonna);
-                if (pedina != null && pedina.getCarattere() == giocatoreCorrente.getPedina().getCarattere()) {
+                if (pedina != null && pedina.getCarattere().equals(giocatoreCorrente.getPedina().getCarattere())) {
                     ArrayList<Coordinate> mossea = mossaa.mosseA(riga, colonna);
                     ArrayList<Coordinate> mosseb = mossab.mosseB(riga, colonna);
                     for (Coordinate mossa : mossea) {

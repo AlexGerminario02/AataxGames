@@ -86,7 +86,7 @@ public class Tavoliere {
         for (int i = 0; i < DIM; i++) {
             for (int j = 0; j < DIM; j++) {
                 Pedina pedina = scacchiera[i][j];
-                if (pedina != null && pedina.getCarattere() == caratterePedina) {
+                if (pedina != null && pedina.getCarattere().equals(caratterePedina)) {
                     count++;
                 }
             }

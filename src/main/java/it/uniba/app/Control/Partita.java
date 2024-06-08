@@ -113,16 +113,14 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
      */
     public final boolean avviaPartita(final List<Coordinate> caselleBloccate) {
         partitaInCorso = true;
-        if (caselleBloccate != null) {
-        this.caselleBloccateb.addAll(caselleBloccate); // Aggiungi le caselle bloccate iniziali all'elenco
+        if (!caselleBloccate.isEmpty()) {
+            this.caselleBloccateb.addAll(caselleBloccate); // Aggiungi le caselle bloccate iniziali all'elenco
 
-        if (caselleBloccate != null && !caselleBloccate.isEmpty()) {
             for (Coordinate coordinate : caselleBloccate) {
                 tavoliere.inizializzaCaselleBloccate(coordinate);
                 blocca.bloccaCasella(coordinate);
             }
         }
-    }
         boolean ritorno = false;
         Menu.clearScreen();
 

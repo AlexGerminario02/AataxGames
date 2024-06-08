@@ -188,8 +188,8 @@ public class StampaTavoliere {
         // Aggiungi la C alle caselle raggiunte sia da mosse di tipo A che di tipo B
         for (int i = 0; i < DIM; i++) {
             for (int j = 0; j < DIM; j++) {
-                if (tabelloneStampato[i][j] != null && (tabelloneStampato[i][j].getCarattere() == Costanti.PEDINA_X
-                || tabelloneStampato[i][j].getCarattere() == giocatoreCorrente.getPedina().getCarattere())) {
+                if (tabelloneStampato[i][j] != null && (tabelloneStampato[i][j].getCarattere().equals(Costanti.PEDINA_X)
+                || tabelloneStampato[i][j].getCarattere().equals(giocatoreCorrente.getPedina().getCarattere()))) {
                     continue; // Skip blocked cells and current player's pieces
                 }
                 if (pedineRaggiunteDaA[i][j] && pedineRaggiunteDaB[i][j]) {

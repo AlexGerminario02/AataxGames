@@ -2,252 +2,276 @@ package it.uniba.app.Control;
 
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.ArrayList;
-
 
 import it.uniba.app.Boundary.Costanti;
 import it.uniba.app.Boundary.Menu;
 import it.uniba.app.Boundary.Tastiera;
+import it.uniba.app.Entity.Blocca;
 import it.uniba.app.Entity.Coordinate;
+import it.uniba.app.Entity.Duplicazione;
 import it.uniba.app.Entity.Giocatore;
+import it.uniba.app.Entity.Mossa;
 import it.uniba.app.Entity.Pedina;
+import it.uniba.app.Entity.Salto;
+import it.uniba.app.Entity.StampaTavoliere;
 import it.uniba.app.Entity.Tavoliere;
-
 /**
- * <<Control>>
- *
- * Classe che rappresenta una partita.
- * Gestisce il flusso del gioco e l'interazione con i giocatori.
- */
+ * <<Control>>: Questa classe rappresenta una partita del gioco.
+ * Gestisce lo svolgimento della partita, le mosse dei giocatori,
+ * il controllo della validità delle mosse e il calcolo del vincitore.
+ */
 public class Partita {
+
     private List<String> storiaMosse;
-    //costanti per le dimensioni del tavoliere
+
+    // Costanti per le dimensioni del tavoliere
     public static final int RIGA = 1;
     public static final int COLONNA = 7;
+    // variabile di istanza per contare il tempo di gioco
     private long tempoInizioPartita;
-    public static final char A = 'a';
-    public static final char B = 'b';
-    public static final int TIME = 6;
-    //private static final String MESSAGGIO_GIOCO = "Inserisci coordinate o comandi del menu: ";
-    private static final String MSG_ABBANDONA_PARTITA = "Sei sicuro di voler abbandonare la partita? (si/no) \n";
-    private static final String CONFERMA_ABBANDONO = " ha abbandonato la partita.";
+
+    // Variabili di stato della partita
     private boolean uscitaRichiesta = false;
     private boolean abbandono = false;
+
+    // Giocatori e tavoliere della partita
+
     private Giocatore giocatore2;
     private Giocatore giocatore1;
     private Tavoliere tavoliere;
+    private  Blocca blocca;
+    private Mossa mossaPartita;
+    private Duplicazione mossaa;
+    private Salto mossab;
+    private StampaTavoliere stampatav;
     private List<Coordinate> caselleBloccateb = new ArrayList<>();
+
+    // Tastiera per l'input utente e variabile per il turno
     private Tastiera tastiera;
     private int turno;
+    private boolean partitaInCorso;
 
-    /**
+    // Altri attributi e metodi della classe Partita...
+
+    public final boolean isPartitaInCorso() {
+        return partitaInCorso;
+    }
+  /**
      * Costruttore della classe Partita.
      *
-     * @param giocatoret1
-     * @param giocatoret2
-     * @param tavolieret
+     * @param giocatoret1 il giocatore 1
+     * @param giocatoret2 il giocatore 2
+     * @param tavolieret il tavoliere di gioco
+     * @param bloccat l'oggetto per gestire il blocco delle caselle
+     * @param mossata l'oggetto per gestire la duplicazione delle mosse
+     * @param mossatb l'oggetto per gestire il salto delle mosse
      */
-    public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final Tavoliere tavolieret) {
-        this.giocatore1 = new Giocatore(giocatoret1); //  per creare una nuova istanza di Giocatore
-        this.giocatore2 = new Giocatore(giocatoret2); //per creare una nuova istanza di Giocatore
-        this.tavoliere = new Tavoliere(tavolieret); // ia una copia difensiva dei suoi elementi interni.
-        this.storiaMosse = new ArrayList<>();
-        this.tastiera = new Tastiera();
-        this.turno = 1;
-        this.tempoInizioPartita = System.currentTimeMillis();
-    }
+public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final Tavoliere tavolieret,
+               final Blocca bloccat, final Duplicazione mossata, final Salto mossatb) {
+    this.giocatore1 = new Giocatore(giocatoret1);
+    this.giocatore2 = new Giocatore(giocatoret2);
+    this.tavoliere = new Tavoliere(tavolieret);
+    this.tastiera = new Tastiera();
+    this.turno = 1;
+    this.tempoInizioPartita = System.currentTimeMillis();
+    this.storiaMosse = new ArrayList<>();
+    this.caselleBloccateb = new ArrayList<>();
+    this.blocca = bloccat;
+
+    // Inizializza la scacchiera
+    Pedina[][] scacchiera = tavolieret.getScacchiera();
+
+    // Inizializza l'oggetto mossa prima di utilizzarlo
+    this.mossaPartita = new Mossa(scacchiera, null, null);
+
+    // Inizializza mossaa e mossab con l'oggetto mossa già inizializzato
+    this.mossaa = new Duplicazione(scacchiera, mossaPartita);
+    this.mossab = new Salto(scacchiera, mossaPartita);
+
+    // Reinizializza l'oggetto mossa con gli oggetti duplicazione e salto validi
+    this.mossaPartita = new Mossa(scacchiera, mossaa, mossab);
+
+    this.stampatav = new StampaTavoliere(tavoliere, blocca, mossaPartita);
+}
+
 
     /**
- * .
- * @param caselleBloccate
- * @return
- */
-    // Metodo avviaPartita modificato per uscita corretta
-    // Metodo avviaPartita modificato per uscita corretta
+     * Blocca una casella nel tavoliere.
+     *
+     * @param coordinateb le coordinate della casella da bloccare
+     */
+    public final void bloccaCasella(final Coordinate coordinateb) {
+        if (!caselleBloccateb.contains(coordinateb)) {
+            caselleBloccateb.add(coordinateb);
+        }
+    }
+    /**
+     * Avvia la partita.
+     *
+     * @param caselleBloccate le caselle inizialmente bloccate
+     * @return true se l'uscita è stata richiesta, altrimenti false
+     */
     public final boolean avviaPartita(final List<Coordinate> caselleBloccate) {
-        //partitaInCorso = true;
+        partitaInCorso = true;
+
+        this.caselleBloccateb.addAll(caselleBloccate); // Aggiungi le caselle bloccate iniziali all'elenco
 
         if (caselleBloccate != null && !caselleBloccate.isEmpty()) {
-        this.caselleBloccateb.addAll(caselleBloccate); // Aggiungi le caselle bloccate iniziali all'elenco
             for (Coordinate coordinate : caselleBloccate) {
                 tavoliere.inizializzaCaselleBloccate(coordinate);
-                tavoliere.bloccaCasella(coordinate);
+                blocca.bloccaCasella(coordinate);
             }
         }
         boolean ritorno = false;
         Menu.clearScreen();
 
         tavoliere.inizializzaPedine(RIGA, RIGA, COLONNA, COLONNA);
-        tavoliere.visualizzaTavolierePieno();
+        //System.out.println(Costanti.GAME);
+        stampatav.visualizzaTavolierePieno();
         String coordinateInput = "";
         while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
-            System.out.println("Turno " + (Math.abs(turno) % 2 == 1 ? "Giocatore Nero" : "Giocatore Rosso") + ":");
+            System.out.println("Turno " + (Math.abs(turno) % 2 == 1 ? "Giocatore Nero" : "Giocatore Bianco") + ":");
             // Controlla se il giocatore corrente ha mosse disponibili
             if (!giocatoreHaMosseDisponibili(turno)) {
                 System.out.println("Non hai mosse disponibili. Il turno passa al giocatore avversario.");
                 turno++;
                 continue; // Passa il turno senza richiedere input
             }
-            System.out.println("celle bloccate: " + caselleBloccate);
             System.out.println("Inserisci le coordinate (es. a1-a2) o un comando: ");
-            coordinateInput = tastiera.readString("Digita: ");
+            coordinateInput = tastiera.readString("\u001B[34m" + "Digita: " + "\u001B[0m");
 
             if (coordinateInput.startsWith("/")) {
                 gestisciComando(coordinateInput);
             } else if (validaCoordinate(coordinateInput)) {
                 gestisciCoordinate(coordinateInput);
             } else {
+                Menu.clearScreen();
+                //System.out.println(Costanti.GAME);
+                stampatav.visualizzaTavolierePieno();
                 System.out.println("Input inserito non valido. Riprova!");
             }
         }
 
         if ((!partitaFinita() && abbandono)) {
-            resettaCelleBloccate(caselleBloccateb);
+            blocca.resettaCelleBloccate(caselleBloccateb);
             ritorno = false;
 
         } else if (!partitaFinita() && uscitaRichiesta) {
             return true;
         } else if (partitaFinita()) {
-            calcolaVincitore();
-            Menu.delay(Costanti.TIME7);
             Menu.clearScreen();
+            calcolaVincitore();
+            reset(caselleBloccateb);
         }
 
         return ritorno;
     }
 
 /**
- * Metodo per validare la colonna in input.
- * @param colonna
- * @return
+ * Verifica se una colonna è valida nel tavoliere.
+ *
+ * @param colonna la colonna da verificare
+ * @return true se la colonna è valida, altrimenti false
  */
-private boolean validaColonna(final char colonna) {
-    return colonna >= 'a' && colonna <= 'g';
-}
-
-/**
- * Metodo per validare la riga in input.
- * @param riga
- * @return
- */
- private boolean validaRiga(final int riga) {
-    //eliminazione dei numeri magici con riferimento alle costanti
-    return riga >= Costanti.RIGAI && riga <= Costanti.RIGAF;
-}
-
-
-/**
- * Modifica il metodo validaCoordinate per accettare 4 parametri separati.
- * Modifica il metodo validaCoordinate per accettare una stringa vettoriale come
- * coordinata.
- * @param coordinate
- * @return
- */
-private boolean validaCoordinate(final String coordinate) {
-    // Verifica che la stringa abbia il formato corretto
-    if (!coordinate.matches("^[a-g][1-7]-[a-g][1-7]$")) {
-        return false;
+    private boolean validaColonna(final char colonna) {
+        return colonna >= 'a' && colonna <= 'g';
     }
 
-    // Estrai le coordinate dalla stringa
-    String[] coordinateArray = coordinate.split("-");
-    char colonnaPedina = coordinateArray[0].charAt(0);
-    int rigaPedina = Character.getNumericValue(coordinateArray[0].charAt(1));
-    char colonnaCella = coordinateArray[1].charAt(0);
-    int rigaCella = Character.getNumericValue(coordinateArray[1].charAt(1));
-
-    // Verifica che le coordinate siano valide
-    if (!validaRiga(rigaPedina) || !validaRiga(rigaCella) || !validaColonna(colonnaPedina)
-            || !validaColonna(colonnaCella)) {
-        return false;
+/**
+ * Verifica se una riga è valida nel tavoliere.
+ *
+ * @param riga la riga da verificare
+ * @return true se la riga è valida, altrimenti false
+ */
+    private boolean validaRiga(final int riga) {
+        return riga >= 1 && riga <= Costanti.RIGAF;
     }
 
-    // Converte le colonne in numeri interi
-    int colPedina = colonnaPedina - 'a' + 1;
-    int colCella = colonnaCella - 'a' + 1;
-
-    // Crea gli oggetti Coordinate per le coordinate di partenza e di destinazione
-    Coordinate from = new Coordinate(rigaPedina, colPedina);
-    Coordinate to = new Coordinate(rigaCella, colCella);
-
-    // Chiama il metodo mossaValida() per verificare la validità delle coordinate
-    return mossaValida(from, to);
-}
-
-
 /**
- * Verifica se le coordinate inserite in input sono disponibili nel Tavoliere.
- * @param from
- * @param to
- * @return
+ * Verifica se una stringa di coordinate è valida.
+ *
+ * @param coordinate le coordinate da verificare
+ * @return true se le coordinate sono valide, altrimenti false
  */
-    public boolean mossaValida(final Coordinate from, final Coordinate to) {
-        // Verifica se le coordinate di partenza e di destinazione sono all'interno del
-        // tavoliere
-        if (from.getRiga() < 1 || from.getRiga() > Costanti.RIGAF || to.getRiga() < 1 || to.getRiga()
-         > Costanti.RIGAF || from.getColonna() < 1 || from.getColonna() > Costanti.RIGAF || to.getColonna() < 1
-                || to.getColonna() > Costanti.RIGAF) {
+    private boolean validaCoordinate(final String coordinate) {
+        // Verifica che la stringa abbia il formato corretto
+        if (!coordinate.matches("^[a-g][1-7]-[a-g][1-7]$")) {
             return false;
         }
 
-        // Calcola la distanza in righe e colonne tra le coordinate di partenza e di
-        // destinazione
-        int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
-        int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
-        if (distanzaRiga > 2 || distanzaColonna > 2
-        || (distanzaRiga == 0 && distanzaColonna == 0)) {
+        String[] coordinateArray = coordinate.split("-");
+        char colonnaPedina = coordinateArray[0].charAt(0);
+        int rigaPedina = Character.getNumericValue(coordinateArray[0].charAt(1));
+        char colonnaCella = coordinateArray[1].charAt(0);
+        int rigaCella = Character.getNumericValue(coordinateArray[1].charAt(1));
+
+        // Verifica che le coordinate siano valide
+        if (!validaRiga(rigaPedina) || !validaRiga(rigaCella) || !validaColonna(colonnaPedina)
+                || !validaColonna(colonnaCella)) {
             return false;
         }
 
-        // Verifica se la casella di destinazione è vuota
-        if (!tavoliere.posizioneVuota(to.getRiga() - 1, to.getColonna() - 1)) {
-            return false;
-        }
+        // Converte le colonne in numeri interi
+        int colPedina = colonnaPedina - 'a' + 1;
+        int colCella = colonnaCella - 'a' + 1;
 
-        // Se tutte le condizioni sono soddisfatte, la mossa è valida
-        return true;
+        // Crea gli oggetti Coordinate per le coordinate di partenza e di destinazione
+        Coordinate from = new Coordinate(rigaPedina, colPedina);
+        Coordinate to = new Coordinate(rigaCella, colCella);
+
+        // Chiama il metodo mossaValida() per verificare la validità delle coordinate
+        return mossaValida(from, to);
     }
 
-    // Cattura le pedine avversarie dopo una mossa
-    private void catturaPedine(final Giocatore giocatore, final Coordinate to) {
-        int riga = to.getRiga();
-        int colonna = to.getColonna(); // Assumendo che colonna sia già un intero che rappresenta l'indice
+/**
+ * Gestisce le coordinate inserite dall'utente.
+ *
+ * @param coordinate le coordinate da gestire
+ */
+    private void gestisciCoordinate(final String coordinate) {
+        if (!coordinate.matches("[a-g][1-7]-[a-g][1-7]")) {
+            System.out.println(
+                    "Formato delle coordinate non valido. Inserisci le coordinate nel formato corretto (es. a1-a2).");
+            return;
+        }
 
-        // Definizione dei delta per le righe e le colonne
-        int[] deltaRighe = {-1, -1, -1, 0, 0, 1, 1, 1 };
-        int[] deltaColonne = {-1, 0, 1, -1, 1, -1, 0, 1 };
+        String[] coordinateArray = coordinate.split("-");
+        char colonnaPedina = coordinateArray[0].charAt(0);
+        int rigaPedina = Character.getNumericValue(coordinateArray[0].charAt(1));
+        char colonnaCella = coordinateArray[1].charAt(0);
+        int rigaCella = Character.getNumericValue(coordinateArray[1].charAt(1));
 
-        // Verifica le pedine adiacenti
-        for (int i = 0; i < deltaRighe.length; i++) {
-            int nuovaRiga = riga + deltaRighe[i];
-            int nuovaColonna = colonna + deltaColonne[i];
+        int col1 = Character.toLowerCase(colonnaPedina) - 'a' + 1;
+        int col2 = Character.toLowerCase(colonnaCella) - 'a' + 1;
 
-            // Verifica se la nuova posizione è valida
-            if (nuovaRiga >= 1 && nuovaRiga <= COLONNA && nuovaColonna >= 1 && nuovaColonna <= COLONNA) {
-                char nuovaColonnaChar = (char) ('a' + nuovaColonna - 1); // Converti l'indice di colonna in carattere
-                Pedina adiacente = tavoliere.getPedina(nuovaRiga, nuovaColonnaChar);
+        Coordinate from = new Coordinate(rigaPedina, col1);
+        Coordinate to = new Coordinate(rigaCella, col2);
 
-                // Se la casella adiacente contiene una pedina avversaria
-                if (adiacente != null && adiacente.getCarattere() != giocatore.getPedina().getCarattere()) {
-                    // Verifica se la pedina è bloccata
-                    if (adiacente.getCarattere() != 'X') {
-                        // Converte la pedina avversaria nel colore del giocatore corrente
-                        adiacente.setCarattere(giocatore.getPedina().getCarattere());
-                    }
-                }
-            }
+        Giocatore giocatoreCorrente = (Math.abs(turno) % 2 == 1) ? giocatore1 : giocatore2;
+
+        boolean successo = eseguiMossa(giocatoreCorrente, from, to);
+        if (successo) {
+            Menu.clearScreen();
+            //System.out.println(Costanti.GAME);
+            stampatav.visualizzaTavolierePieno();
+
+            // Aggiungi la mossa alla lista delle mosse giocate
+            String mossa = turno + ". " + coordinate + " (" + (turno % 2 == 1 ? "N" : "R") + ")";
+            storiaMosse.add(mossa);
+            turno++;
+        } else {
+            System.out.println("Movimento non valido. Riprova.");
         }
     }
-
-     /**
-     * Verifica se la mossa che il giocatore effettua è valida.
-     * Se la mossa è una duplicazione
-     * @param giocatore
-     * @param from
-     * @param to
-     * @return
-     */
-    public boolean eseguiMossa(final Giocatore giocatore, final Coordinate from, final Coordinate to) {
+/**
+ * Esegue una mossa nel tavoliere.
+ *
+ * @param giocatore il giocatore che esegue la mossa
+ * @param from le coordinate di partenza della mossa
+ * @param to le coordinate di destinazione della mossa
+ * @return true se la mossa è stata eseguita con successo, altrimenti false
+ */
+    public final boolean eseguiMossa(final Giocatore giocatore, final Coordinate from, final Coordinate to) {
         // Verifica se la mossa è valida
         if (!mossaValida(from, to)) {
             return false;
@@ -269,24 +293,106 @@ private boolean validaCoordinate(final String coordinate) {
         if (distanzaRiga <= 1 && distanzaColonna <= 1) {
             mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
         } else if (distanzaRiga <= 2 && distanzaColonna <= 2) {
-            // Se la mossa è un salto
             mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
             tavoliere.setPedina(null, from.getRiga(), from.getColonna());
         }
+
+        // Se la mossa è stata eseguita, cattura le pedine avversarie adiacenti
         if (mossaEseguita) {
             catturaPedine(giocatore, to);
         }
+
         return mossaEseguita;
     }
 
-
-
-
 /**
- * Funzione per verificare se la partita è finita.
+ * Cattura le pedine avversarie dopo una mossa.
+ *
+ * @param giocatore il giocatore che ha eseguito la mossa
+ * @param to le coordinate della casella in cui è stata spostata la pedina
  */
-  public boolean partitaFinita() {
-        for (int riga = 1; riga <= COLONNA; riga++) {
+    private void catturaPedine(final Giocatore giocatore, final Coordinate to) {
+        int riga = to.getRiga();
+        int colonna = to.getColonna(); // Assumendo che colonna sia già un intero che rappresenta l'indice
+
+        // Definizione dei delta per le righe e le colonne
+        int[] deltaRighe = {-1, -1, -1, 0, 0, 1, 1, 1 };
+        int[] deltaColonne = {-1, 0, 1, -1, 1, -1, 0, 1 };
+
+        // Verifica le pedine adiacenti
+        for (int i = 0; i < deltaRighe.length; i++) {
+            int nuovaRiga = riga + deltaRighe[i];
+            int nuovaColonna = colonna + deltaColonne[i];
+
+            // Verifica se la nuova posizione è valida
+            if (nuovaRiga >= 1 && nuovaRiga <= Costanti.RIGAF
+            && nuovaColonna >= 1 && nuovaColonna <= Costanti.COLONNAF) {
+                char nuovaColonnaChar = (char) ('a' + nuovaColonna - 1); // Converti l'indice di colonna in carattere
+                Pedina adiacente = tavoliere.getPedina(nuovaRiga, nuovaColonnaChar);
+
+                // Se la casella adiacente contiene una pedina avversaria
+                if (adiacente != null && adiacente.getCarattere() != giocatore.getPedina().getCarattere()) {
+                    // Verifica se la pedina è bloccata
+                    if (adiacente.getCarattere() != 'X') {
+                        // Converte la pedina avversaria nel colore del giocatore corrente
+                        adiacente.setCarattere(giocatore.getPedina().getCarattere());
+                    }
+                }
+            }
+        }
+    }
+/**
+ * Verifica se una mossa è valida.
+ *
+ * @param from le coordinate di partenza della mossa
+ * @param to le coordinate di destinazione della mossa
+ * @return true se la mossa è valida, altrimenti false
+ */
+    public final boolean mossaValida(final Coordinate from, final Coordinate to) {
+        // Verifica se le coordinate di partenza e di destinazione sono all'interno del
+        // tavoliere
+        if (from.getRiga() < 1 || from.getRiga() > Costanti.RIGAF
+        || to.getRiga() < 1 || to.getRiga() > Costanti.RIGAF
+        || from.getColonna() < 1 || from.getColonna() > Costanti.COLONNAF
+        || to.getColonna() < 1 || to.getColonna() > Costanti.COLONNAF) {
+            return false;
+        }
+
+        // Calcola la distanza in righe e colonne tra le coordinate di partenza e di
+        // destinazione
+        int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
+        int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
+
+        // Verifica se la mossa viola le regole del gioco:
+        // - La mossa non può superare una distanza di 2 caselle in orizzontale o
+        // verticale
+        // - La mossa non può essere una casella di partenza e destinazione uguali
+        // - La mossa non può essere una diagonale di 2 caselle
+        if (distanzaRiga > 2 || distanzaColonna > 2
+        || (distanzaRiga == 0 && distanzaColonna == 0)) {
+            return false;
+        }
+
+        // Verifica se la casella di destinazione è vuota
+        if (!tavoliere.posizioneVuota(to.getRiga() - 1, to.getColonna() - 1)) {
+            return false;
+        }
+
+        // Verifica se la casella di destinazione è bloccata
+        if (blocca.isBloccata(to)) {
+            return false;
+        }
+
+        // Se tutte le condizioni sono soddisfatte, la mossa è valida
+        return true;
+    }
+    /**
+     * Verifica se la partita è finita.
+     *
+     * @return true se la partita è finita, altrimenti false
+     */
+    public final boolean partitaFinita() {
+        for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
             for (char colonna = 'a'; colonna <= 'g'; colonna++) {
                 if (tavoliere.getPedina(riga, colonna) == null) {
                     return false; // Se c'è almeno una casella vuota, il tavoliere non è pieno
@@ -295,64 +401,80 @@ private boolean validaCoordinate(final String coordinate) {
         }
         return true;
     }
-
+/**
+ * Ottiene il carattere della pedina del giocatore corrente in base al turno.
+ *
+ * @param turnot il turno corrente
+ * @return il carattere della pedina del giocatore corrente ('N' per Nero, 'R' per Rosso)
+ */
     private char getPedinaGiocatoreCorrente(final int turnot) {
-               return (Math.abs(turno) % 2 == 1) ? 'N' : 'R';
+        return (Math.abs(turno) % 2 == 1) ? 'N' : 'R';
+    }
+    /**
+     * Verifica se il giocatore corrente ha mosse disponibili.
+     *
+     * @param turnot il turno di gioco
+     * @return true se il giocatore ha mosse disponibili, altrimenti false
+     */
+public final boolean giocatoreHaMosseDisponibili(final int turnot) {
+    // Verifica che l'oggetto mossa sia inizializzato
+    if (mossaPartita == null) {
+        throw new IllegalStateException("L'oggetto Mossa non è stato inizializzato.");
     }
 
-    /**
-     * Calcola se un giocatore ha mosse disponibili.
-     *
-     * @param turnot
-     */
-    public boolean giocatoreHaMosseDisponibili(final int turnot) {
-        char pedinaCorrente = getPedinaGiocatoreCorrente(turno);
-        for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
-            for (char colonna = 'a'; colonna <= 'g'; colonna++) {
-                Pedina pedina = tavoliere.getPedina(riga, colonna);
-                if (pedina != null && pedina.getCarattere() == pedinaCorrente) {
-                    ArrayList<Coordinate> mosseC = tavoliere.mosseC(riga, colonna);
-                    if (!mosseC.isEmpty()) {
-                        return true; // Se c'è almeno una mossa disponibile, il gioco può continuare
-                    }
+    char pedinaCorrente = getPedinaGiocatoreCorrente(turno);
+    for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
+        for (char colonna = 'a'; colonna <= 'g'; colonna++) {
+            Pedina pedina = tavoliere.getPedina(riga, colonna);
+            if (pedina != null && pedina.getCarattere() == pedinaCorrente) {
+                ArrayList<Coordinate> mosseC = mossaPartita.mosseC(riga, colonna);
+                if (!mosseC.isEmpty()) {
+                    return true; // Se c'è almeno una mossa disponibile, il gioco può continuare
                 }
             }
         }
-        return false; // Nessuna mossa disponibile per il giocatore corrente
+    }
+    return false; // Nessuna mossa disponibile per il giocatore corrente
 }
+
 
 /**
- * Calcola il vincitore basato sul numero di pedine.
- * @return
+ * Calcola il vincitore della partita in base al numero di pedine catturate.
+ *
+ * @return il giocatore vincitore, o null in caso di pareggio
  */
-private Giocatore calcolaVincitore() {
-    int pedineGiocatore1 = tavoliere.contaPedine(giocatore1.getPedina().getCarattere(), tavoliere);
-    int pedineGiocatore2 = tavoliere.contaPedine(giocatore2.getPedina().getCarattere(), tavoliere);
+    private Giocatore calcolaVincitore() {
+        int pedineGiocatore1 = tavoliere.contaPedine(giocatore1.getPedina().getCarattere(), tavoliere);
+        int pedineGiocatore2 = tavoliere.contaPedine(giocatore2.getPedina().getCarattere(), tavoliere);
 
-    if (pedineGiocatore1 > pedineGiocatore2) {
-        System.out.println("La partita è finita. Il vincitore è: " + giocatore1.getNome());
-        System.out.println("Punteggio: " + giocatore1.getNome() + " " + pedineGiocatore1 + " - "
-                + giocatore2.getNome() + " " + pedineGiocatore2);
-        return giocatore1;
-    } else if (pedineGiocatore2 > pedineGiocatore1) {
-        System.out.println("La partita è finita. Il vincitore è: " + giocatore2.getNome());
-        System.out.println("Punteggio: " + giocatore2.getNome() + " " + pedineGiocatore2 + " - "
-                + giocatore1.getNome() + " " + pedineGiocatore1);
-        return giocatore2;
-    } else {
-        System.out.println("La partita è finita con un pareggio.");
-        System.out.println("Punteggio: " + giocatore1.getNome() + " " + pedineGiocatore1 + " - "
-                + giocatore2.getNome() + " " + pedineGiocatore2);
-        return null;
+        if (pedineGiocatore1 > pedineGiocatore2) {
+            System.out.println();
+            //System.out.println(Costanti.ALIENO);
+            System.out.println("La partita è finita. sei stato rapito da: " + giocatore1.getNome());
+            System.out.println("Punteggio: " + giocatore1.getNome() + " " + pedineGiocatore1 + " - "
+                    + giocatore2.getNome() + " " + pedineGiocatore2);
+            return giocatore1;
+        } else if (pedineGiocatore2 > pedineGiocatore1) {
+            System.out.println();
+           // System.out.println(Costanti.ALIENO);
+            System.out.println("La partita è finita. sei stato rapito da: " + giocatore2.getNome());
+            System.out.println("Punteggio: " + giocatore2.getNome() + " " + pedineGiocatore2 + " - "
+                    + giocatore1.getNome() + " " + pedineGiocatore1);
+            return giocatore2;
+        } else {
+            System.out.println("La partita è finita con un pareggio.");
+            System.out.println("Punteggio: " + giocatore1.getNome() + " " + pedineGiocatore1 + " - "
+                    + giocatore2.getNome() + " " + pedineGiocatore2);
+            return null;
+        }
     }
-}
-    /**
-     * Funzione che gestisce i comandi del menu.
-     *
-     * @param comando
-     */
+
+/**
+ * Gestisce i comandi inseriti durante il gioco.
+ *
+ * @param comando il comando da gestire
+ */
     private void gestisciComando(final String comando) {
-        // Implementa la logica per gestire i comandi del menu
         switch (comando.toLowerCase()) {
             case "/help":
             case "-h":
@@ -360,29 +482,43 @@ private Giocatore calcolaVincitore() {
                 Menu.helpGioco(tastiera);
                 break;
             case "/vuoto":
-                tavoliere.visualizzaTavoliereVuoto();
+                Menu.clearScreen();
+                //System.out.println(Costanti.GAME);
+                stampatav.visualizzaTavoliereVuoto();
                 break;
             case "/tavoliere":
-                tavoliere.visualizzaTavolierePieno();
+                Menu.clearScreen();
+                //System.out.println(Costanti.GAME);
+                stampatav.visualizzaTavolierePieno();
                 break;
             case "/qualimosse":
-                 // Coordinate delle pedine del giocatore 1 (X)
-                 Giocatore giocatoreCorrente = Math.abs(turno) % 2 == 1 ? giocatore1 : giocatore2;
-                 tavoliere.stampaMosseDisponibili(giocatoreCorrente);
-                 //tavoliere.stampaMosseDisponibili(mossea, mosseb);
+                Menu.clearScreen();
+                Giocatore giocatoreCorrente = Math.abs(turno) % 2 == 1 ? giocatore1 : giocatore2;
+                // Stampa le mosse disponibili per tutte le pedine del giocatore corrente
+                //System.out.println(Costanti.GAME);
+                stampatav.stampaMosseDisponibili(giocatoreCorrente);
                 break;
             case "/mosse":
-                mostraMosseGiocate();
+                Menu.clearScreen();
+                //System.out.println(Costanti.GAME);
+                stampatav.visualizzaTavolierePieno();
+                //mostraMosseGiocate();
                 break;
-                case "/abbandona":
+            case "/abbandona":
                 boolean confermaAbbandono = false;
                 while (!confermaAbbandono) {
-                    String conferma = tastiera.readString(MSG_ABBANDONA_PARTITA);
+                    String conferma = tastiera.readString(Costanti.MSG_ABBANDONA_PARTITA);
                     if (conferma.equalsIgnoreCase("si")) {
+                        Menu.clearScreen();
+                        //System.out.println(Costanti.ALIENI);
+                        System.out.println();
+                        System.out.println(Costanti.RED
+                        + "Vi stiamo osservando. La vostra forza sarà messa alla prova. Non arrendetevi mai"
+                        + Costanti.ANSI_RESET);
                         if (turno % 2 == 0) {
-                            System.out.println("Il giocatore " + giocatore2.getNome() + CONFERMA_ABBANDONO);
+                            System.out.println("Il giocatore " + giocatore2.getNome() + Costanti.CONFERMA_ABBANDONO);
                         } else {
-                            System.out.println("Il giocatore " + giocatore1.getNome() + CONFERMA_ABBANDONO);
+                            System.out.println("Il giocatore " + giocatore1.getNome() + Costanti.CONFERMA_ABBANDONO);
                         }
                         Giocatore giocatoreOpposto = (turno % 2 == 0) ? giocatore1 : giocatore2;
                         int numeroPedineGiocatoreOpposto = tavoliere
@@ -391,8 +527,6 @@ private Giocatore calcolaVincitore() {
                                 + numeroPedineGiocatoreOpposto + " a 0.");
                         abbandono = true;
                         confermaAbbandono = true;
-                        Menu.delay(TIME);
-                        Menu.clearScreen();
                     } else if (conferma.equalsIgnoreCase("no")) {
                         confermaAbbandono = true;
                     } else {
@@ -404,56 +538,114 @@ private Giocatore calcolaVincitore() {
                 uscitaRichiesta = Menu.esci(tastiera);
                 break;
             case "/tempo":
-                calcoloTempoDiGioco();
+                Menu.clearScreen();
+                //System.out.println(Costanti.GAME);
+                stampatav.visualizzaTavolierePieno();
+                stampaTempoDiGioco();
                 break;
+
             default:
+                Menu.clearScreen();
+                //System.out.println(Costanti.GAME);
+                stampatav.visualizzaTavolierePieno();
                 System.out.println("Comando non valido. Riprova.");
         }
     }
+/*
+ * Mostra le mosse giocate finora durante la partita.
 
-    private void calcoloTempoDiGioco() {
-        long tempoTrascorso = System.currentTimeMillis() - tempoInizioPartita;
-        long ore = tempoTrascorso / Costanti.ORE;
-        long minuti = (tempoTrascorso % Costanti.ORE) / Costanti.MINUTI;
-        long secondi = ((tempoTrascorso % Costanti.ORE) % Costanti.MINUTI) / Costanti.SECONDI;
+   private void mostraMosseGiocate() {
+        if (storiaMosse.isEmpty()) {
+            System.out.println(Menu.indent("Nessuna mossa è stata giocata finora.", Costanti.TIME6));
+        } else {
+            String header = String.format("║ %-5s | %-40s ║", "N.", "Mossa");
+            String separator = new String(new char[header.length()]).replace("\0", "═");
 
-        System.out.println("Tempo di gioco: " + ore + ":" + minuti + ":" + secondi);
+            String giocoMosse = Costanti.RED + "╔" + separator.substring(1, separator.length() - 1) + "╗\n"
+                + "║" + Costanti.ANSI_RESET + String.format(" %-5s | %-40s ", "N.", "Mossa") + Costanti.RED + "║\n"
+                + "╠" + separator.substring(1, separator.length() - 1) + "╣\n"; // Questa è la linea centrale corretta
+            int counter = 1;
+            for (String mossa : storiaMosse) {
+                giocoMosse += "║" + Costanti.ANSI_RESET
+                + String.format(" %-5d | %-40s ", counter++, mossa) + Costanti.RED + "║\n";
+            }
+            giocoMosse += "╚" + separator.substring(1, separator.length() - 1) + "╝" + Costanti.ANSI_RESET;
+
+            System.out.println((giocoMosse));
+            System.out.println(Costanti.SEPARATORE_2 + Costanti.ANSI_RESET);
+        }
     }
-
-    /**
- * .
- * @param coordinateInput
- * @return
+        */
+/**
+ * Reimposta lo stato della partita.
+ *
+ * @param caselleBloccate la lista delle caselle bloccate da reimpostare
  */
-public static Coordinate parseCoordinate(final String coordinateInput) {
-    if (coordinateInput.length() < 2) {
-        return null;
-    }
-    char colonnaChar = Character.toLowerCase(coordinateInput.charAt(0));
-    int riga;
-    try {
-        riga = Integer.parseInt(coordinateInput.substring(1));
-    } catch (NumberFormatException e) {
-        return null;
-    }
-
-    if (colonnaChar < 'a' || colonnaChar > 'g' || riga < 1 || riga > Costanti.RIGAF) {
-        return null;
-    }
-
-    int colonna = colonnaChar - 'a';
-
-    return new Coordinate(riga, colonna);
+ // Reimposta lo stato della partita
+ public void reset(final List<Coordinate> caselleBloccate) {
+    uscitaRichiesta = false;
+    abbandono = false;
+    turno = 1;
+    caselleBloccate.clear();
 }
 
-    /**
-     * .
-     * @param input
-     * @param caselleDaBloccare
-     * @param tavoliere
-     */
+/**
+ * Stampa il tempo di gioco trascorso finora.
+ */
+private void stampaTempoDiGioco() {
+    long tempoTrascorso = System.currentTimeMillis() - tempoInizioPartita;
+    long ore = tempoTrascorso / Costanti.ORE;
+    long minuti = (tempoTrascorso % Costanti.ORE) / Costanti.MINUTI;
+    long secondi = ((tempoTrascorso % Costanti.ORE) % Costanti.MINUTI) / Costanti.SECONDI;
+
+    String tempoFormattato = String.format("%02d:%02d:%02d", ore, minuti, secondi);
+
+    String giocoTempo = Costanti.RED + "╔════════════════════════╗\n"
+            + "║" + Costanti.ANSI_RESET + "    Tempo di gioco      " + Costanti.RED + "║\n"
+            + "║" + Costanti.ANSI_RESET + "        " + tempoFormattato + "        " + Costanti.RED + "║\n"
+            + "╚════════════════════════╝" + Costanti.ANSI_RESET;
+
+    //System.out.println(Menu.indent(giocoTempo, Costanti.TIME7));
+    System.out.println(Costanti.SEPARATORE_2 + Costanti.ANSI_RESET);
+}
+
+
+/**
+ * Effettua il parsing di una stringa di coordinate e restituisce l'oggetto Coordinate corrispondente.
+ *
+ * @param coordinateInput la stringa contenente le coordinate
+ * @return l'oggetto Coordinate corrispondente, null se la stringa non è valida
+ */
+    public static Coordinate parseCoordinate(final String coordinateInput) {
+        if (coordinateInput.length() < 2) {
+            return null;
+        }
+        char colonnaChar = Character.toLowerCase(coordinateInput.charAt(0));
+        int riga;
+        try {
+            riga = Integer.parseInt(coordinateInput.substring(1));
+        } catch (NumberFormatException e) {
+            return null;
+        }
+
+        if (colonnaChar < 'a' || colonnaChar > 'g' || riga < 1 || riga > Costanti.RIGAF) {
+            return null;
+        }
+
+        int colonna = colonnaChar - 'a';
+
+        return new Coordinate(riga, colonna);
+    }
+/**
+ * Gestisce il comando di bloccaggio di una casella.
+ *
+ * @param input il comando di bloccaggio
+ * @param caselleDaBloccare la lista delle caselle attualmente bloccate
+ * @param tavoliere il tavoliere di gioco
+ * @param blocca l'oggetto Blocca per il bloccaggio delle caselle
+ */
     public static void gestioneBlocca(final String input, final List<Coordinate> caselleDaBloccare,
-            final Tavoliere tavoliere) {
+            final Tavoliere tavoliere, final Blocca blocca) {
         if (input.toLowerCase().startsWith("/blocca")) {
             String[] parts = input.split(" ");
             if (parts.length > 1) {
@@ -462,7 +654,7 @@ public static Coordinate parseCoordinate(final String coordinateInput) {
                 if (coordinate != null && Partita.isValidCoordinate(coordString)) {
                     if (caselleDaBloccare.size() < Costanti.LIMITE_BLOCCA) {
                         if (!caselleDaBloccare.contains(coordinate)) {
-                            if (tavoliere.bloccaCasella(coordinate)) {
+                            if (blocca.bloccaCasella(coordinate)) {
                                 caselleDaBloccare.add(coordinate);
                                 System.out.println("Casella bloccata con successo: " + coordinate);
                             } else {
@@ -492,88 +684,14 @@ public static Coordinate parseCoordinate(final String coordinateInput) {
             System.out.println();
         }
     }
-
-    /**
- * .
- * @param coordinate
+/**
+ * Verifica se una stringa rappresenta una coordinata valida.
+ *
+ * @param coordinate la stringa da verificare
+ * @return true se la stringa rappresenta una coordinata valida, altrimenti false
  */
-public static boolean isValidCoordinate(final String coordinate) {
-    // Aggiungi la logica di validazione della coordinata, ad esempio
-    return coordinate.matches("^[a-g][1-7]$"); // Supponendo che le coordinate valide siano da a1 a h8
-}
-
-    private void gestisciCoordinate(final String coordinate) {
-        if (!coordinate.matches("[a-g][1-7]-[a-g][1-7]")) {
-            System.out.println(
-                    "Formato delle coordinate non valido. Inserisci le coordinate nel formato corretto (es. a1-a2).");
-            return;
-        }
-
-        String[] coordinateArray = coordinate.split("-");
-        char colonnaPedina = coordinateArray[0].charAt(0);
-        int rigaPedina = Character.getNumericValue(coordinateArray[0].charAt(1));
-        char colonnaCella = coordinateArray[1].charAt(0);
-        int rigaCella = Character.getNumericValue(coordinateArray[1].charAt(1));
-
-        int col1 = Character.toLowerCase(colonnaPedina) - 'a' + 1;
-        int col2 = Character.toLowerCase(colonnaCella) - 'a' + 1;
-
-        Coordinate from = new Coordinate(rigaPedina, col1);
-        Coordinate to = new Coordinate(rigaCella, col2);
-
-        Giocatore giocatoreCorrente = (Math.abs(turno) % 2 == 1) ? giocatore1 : giocatore2;
-
-        boolean successo = eseguiMossa(giocatoreCorrente, from, to);
-        if (successo) {
-            Menu.clearScreen();
-            System.out.println("Muovo la pedina da (" + rigaPedina + ", " + colonnaPedina + ") a (" + rigaCella + ", "
-                    + colonnaCella + ")");
-            tavoliere.visualizzaTavolierePieno();
-            // Aggiungi la mossa alla lista delle mosse giocate
-            String mossa = coordinate + " (" + (Math.abs(turno) % 2 == 1 ? "N" : "R") + ")";
-            storiaMosse.add(mossa);
-            turno++;
-        } else {
-            System.out.println("Movimento non valido. Riprova.");
-        }
+    public static boolean isValidCoordinate(final String coordinate) {
+        // Aggiungi la logica di validazione della coordinata, ad esempio
+        return coordinate.matches("^[a-g][1-7]$"); // Supponendo che le coordinate valide siano da a1 a h8
     }
-   /**
-     * .
-     * @param caselleBloccate
-     */
- // Reimposta lo stato della partita
- public void reset(final List<Coordinate> caselleBloccate) {
-    uscitaRichiesta = false;
-    abbandono = false;
-    turno = 1;
-    caselleBloccate.clear();
-}
-    /*
-     * Funzione per mostrare le mosse giocate.
-     */
-    private void mostraMosseGiocate() {
-        if (storiaMosse.isEmpty()) {
-            System.out.println("Nessuna mossa è stata giocata finora.");
-        } else {
-            String header = String.format("| %-5s | %-40s |", "N.", "Mossa");
-            String separator = new String(new char[header.length()]).replace("\0", "-");
-
-            System.out.println(separator);
-            System.out.println(header);
-            System.out.println(separator);
-            int counter = 1;
-            for (String mossa : storiaMosse) {
-                System.out.println(String.format("| %-5d | %-40s |", counter++, mossa));
-            }
-            System.out.println(separator);
-        }
-    }
-
-    /**
- * .
- * @param caselleBloccate
- */
-public void resettaCelleBloccate(final List<Coordinate> caselleBloccate) {
-    caselleBloccate.clear();
-}
 }

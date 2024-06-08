@@ -333,7 +333,7 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
                 // Se la casella adiacente contiene una pedina avversaria
                 if (adiacente != null && adiacente.getCarattere() != giocatore.getPedina().getCarattere()) {
                     // Verifica se la pedina è bloccata
-                    if (adiacente.getCarattere() != 'X') {
+                    if (adiacente.getCarattere() != "XX") {
                         // Converte la pedina avversaria nel colore del giocatore corrente
                         adiacente.setCarattere(giocatore.getPedina().getCarattere());
                     }
@@ -407,8 +407,8 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
  * @param turnot il turno corrente
  * @return il carattere della pedina del giocatore corrente ('N' per Nero, 'R' per Rosso)
  */
-    private char getPedinaGiocatoreCorrente(final int turnot) {
-        return (Math.abs(turno) % 2 == 1) ? 'N' : 'R';
+    private String getPedinaGiocatoreCorrente(final int turnot) {
+        return (Math.abs(turno) % 2 == 1) ? "\u26C1" : "\u26C3";
     }
     /**
      * Verifica se il giocatore corrente ha mosse disponibili.
@@ -422,7 +422,7 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
         throw new IllegalStateException("L'oggetto Mossa non è stato inizializzato.");
     }
 
-    char pedinaCorrente = getPedinaGiocatoreCorrente(turno);
+    String pedinaCorrente = getPedinaGiocatoreCorrente(turno);
     for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
         for (char colonna = 'a'; colonna <= 'g'; colonna++) {
             Pedina pedina = tavoliere.getPedina(riga, colonna);
@@ -525,7 +525,7 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
                         }
                         Giocatore giocatoreOpposto = (turno % 2 == 0) ? giocatore1 : giocatore2;
                         int numeroPedineGiocatoreOpposto = tavoliere
-                                .contaPedine(giocatoreOpposto.getPedina().getCarattere(), tavoliere);
+                        .contaPedine(giocatoreOpposto.getPedina().getCarattere(), tavoliere);
                         System.out.println("Il giocatore " + giocatoreOpposto.getNome() + " ha vinto per "
                                 + numeroPedineGiocatoreOpposto + " a 0.");
                         abbandono = true;

@@ -34,16 +34,16 @@ public void resettaCelleBloccate(final List<Coordinate> caselleBloccate) {
     caselleBloccateg.clear();
 }
 
-    /**
-     * Verifica se una determinata coordinata è bloccata.
-     * @param coord La coordinata da controllare.
-     * @return true se la coordinata è bloccata, altrimenti false.
-     */
+/**
+ * .
+ * @param coord
+ * @return
+ */
 public final boolean isBloccata(final Coordinate coord) {
     int riga = coord.getRiga() - 1; // Converti da 1-based a 0-based
     int colonna = coord.getColonna() - 1; // Converti da 1-based a 0-based
     // Controlla se la posizione contiene una pedina bloccata con simbolo 'X'
-    return scacchiera[riga][colonna] != null && scacchiera[riga][colonna].getCarattere() == 'X';
+    return scacchiera[riga][colonna] != null && scacchiera[riga][colonna].getCarattere() == "XX";
 }
     /**
      * Verifica se una casella è bloccata.

@@ -69,8 +69,8 @@ public static void main(final String[] args) {
                 break;
 
             case "/gioca":
-                Giocatore giocatore1 = new Giocatore(new Pedina('N', new Coordinate(0, 0)), "Nero");
-                Giocatore giocatore2 = new Giocatore(new Pedina('R', new Coordinate(0, 0)), "Bianco");
+            Giocatore giocatore1 = new Giocatore(new Pedina("\u26C1", new Coordinate(0, 0)), "Nero");
+            Giocatore giocatore2 = new Giocatore(new Pedina("\u26C3", new Coordinate(0, 0)), "Bianco");
                 partita = new Partita(giocatore1, giocatore2, tavoliere, blocca, mossaa, mossab);
                 Menu.clearScreen();
                 if (partita.avviaPartita(caselleDaBloccare)) {

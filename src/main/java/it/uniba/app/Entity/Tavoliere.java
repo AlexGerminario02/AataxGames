@@ -7,69 +7,45 @@ import java.util.List;
 import it.uniba.app.Boundary.Costanti;
 
 /**
- * <<Entity>>
- * Classe che rappresenta il tavoliere di gioco.
- * Questa classe gestisce lo stato del tavoliere, le mosse disponibili e la
- * visualizzazione del tavoliere.
+ * <<Entity>>: Classe per rappresentare il tavoliere di gioco.
  */
 @SuppressWarnings("unused")
-
 public class Tavoliere {
     public static final int ZERO = 0;
     public static final int UNO = 1;
-    public static final int MENOUNO = 1;
     public static final int DUE = 2;
-    public static final int MENODUE = -2;
     public static final int RIGAINIZIALE = 1;
     public static final int COLONNAINIZIALE = 1;
     public static final int RIGAFINALE = 7;
     public static final int COLONNAFINALE = 7;
-
-    // Attributi del tavoliere
-
-    /** La matrice che rappresenta lo stato del tavoliere. */
-    private Pedina[][] scacchiera;
-
-    private List<Coordinate> caselleBloccate;
-
-    /** La dimensione del tavoliere (numero di righe e colonne). */
     private static final int DIM = 7;
 
-    /** I caratteri che rappresentano le colonne del tavoliere. */
+    private Pedina[][] scacchiera;
+    private List<Coordinate> caselleBloccate;
     private final char[] colonne = {'a', 'b', 'c', 'd', 'e', 'f', 'g' };
-
-    /** Il numero del turno attuale. */
     private int turno;
-
-    /**
-     * Crea un nuovo tavoliere con la dimensione predefinita.
+  /**
+     * Metodo statico per creare un tavoliere.
      *
-     * @return un nuovo tavoliere con una dimensione predefinita
+     * @return un nuovo oggetto Tavoliere
      */
     public static Tavoliere creaTavoliere() {
         return new Tavoliere(DIM);
     }
-
-    /**
-     * Costruisce una nuova istanza di Tavoliere con la dimensione specificata.
+   /**
+     * Costruttore per inizializzare un tavoliere con dimensione specifica.
      *
-     * @param dim dimensione del tavoliere (numero di righe e colonne)
+     * @param dim la dimensione del tavoliere
      */
     public Tavoliere(final int dim) {
         this.scacchiera = new Pedina[dim][dim];
         caselleBloccate = new ArrayList<>();
-
         this.turno = 1;
     }
-
-    /**
-     * Costruisce una nuova istanza di Tavoliere copiando i valori da un'altra
-     * istanza esistente di Tavoliere.
-     * Questo costruttore esegue una copia profonda della scacchiera, creando nuove
-     * istanze di Pedina per
-     * evitare la condivisione di riferimenti mutabili tra le istanze.
+/**
+     * Costruttore per creare una copia di un tavoliere.
      *
-     * @param copia l'istanza di Tavoliere da cui copiare i valori
+     * @param copia il tavoliere da copiare
      */
     public Tavoliere(final Tavoliere copia) {
         int dim = copia.scacchiera.length;
@@ -77,20 +53,28 @@ public class Tavoliere {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
                 if (copia.scacchiera[i][j] != null) {
-                    this.scacchiera[i][j] = new Pedina(copia.scacchiera[i][j]); // Usa il costruttore di copia di Pedina
+                    this.scacchiera[i][j] = new Pedina(copia.scacchiera[i][j]);
                 }
             }
         }
         caselleBloccate = new ArrayList<>();
-
         this.turno = copia.turno;
     }
-
-    // Metodi per gestire il tavoliere
-
-    /**
+/**
+     * Restituisce la scacchiera.
      *
-     * Conta le pedine di un giocatore.
+     * @return la scacchiera
+     */
+    public Pedina[][] getScacchiera() {
+        return this.scacchiera;
+    }
+
+ /**
+     * Conta il numero di pedine con un carattere specifico sul tavoliere.
+     *
+     * @param caratterePedina il carattere della pedina
+     * @param tavoliere        il tavoliere
+     * @return il numero di pedine con il carattere specificato
      */
     public final int contaPedine(final char caratterePedina, final Tavoliere tavoliere) {
         int count = 0;
@@ -104,17 +88,14 @@ public class Tavoliere {
         }
         return count;
     }
-
-    /**
+ /**
+     * Restituisce il turno attuale.
      *
-     * Restituisce il numero del turno attuale.
-     *
-     * @return il numero del turno attuale
+     * @return il turno attuale
      */
     public int getTurno() {
         return turno;
     }
-
     /**
      * Restituisce la pedina alla posizione specificata sul tavoliere.
      *
@@ -129,397 +110,73 @@ public class Tavoliere {
         }
         return scacchiera[riga - 1][indiceColonna];
     }
-
-    /**
-     * Posiziona una pedina sulla scacchiera.
-     * @param pedina  La pedina da posizionare.
-     * @param riga    La riga in cui posizionare la pedina.
-     * @param colonna La colonna in cui posizionare la pedina.
-     * @return true se la pedina è stata posizionata con successo, false altrimenti.
+ /**
+     * Imposta la pedina alla posizione specificata sul tavoliere.
+     *
+     * @param pedina  la pedina da impostare
+     * @param riga    la riga della pedina
+     * @param colonna la colonna della pedina
+     * @return true se la pedina è stata impostata con successo, false altrimenti
      */
+
     public boolean setPedina(final Pedina pedina, final int riga, final int colonna) {
         if (colonna < 1 || colonna > DIM || riga < 1 || riga > DIM) {
-            return false; // Posizione non valida
+            return false;
         }
 
         if (pedina == null) {
             scacchiera[riga - 1][colonna - 1] = null;
             return true;
         } else if (scacchiera[riga - 1][colonna - 1] != null) {
-            return false; // Posizione occupata
+            return false;
         }
 
         scacchiera[riga - 1][colonna - 1] = pedina;
         pedina.setCoordinate(new Coordinate(riga, colonna));
         return true;
     }
-
     /**
-     * Controlla se la posizione specificata sul tavoliere è vuota.
+     * Verifica se la posizione specificata sul tavoliere è vuota.
      *
      * @param riga    la riga della posizione
-     * @param colonna la colonna della posizione (come carattere)
+     * @param colonna la colonna della posizione
      * @return true se la posizione è vuota, false altrimenti
      */
-    public boolean posizioneVuota(final int riga, final char colonna) {
-        return getPedina(riga, colonna) == null;
-    }
-/**
- * .
- */
-    public final void visualizzaTavoliereVuoto() {
-        System.out.print("  ");
-        for (char colonna : colonne) {
-            System.out.print("   " + colonna + "  ");
-        }
-        System.out.println();
-        for (int i = 1; i <= DIM; i++) {
-            System.out.print("  ");
-            for (char colonna : colonne) {
-                System.out.print(Costanti.LINE_SEPARATOR);
-            }
-            System.out.println("+");
-            System.out.print(i + " ");
-            for (char colonna : colonne) {
-                System.out.print(Costanti.EMPTY_CELL);
-            }
-            System.out.println("| " + i); // Numero di riga a destra
-        }
-        System.out.print("  ");
-        for (char colonna : colonne) {
-            System.out.print(Costanti.LINE_SEPARATOR);
-        }
-        System.out.println("+");
-        System.out.print("  ");
-        for (char colonna : colonne) {
-            System.out.print("   " + colonna + "  ");
-        }
-        System.out.println();
 
+    public boolean posizioneVuota(final int riga, final int colonna) {
+        return scacchiera[riga][colonna] == null;
     }
 
-    /**
-     * Visualizza il tavoliere vuoto con le coordinate sulle righe e sui numeri.
+  /**
+     * Inizializza le pedine nelle posizioni specificate sul tavoliere.
+     *
+     * @param rigaIniziale    la riga iniziale
+     * @param colonnaIniziale la colonna iniziale
+     * @param rigaFinale      la riga finale
+     * @param colonnaFinale   la colonna finale
      */
     public void inizializzaPedine(final int rigaIniziale, final int colonnaIniziale, final int rigaFinale,
             final int colonnaFinale) {
-        // Posiziona una pedina 'X' nella prima riga e nella prima colonna
         setPedina(new Pedina(Costanti.PEDINA_NERA, new Coordinate(rigaIniziale, colonnaIniziale)), rigaIniziale,
                 colonnaIniziale);
-        // Posiziona una pedina 'O' nella prima riga e nell'ultima colonna
         setPedina(new Pedina(Costanti.PEDINA_ROSSO, new Coordinate(rigaIniziale, colonnaFinale)), rigaIniziale,
                 colonnaFinale);
-        // Posiziona una pedina 'X' nell'ultima riga e nell'ultima colonna
         setPedina(new Pedina(Costanti.PEDINA_NERA, new Coordinate(rigaFinale, colonnaFinale)), rigaFinale,
                 colonnaFinale);
-        // Posiziona una pedina 'O' nell'ultima riga e nella prima colonna
         setPedina(new Pedina(Costanti.PEDINA_ROSSO, new Coordinate(rigaFinale, colonnaIniziale)), rigaFinale,
                 colonnaIniziale);
     }
 
     /**
-     * Restituice il numero di mosse di tipo A disponibili nel gioco.
+     * Inizializza una casella bloccata sulla scacchiera.
      *
-     * @return le mosse di tipo A disponibili
-     */
-    public ArrayList<Coordinate> mosseA(final int riga, final int colonna) {
-        ArrayList<Coordinate> mosse = new ArrayList<>();
-        int[] deltaRighe = {-1, -1, -1, 0, 0, 1, 1, 1 };
-        int[] deltaColonne = {-1, 0, 1, -1, 1, -1, 0, 1 };
-        for (int i = 0; i < deltaRighe.length; i++) {
-            int nuovaRiga = riga + deltaRighe[i];
-            char nuovaColonna = (char) (colonna + deltaColonne[i]);
-            Coordinate nuovaCoordinata = new Coordinate(nuovaRiga, nuovaColonna);
-            if (nuovaRiga >= 1 && nuovaRiga <= DIM && Arrays.binarySearch(colonne, nuovaColonna) >= 0
-                    && posizioneVuota(nuovaRiga, nuovaColonna) && !isCasellaBloccata(nuovaCoordinata)) {
-                mosse.add(nuovaCoordinata);
-            }
-        }
-        return mosse;
-    }
-
-    /**
-     * Restituice il numero di mosse di tipo B disponibili nel gioco.
-     *
-     * @return le mosse di tipo B disponibili
+     * @param coordinateBloccata le coordinate della casella bloccata
      */
 
-    public ArrayList<Coordinate> mosseB(final int riga, final int colonna) {
-        ArrayList<Coordinate> mosse = new ArrayList<>();
-        int[] deltaRighe = {MENODUE, MENODUE, MENODUE, -1, 0, 0, 1, 1, DUE, DUE, DUE, MENODUE, DUE, DUE, DUE, DUE, -1,
-                MENODUE };
-        int[] deltaColonne = {MENODUE, -1, 1, MENODUE, MENODUE, DUE, MENODUE, DUE, -1, 0, 1, 0, MENODUE, 0, 1, DUE,
-                DUE, DUE };
-        for (int i = 0; i < deltaRighe.length; i++) {
-            int nuovaRiga = riga + deltaRighe[i];
-            char nuovaColonna = (char) (colonna + deltaColonne[i]);
-            Coordinate nuovaCoordinata = new Coordinate(nuovaRiga, nuovaColonna);
-            if (nuovaRiga >= 1 && nuovaRiga <= DIM && Arrays.binarySearch(colonne, nuovaColonna) >= 0
-                    && posizioneVuota(nuovaRiga, nuovaColonna) && !isCasellaBloccata(nuovaCoordinata)) {
-                mosse.add(nuovaCoordinata);
-            }
-        }
-        return mosse;
-    }
-
-    /**
-     * Restituice il numero di mosse di tipo C disponibili nel gioco.
-     *
-     * @return le mosse di tipo C disponibili
-     */
-
-    public ArrayList<Coordinate> mosseC(final int riga, final int colonna) {
-        ArrayList<Coordinate> mosseC = new ArrayList<>();
-        mosseC.addAll(mosseA(riga, colonna));
-        mosseC.addAll(mosseB(riga, colonna));
-        return mosseC;
-    }
-
-    /**
-     * Stampa le mosse disponibili sul tavoliere per il giocatore corrente.
-     *
-     * @param giocatoreCorrente Il giocatore corrente.
-     */
-    public void stampaMosseDisponibili(final Giocatore giocatoreCorrente) {
-        // Inizializza le pedine del tavoliere
-        Pedina[][] tabelloneStampato = new Pedina[DIM][DIM];
-        boolean[][] pedineRaggiunteDaA = new boolean[DIM][DIM];
-        boolean[][] pedineRaggiunteDaB = new boolean[DIM][DIM];
-
-        // Aggiungi le pedine al tavoliere stampato
-        for (int riga = 0; riga < DIM; riga++) {
-            for (int colonna = 0; colonna < DIM; colonna++) {
-                Pedina pedina = getPedina(riga + 1, (char) ('a' + colonna));
-                if (pedina != null) {
-                    tabelloneStampato[riga][colonna] = new Pedina(pedina);
-                }
-            }
-        }
-
-        // Aggiungi le caselle bloccate al tavoliere stampato
-        for (int riga = 1; riga <= DIM; riga++) {
-            for (char colonna : colonne) {
-                Coordinate coord = new Coordinate(riga, colonna - 'a');
-                if (isCasellaBloccata(coord)) {
-                    tabelloneStampato[riga - 1][colonna - 'a'] = new Pedina('X', coord);
-                }
-            }
-        }
-
-        // Aggiungi le mosse disponibili sul tavoliere stampato
-        for (int riga = 1; riga <= DIM; riga++) {
-            for (char colonna : colonne) {
-                Pedina pedina = getPedina(riga, colonna);
-                if (pedina != null && pedina.getCarattere() == giocatoreCorrente.getPedina().getCarattere()) {
-                    ArrayList<Coordinate> mossea = mosseA(riga, colonna);
-                    ArrayList<Coordinate> mosseb = mosseB(riga, colonna);
-                    for (Coordinate mossa : mossea) {
-                        int rigaMossa = mossa.getRiga() - 1;
-                        int colonnaMossa = mossa.getColonna() - 'a';
-                        if (rigaMossa >= 0 && rigaMossa < DIM && colonnaMossa >= 0 && colonnaMossa < DIM) {
-                            tabelloneStampato[rigaMossa][colonnaMossa] = new Pedina('A', mossa);
-                            pedineRaggiunteDaA[rigaMossa][colonnaMossa] = true;
-                        }
-                    }
-                    for (Coordinate mossa : mosseb) {
-                        int rigaMossa = mossa.getRiga() - 1;
-                        int colonnaMossa = mossa.getColonna() - 'a';
-                        if (rigaMossa >= 0 && rigaMossa < DIM && colonnaMossa >= 0 && colonnaMossa < DIM) {
-                            if (!pedineRaggiunteDaA[rigaMossa][colonnaMossa]) {
-                                if (tabelloneStampato[rigaMossa][colonnaMossa] == null) {
-                                    tabelloneStampato[rigaMossa][colonnaMossa] = new Pedina('B', mossa);
-                                } else if (tabelloneStampato[rigaMossa][colonnaMossa].getCarattere() == 'C') {
-                                    tabelloneStampato[rigaMossa][colonnaMossa] = new Pedina('B', mossa);
-                                }
-                            }
-                            pedineRaggiunteDaB[rigaMossa][colonnaMossa] = true;
-                        }
-                    }
-                }
-            }
-        }
-
-        // Aggiungi la C alle caselle raggiunte sia da mosse di tipo A che di tipo B
-        for (int i = 0; i < DIM; i++) {
-            for (int j = 0; j < DIM; j++) {
-                if (pedineRaggiunteDaA[i][j] && pedineRaggiunteDaB[i][j]) {
-                    tabelloneStampato[i][j] = new Pedina('C', new Coordinate(i + 1, (char) ('a' + j)));
-                }
-            }
-        }
-
-        // Stampa l'intestazione delle colonne
-        System.out.print("  ");
-        for (char colonna : colonne) {
-            System.out.print("   " + colonna + "  ");
-        }
-        System.out.println();
-
-        // Stampa il tavoliere con le mosse disponibili
-        for (int i = 1; i <= DIM; i++) {
-            System.out.print("  ");
-            for (char colonna : colonne) {
-                System.out.print("+-----");
-            }
-            System.out.println("+");
-            System.out.print(i + " ");
-            for (char colonna : colonne) {
-                System.out.print("|  ");
-                Pedina pedina = tabelloneStampato[i - 1][colonna - 'a'];
-                if (pedina != null) {
-                    if (pedina.getCarattere() == 'X') {
-                        System.out.print(Costanti.ANSI_WHITE + "  " + Costanti.ANSI_RESET + " ");
-                    } else if (pedina.getCarattere() == 'A') {
-                        System.out.print(Costanti.ANSI_YELLOW + "  " + Costanti.ANSI_RESET + " ");
-                    } else if (pedina.getCarattere() == 'B') {
-                        System.out.print(Costanti.ANSI_ORANGE + "  " + Costanti.ANSI_RESET + " ");
-                    } else if (pedina.getCarattere() == 'C') {
-                        System.out.print(Costanti.ANSI_PURPLE + "  " + Costanti.ANSI_RESET + " ");
-                    } else {
-                        System.out.print(pedina.getCarattere() + "  ");
-                    }
-                } else {
-                    System.out.print(".  ");
-                }
-            }
-            System.out.println("| " + i);
-        }
-
-        // Stampa la chiusura delle righe del tavoliere
-        System.out.print("  ");
-        for (char colonna : colonne) {
-            System.out.print("+-----");
-        }
-        System.out.println("+");
-
-        // Stampa l'intestazione delle colonne in fondo
-        System.out.print("  ");
-        for (char colonna : colonne) {
-            System.out.print("   " + colonna + "  ");
-        }
-        System.out.println();
-    }
-/**
- * .
- * @param coordinateBloccata
- */
-    public final void inizializzaCaselleBloccate(final Coordinate coordinateBloccata) {
-        int riga = coordinateBloccata.getRiga();
-        int colonna = coordinateBloccata.getColonna() + 1;
-        setPedina(new Pedina(Costanti.PEDINA_X, new Coordinate(riga + 1, colonna + 1)), riga, colonna);
-
-    }
-/**
- * .
- * @param coord
- * @return
- */
-    public final boolean isBloccata(final Coordinate coord) {
-        int riga = coord.getRiga() - 1; // Converti da 1-based a 0-based
-        int colonna = coord.getColonna() - 1; // Converti da 1-based a 0-based
-        // Controlla se la posizione contiene una pedina bloccata con simbolo 'X'
-        return scacchiera[riga][colonna] != null && scacchiera[riga][colonna].getCarattere() == 'X';
-    }
-/**
- * .
- * @param coord
- * @return
- */
-    public final boolean isCasellaBloccata(final Coordinate coord) {
-        for (Coordinate blocked : caselleBloccate) {
-            if (blocked.getRiga() == coord.getRiga() && blocked.getColonna() == coord.getColonna()) {
-                return true;
-            }
-        }
-        return false;
-    }
-/**
- * .
- * @param coord
- * @return
- */
-    public final boolean bloccaCasella(final Coordinate coord) {
-        /*
-         * if (caselleBloccate.size() >= 9) {
-         * return false;
-         * }
-         */
-
-        int riga = coord.getRiga();
-        char colonna = (char) (coord.getColonna() + 'a');
-
-        // Verifica se la cella è sulla riga 4 o sulla colonna 'd'
-        if ((riga == Costanti.RIGA_4 && (colonna == 'a' || colonna == 'b' || colonna == 'c' || colonna == 'd'
-        || colonna == 'e' || colonna == 'f' || colonna == 'g')) || (colonna == 'd'
-                        && (riga == 1 || riga == 2 || riga == Costanti.RIGA_3
-                        || riga == Costanti.RIGA_4 || riga == Costanti.RIGA_5
-                        || riga == Costanti.RIGA_6 || riga == Costanti.RIGA_7))) {
-            caselleBloccate.add(coord);
-            return true;
-        } else {
-            System.out.println("Non è possibile bloccare questa casella per le regole definite.");
-            return false;
-        }
-    }
-
-    /**
-     * .
-     * @param riga
-     * @param colonna
-     * @return
-     */
-    public boolean posizioneVuota(final int riga, final int colonna) {
-        // Controlla se la posizione è vuota
-        return scacchiera[riga][colonna] == null;
-    }
-
-    /**
-     * Visualizza il tavoliere pieno con le coordinate sulle righe e sui numeri.
-     */
-    public void visualizzaTavolierePieno() {
-        System.out.print("  ");
-        for (char colonna : colonne) {
-            System.out.print("   " + colonna + "  ");
-        }
-        System.out.println();
-        for (int i = 1; i <= DIM; i++) {
-            System.out.print("  ");
-            for (char colonna : colonne) {
-                System.out.print(Costanti.LINE_SEPARATOR);
-            }
-            System.out.println("+");
-            System.out.print(i + " ");
-            for (char colonna : colonne) {
-                System.out.print("|  ");
-                Coordinate coord = new Coordinate(i, colonna - 'a');
-                Pedina pedina = getPedina(i, colonna);
-                if (isCasellaBloccata(coord)) {
-                    Pedina pedinaBloccata = getPedina(i, colonna);
-                    if (pedinaBloccata != null) {
-                        if (pedinaBloccata.getCarattere() == 'X') {
-                            System.out.print(Costanti.ANSI_WHITE + "  " + Costanti.ANSI_RESET + " ");
-                        }
-                    } else {
-                        System.out.print("Y  "); // Stampa X se la casella è bloccata ma non c'è una pedina
-                    }
-                } else if (pedina != null) {
-                    System.out.print(pedina.getCarattere() + "  ");
-                } else {
-                    System.out.print(".  ");
-                }
-            }
-            System.out.println("| " + i); // Numero di riga a destra
-        }
-        System.out.print("  ");
-        for (char colonna : colonne) {
-            System.out.print(Costanti.LINE_SEPARATOR);
-        }
-        System.out.println("+");
-        System.out.print("  ");
-        for (char colonna : colonne) {
-            System.out.print("   " + colonna + "  ");
-        }
-        System.out.println();
-    }
-
+   public final void inizializzaCaselleBloccate(final Coordinate coordinateBloccata) {
+       int riga = coordinateBloccata.getRiga();
+       int colonna = coordinateBloccata.getColonna() + 1;
+       //set pedina è il problema perché non inizializza X!.
+       setPedina(new Pedina(Costanti.PEDINA_X, new Coordinate(riga + 1, colonna + 1)), riga, colonna);
+   }
 }

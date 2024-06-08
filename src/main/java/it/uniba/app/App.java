@@ -87,7 +87,6 @@ public static void main(final String[] args) {
                 break;
             default:
                 System.out.println("Scelta non valida. Premi un pulsante valido\n");
-                Menu.delay(1);
                 Menu.clearScreen();
         }
     }

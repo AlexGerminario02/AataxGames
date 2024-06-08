@@ -502,7 +502,7 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
                 Menu.clearScreen();
                 //System.out.println(Costanti.GAME);
                 stampatav.visualizzaTavolierePieno();
-                //mostraMosseGiocate();
+                mostraMosseGiocate();
                 break;
             case "/abbandona":
                 boolean confermaAbbandono = false;
@@ -553,6 +553,7 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
     }
 /*
  * Mostra le mosse giocate finora durante la partita.
+ */
 
    private void mostraMosseGiocate() {
         if (storiaMosse.isEmpty()) {
@@ -575,7 +576,7 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
             System.out.println(Costanti.SEPARATORE_2 + Costanti.ANSI_RESET);
         }
     }
-        */
+
 /**
  * Reimposta lo stato della partita.
  *
@@ -605,7 +606,7 @@ private void stampaTempoDiGioco() {
             + "║" + Costanti.ANSI_RESET + "        " + tempoFormattato + "        " + Costanti.RED + "║\n"
             + "╚════════════════════════╝" + Costanti.ANSI_RESET;
 
-    //System.out.println(Menu.indent(giocoTempo, Costanti.TIME7));
+    System.out.println(Menu.indent(giocoTempo, Costanti.TIME7));
     System.out.println(Costanti.SEPARATORE_2 + Costanti.ANSI_RESET);
 }
 

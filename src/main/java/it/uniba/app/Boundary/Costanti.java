@@ -44,6 +44,12 @@ public final class Costanti {
     public static final int TIME7 = 7;
     public static final int DUE = 2;
     public static final int MENODUE = -2;
+    public static final String SEPARATORE = "\n" + BLU + "=============================================";
+    public static final String SEPARATORE_2 = BLU + "=============================================";
+ // Messaggi per la richiesta di abbandono e conferma
+ public static final String MSG_ABBANDONA_PARTITA = "Sei sicuro di voler abbandonare la partita? (si/no) \n";
+ public static final String CONFERMA_ABBANDONO = " ha abbandonato la partita.";
+
 
     public static final String BENVENUTO_HELP =
        "  _   _   _____   _       ____  \n"

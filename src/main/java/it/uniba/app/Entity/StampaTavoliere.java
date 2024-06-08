@@ -248,7 +248,7 @@ System.out.println(Costanti.RED + "| " + Costanti.ANSI_RESET + Costanti.BLU + i 
             System.out.print("   " + Costanti.RED + colonna + Costanti.ANSI_RESET + "  ");
         }
         System.out.println(Costanti.SEPARATORE + Costanti.ANSI_RESET);
-        System.out.println(Costanti.MENU_MOSSE);
+       // System.out.println(Costanti.MENU_MOSSE);
         System.out.println(Costanti.SEPARATORE_2 + Costanti.ANSI_RESET);
         System.out.println();
     }
@@ -278,7 +278,4 @@ System.out.println(Costanti.RED + "| " + Costanti.ANSI_RESET + Costanti.BLU + i 
     System.out.println();
 
 }
-
-
-
 }

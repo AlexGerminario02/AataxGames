@@ -25,9 +25,9 @@ public final class Costanti {
     public static final int MENODUE = -2;
 
     // Costanti per i caratteri dei giocatori
-    public static final char PEDINA_ROSSO = 'R'; // 'N'
-    public static final char PEDINA_NERA = 'N'; // 'B's
-    public static final char PEDINA_X = 'X'; // X
+    public static final String PEDINA_BIANCA = "\u26C3"; // Pedina bianca:
+    public static final String PEDINA_NERA = "\u26C1";   // Pedina nera:
+    public static final String PEDINA_X = "\u2B24"; // Pallino rosso: ⬤
 
 
 

@@ -12,10 +12,8 @@ public class StampaTavoliere {
     private static final int DIM = 7;
     /** I caratteri che rappresentano le colonne del tavoliere. */
     private final char[] colonne = {'a', 'b', 'c', 'd', 'e', 'f', 'g' };
-    private Pedina[][] scacchiera;
     private Tavoliere tavoliere;
     private Blocca blocca;
-    private Mossa mossagiocatore;
     private Duplicazione mossaa;
     private Salto mossab;
 
@@ -28,7 +26,6 @@ public class StampaTavoliere {
     public StampaTavoliere(final Tavoliere tavolieres, final Blocca bloccas, final Mossa mossa) {
         this.tavoliere = tavolieres;
         this.blocca = bloccas;
-        this.mossagiocatore = mossa;
         this.mossaa = new Duplicazione(mossa);
         this.mossab = new Salto(mossa);
     }

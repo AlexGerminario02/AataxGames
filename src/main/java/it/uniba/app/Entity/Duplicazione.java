@@ -10,7 +10,6 @@ import java.util.Arrays;
 public class Duplicazione {
     private static final int DIM = 7;
     private final char[] colonne = {'a', 'b', 'c', 'd', 'e', 'f', 'g' };
-    private Pedina[][] scacchiera;
     private Mossa mossa;
 
     /**

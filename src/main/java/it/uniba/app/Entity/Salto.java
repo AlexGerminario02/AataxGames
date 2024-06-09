@@ -12,7 +12,6 @@ import it.uniba.app.Boundary.Costanti;
 public class Salto {
     private static final int DIM = 7;
     private final char[] colonne = {'a', 'b', 'c', 'd', 'e', 'f', 'g' };
-    private Pedina[][] scacchiera;
     private Mossa mossa;
 
     /**

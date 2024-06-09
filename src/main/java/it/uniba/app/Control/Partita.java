@@ -112,7 +112,6 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
      * @return true se l'uscita è stata richiesta, altrimenti false
      */
     public final boolean avviaPartita(final List<Coordinate> caselleBloccate) {
-        partitaInCorso = true;
         if (!caselleBloccate.isEmpty()) {
             this.caselleBloccateb.addAll(caselleBloccate); // Aggiungi le caselle bloccate iniziali all'elenco
 
@@ -123,12 +122,11 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
         }
         boolean ritorno = false;
         Menu.clearScreen();
-
-        tavoliere.inizializzaPedine(RIGA, RIGA, COLONNA, COLONNA);
-        System.out.println(Costanti.GAME);
-        stampatav.visualizzaTavolierePieno();
         String coordinateInput = "";
         while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
+            tavoliere.inizializzaPedine(RIGA, RIGA, COLONNA, COLONNA);
+            System.out.println(Costanti.GAME);
+            stampatav.visualizzaTavolierePieno();
             System.out.println("Turno " + (Math.abs(turno) % 2 == 1 ? "Giocatore Nero" : "Giocatore Bianco") + ":");
             // Controlla se il giocatore corrente ha mosse disponibili
             if (!giocatoreHaMosseDisponibili(turno)) {

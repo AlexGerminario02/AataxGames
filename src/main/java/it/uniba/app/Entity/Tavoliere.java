@@ -53,7 +53,6 @@ public class Tavoliere {
                 }
             }
         }
-        this.turno = copia.turno;
     }
 /**
      * Restituisce la scacchiera.

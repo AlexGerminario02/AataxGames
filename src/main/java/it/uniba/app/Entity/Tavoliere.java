@@ -35,7 +35,6 @@ public class Tavoliere {
      */
     public Tavoliere(final int dim) {
         this.scacchiera = new Pedina[dim][dim];
-        this.turno = 1;
     }
 
 
@@ -64,7 +63,12 @@ public class Tavoliere {
     public Pedina[][] getScacchiera() {
         Pedina[][] scacchieraCopy = new Pedina[scacchiera.length][];
         for (int i = 0; i < scacchiera.length; i++) {
-            scacchieraCopy[i] = scacchiera[i].clone();
+            scacchieraCopy[i] = new Pedina[scacchiera[i].length];
+            for (int j = 0; j < scacchiera[i].length; j++) {
+                if (scacchiera[i][j] != null) {
+                    scacchieraCopy[i][j] = new Pedina(scacchiera[i][j]); // assuming Pedina has a copy constructor
+                }
+            }
         }
         return scacchieraCopy;
     }
@@ -103,12 +107,13 @@ public class Tavoliere {
      * @param colonna la colonna della pedina (come carattere)
      * @return la pedina alla posizione specificata, null se la posizione è vuota
      */
-    public Pedina getPedina(final int riga, final char colonna) {
+     public Pedina getPedina(final int riga, final char colonna) {
         int indiceColonna = Arrays.binarySearch(colonne, Character.toLowerCase(colonna));
         if (indiceColonna < 0 || riga < 1 || riga > DIM) {
             return null; // Posizione non valida
         }
-        return scacchiera[riga - 1][indiceColonna];
+        Pedina pedina = scacchiera[riga - 1][indiceColonna];
+        return pedina == null ? null : new Pedina(pedina); // Return a copy
     }
  /**
      * Imposta la pedina alla posizione specificata sul tavoliere.

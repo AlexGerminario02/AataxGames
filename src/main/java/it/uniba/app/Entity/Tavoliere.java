@@ -1,15 +1,11 @@
 package it.uniba.app.Entity;
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import it.uniba.app.Boundary.Costanti;
 
 /**
  * <<Entity>>: Classe per rappresentare il tavoliere di gioco.
  */
-@SuppressWarnings("unused")
 public class Tavoliere {
     public static final int ZERO = 0;
     public static final int UNO = 1;
@@ -21,7 +17,6 @@ public class Tavoliere {
     private static final int DIM = 7;
 
     private Pedina[][] scacchiera;
-    private List<Coordinate> caselleBloccate;
     private final char[] colonne = {'a', 'b', 'c', 'd', 'e', 'f', 'g' };
     private int turno;
   /**
@@ -39,40 +34,37 @@ public class Tavoliere {
      */
     public Tavoliere(final int dim) {
         this.scacchiera = new Pedina[dim][dim];
-        this.turno = 1;
     }
-
-
 /**
      * Costruttore per creare una copia di un tavoliere.
      *
      * @param copia il tavoliere da copiare
      */
     public Tavoliere(final Tavoliere copia) {
-        int dim = copia.scacchiera.length;
-        this.scacchiera = new Pedina[dim][dim];
-        for (int i = 0; i < dim; i++) {
-            for (int j = 0; j < dim; j++) {
-                if (copia.scacchiera[i][j] != null) {
-                    this.scacchiera[i][j] = new Pedina(copia.scacchiera[i][j]);
-                }
+        this.scacchiera = new Pedina[DIM][DIM];
+        for (int i = 0; i < DIM; i++) {
+            for (int j = 0; j < DIM; j++) {
+                this.scacchiera[i][j] = copia.scacchiera[i][j];
             }
         }
-        caselleBloccate = new ArrayList<>();
-        this.turno = copia.turno;
+        //inizializzaPedine(RIGAINIZIALE, COLONNAINIZIALE, RIGAFINALE, COLONNAFINALE);
     }
-/**
-     * Restituisce la scacchiera.
-     *
-     * @return la scacchiera
+    /**
+     *.
+     * @return
      */
     public Pedina[][] getScacchiera() {
-        Pedina[][] scacchieraCopy = new Pedina[scacchiera.length][];
+        Pedina[][] scacchieraCopy = new Pedina[scacchiera.length][scacchiera[0].length];
         for (int i = 0; i < scacchiera.length; i++) {
-            scacchieraCopy[i] = scacchiera[i].clone();
+            for (int j = 0; j < scacchiera[i].length; j++) {
+                if (scacchiera[i][j] != null) {
+                    scacchieraCopy[i][j] = new Pedina(scacchiera[i][j]);
+                }
+                }
+            }
+            return scacchieraCopy;
         }
-        return scacchieraCopy;
-    }
+
 
  /**
      * Conta il numero di pedine con un carattere specifico sul tavoliere.
@@ -108,12 +100,13 @@ public class Tavoliere {
      * @param colonna la colonna della pedina (come carattere)
      * @return la pedina alla posizione specificata, null se la posizione è vuota
      */
-    public Pedina getPedina(final int riga, final char colonna) {
+     public Pedina getPedina(final int riga, final char colonna) {
         int indiceColonna = Arrays.binarySearch(colonne, Character.toLowerCase(colonna));
         if (indiceColonna < 0 || riga < 1 || riga > DIM) {
             return null; // Posizione non valida
         }
-        return scacchiera[riga - 1][indiceColonna];
+        Pedina pedina = scacchiera[riga - 1][indiceColonna];
+        return pedina == null ? null : new Pedina(pedina); // Return a copy
     }
  /**
      * Imposta la pedina alla posizione specificata sul tavoliere.
@@ -184,4 +177,5 @@ public class Tavoliere {
        //set pedina è il problema perché non inizializza X!.
        setPedina(new Pedina(Costanti.PEDINA_X, new Coordinate(riga + 1, colonna + 1)), riga, colonna);
    }
+
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import it.uniba.app.Boundary.Costanti;
 import it.uniba.app.Boundary.Menu;
+import it.uniba.app.Boundary.StampaTavoliere;
 import it.uniba.app.Boundary.Tastiera;
 import it.uniba.app.Entity.Blocca;
 import it.uniba.app.Entity.Coordinate;
@@ -13,7 +14,6 @@ import it.uniba.app.Entity.Giocatore;
 import it.uniba.app.Entity.Mossa;
 import it.uniba.app.Entity.Pedina;
 import it.uniba.app.Entity.Salto;
-import it.uniba.app.Entity.StampaTavoliere;
 import it.uniba.app.Entity.Tavoliere;
 /**
  * <<Control>>: Questa classe rappresenta una partita del gioco.
@@ -43,7 +43,6 @@ public class Partita {
     private Mossa mossaPartita;
     private Duplicazione mossaa;
     private Salto mossab;
-    private StampaTavoliere stampatav;
     private List<Coordinate> caselleBloccateb = new ArrayList<>();
 
     // Tastiera per l'input utente e variabile per il turno
@@ -66,33 +65,28 @@ public class Partita {
      * @param mossata l'oggetto per gestire la duplicazione delle mosse
      * @param mossatb l'oggetto per gestire il salto delle mosse
      */
-public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final Tavoliere tavolieret,
-               final Blocca bloccat, final Duplicazione mossata, final Salto mossatb) {
-    this.giocatore1 = new Giocatore(giocatoret1);
-    this.giocatore2 = new Giocatore(giocatoret2);
-    this.tavoliere = new Tavoliere(tavolieret);
-    this.tastiera = new Tastiera();
-    this.turno = 1;
-    this.tempoInizioPartita = System.currentTimeMillis();
-    this.storiaMosse = new ArrayList<>();
-    this.caselleBloccateb = new ArrayList<>();
-    this.blocca = bloccat;
+    public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final Tavoliere tavolieret,
+    final Blocca bloccat, final Duplicazione mossata, final Salto mossatb) {
+this.giocatore1 = new Giocatore(giocatoret1);
+this.giocatore2 = new Giocatore(giocatoret2);
+this.tavoliere = new Tavoliere(tavolieret);
+this.blocca = bloccat;
+Pedina[][] scacchiera = tavoliere.getScacchiera();
+this.tastiera = new Tastiera();
+this.turno = 1;
+this.tempoInizioPartita = System.currentTimeMillis();
+this.storiaMosse = new ArrayList<>();
+this.caselleBloccateb = new ArrayList<>();
 
-    // Inizializza la scacchiera
-    Pedina[][] scacchiera = tavolieret.getScacchiera();
-
-    // Inizializza l'oggetto mossa prima di utilizzarlo
-    this.mossaPartita = new Mossa(scacchiera, null, null);
-
-    // Inizializza mossaa e mossab con l'oggetto mossa già inizializzato
-    this.mossaa = new Duplicazione(mossaPartita);
-    this.mossab = new Salto(mossaPartita);
-
-    // Reinizializza l'oggetto mossa con gli oggetti duplicazione e salto validi
-    this.mossaPartita = new Mossa(scacchiera, mossaa, mossab);
-
-    this.stampatav = new StampaTavoliere(tavoliere, blocca, mossaPartita);
+// Inizializza la scacchiera
+this.mossaPartita = new Mossa(scacchiera, null, null);
+// Inizializza mossaa e mossab con l'oggetto mossa già inizializzato
+this.mossaa = new Duplicazione(mossaPartita);
+this.mossab = new Salto(mossaPartita);
+// Reinizializza l'oggetto mossa con gli oggetti duplicazione e salto validi
+this.mossaPartita = new Mossa(scacchiera, mossaa, mossab);
 }
+
 
 
     /**
@@ -112,7 +106,6 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
      * @return true se l'uscita è stata richiesta, altrimenti false
      */
     public final boolean avviaPartita(final List<Coordinate> caselleBloccate) {
-        partitaInCorso = true;
         if (!caselleBloccate.isEmpty()) {
             this.caselleBloccateb.addAll(caselleBloccate); // Aggiungi le caselle bloccate iniziali all'elenco
 
@@ -123,12 +116,12 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
         }
         boolean ritorno = false;
         Menu.clearScreen();
-
         tavoliere.inizializzaPedine(RIGA, RIGA, COLONNA, COLONNA);
         System.out.println(Costanti.GAME);
-        stampatav.visualizzaTavolierePieno();
+        StampaTavoliere.visualizzaTavolierePieno(tavoliere, blocca);
         String coordinateInput = "";
         while (!partitaFinita() && !uscitaRichiesta && !abbandono) {
+
             System.out.println("Turno " + (Math.abs(turno) % 2 == 1 ? "Giocatore Nero" : "Giocatore Bianco") + ":");
             // Controlla se il giocatore corrente ha mosse disponibili
             if (!giocatoreHaMosseDisponibili(turno)) {
@@ -146,7 +139,7 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
             } else {
                 Menu.clearScreen();
                 System.out.println(Costanti.GAME);
-                stampatav.visualizzaTavolierePieno();
+                StampaTavoliere.visualizzaTavolierePieno(tavoliere, blocca);
                 System.out.println("Input inserito non valido. Riprova!");
             }
         }
@@ -154,7 +147,6 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
         if ((!partitaFinita() && abbandono)) {
             blocca.resettaCelleBloccate(caselleBloccateb);
             ritorno = false;
-
         } else if (!partitaFinita() && uscitaRichiesta) {
             return true;
         } else if (partitaFinita()) {
@@ -252,7 +244,7 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
         if (successo) {
             Menu.clearScreen();
             System.out.println(Costanti.GAME);
-            stampatav.visualizzaTavolierePieno();
+            StampaTavoliere.visualizzaTavolierePieno(tavoliere, blocca);
 
             // Aggiungi la mossa alla lista delle mosse giocate
             String mossa = turno + ". " + coordinate + " (" + (Math.abs(turno) % 2 == 1
@@ -481,34 +473,35 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
             case "--help":
                 Menu.clearScreen();
                 System.out.println(Costanti.GAME);
-                stampatav.visualizzaTavolierePieno();
+                StampaTavoliere.visualizzaTavolierePieno(tavoliere, blocca);
                 Menu.helpGioco(tastiera);
                 break;
             case "/vuoto":
                 Menu.clearScreen();
                 System.out.println(Costanti.GAME);
-                stampatav.visualizzaTavoliereVuoto();
+                StampaTavoliere.visualizzaTavoliereVuoto();
                 break;
             case "/tavoliere":
                 Menu.clearScreen();
                 System.out.println(Costanti.GAME);
-                stampatav.visualizzaTavolierePieno();
+                StampaTavoliere.visualizzaTavolierePieno(tavoliere, blocca);
                 break;
             case "/qualimosse":
                 Menu.clearScreen();
                 Giocatore giocatoreCorrente = Math.abs(turno) % 2 == 1 ? giocatore1 : giocatore2;
                 // Stampa le mosse disponibili per tutte le pedine del giocatore corrente
                 System.out.println(Costanti.GAME);
-                stampatav.stampaMosseDisponibili(giocatoreCorrente);
+                StampaTavoliere.stampaMosseDisponibili(giocatoreCorrente, tavoliere, blocca, mossaPartita);
                 break;
             case "/mosse":
                 Menu.clearScreen();
                 System.out.println(Costanti.GAME);
-                stampatav.visualizzaTavolierePieno();
+                StampaTavoliere.visualizzaTavolierePieno(tavoliere, blocca);
                 mostraMosseGiocate();
                 break;
             case "/abbandona":
                 boolean confermaAbbandono = false;
+                //! significa fin tanto che è diverso da true.
                 while (!confermaAbbandono) {
                     String conferma = tastiera.readString(Costanti.MSG_ABBANDONA_PARTITA);
                     if (conferma.equalsIgnoreCase("si")) {
@@ -528,7 +521,7 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
                         .contaPedine(giocatoreOpposto.getPedina().getCarattere(), tavoliere);
                         System.out.println("Il giocatore " + giocatoreOpposto.getNome() + " ha vinto per "
                                 + numeroPedineGiocatoreOpposto + " a 0.");
-                        abbandono = true;
+                        abbandono = true; //mi serve nel metodo avviapartita
                         confermaAbbandono = true;
                     } else if (conferma.equalsIgnoreCase("no")) {
                         confermaAbbandono = true;
@@ -543,14 +536,14 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
             case "/tempo":
                 Menu.clearScreen();
                 System.out.println(Costanti.GAME);
-                stampatav.visualizzaTavolierePieno();
+                StampaTavoliere.visualizzaTavolierePieno(tavoliere, blocca);
                 stampaTempoDiGioco();
                 break;
 
             default:
                 Menu.clearScreen();
                 System.out.println(Costanti.GAME);
-                stampatav.visualizzaTavolierePieno();
+                StampaTavoliere.visualizzaTavolierePieno(tavoliere, blocca);
                 System.out.println("Comando non valido. Riprova.");
         }
     }

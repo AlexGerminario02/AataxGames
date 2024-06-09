@@ -18,6 +18,16 @@ public class Coordinate {
         this.colonna = column;
     }
 
+    /**
+     * Costruttore di copia della classe Coordinate.
+     * @param copia l'istanza di Coordinate da copiare
+     */
+    public Coordinate(final Coordinate copia) {
+        this.riga = copia.riga;
+        this.colonna = copia.colonna;
+    }
+
+
     public final int getColonna() {
         return colonna;
     }

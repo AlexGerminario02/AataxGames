@@ -1,8 +1,5 @@
 package it.uniba.app.Entity;
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import it.uniba.app.Boundary.Costanti;
 
@@ -21,7 +18,6 @@ public class Tavoliere {
     private static final int DIM = 7;
 
     private Pedina[][] scacchiera;
-    private List<Coordinate> caselleBloccate;
     private final char[] colonne = {'a', 'b', 'c', 'd', 'e', 'f', 'g' };
     private int turno;
   /**
@@ -58,7 +54,6 @@ public class Tavoliere {
                 }
             }
         }
-        caselleBloccate = new ArrayList<>();
         this.turno = copia.turno;
     }
 /**

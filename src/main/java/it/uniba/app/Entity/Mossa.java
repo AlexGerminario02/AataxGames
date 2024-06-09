@@ -32,14 +32,6 @@ public class Mossa {
     }
 
     /**
-     * Copy constructor.
-     * @param original The original Mossa instance to copy.
-     */
-    public Mossa(final Mossa original) {
-        this(original.scacchiera, original.mossea, original.mosseb);
-    }
-
-    /**
      * Calcola le mosse possibili per la pedina.
      * @param riga La riga della coordinata di partenza.
      * @param colonna La colonna della coordinata di partenza.
@@ -69,4 +61,5 @@ public class Mossa {
         }
         return scacchiera[riga - 1][indiceColonna] == null;
     }
+
 }

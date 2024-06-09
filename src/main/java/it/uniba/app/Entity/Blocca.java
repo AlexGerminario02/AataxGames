@@ -8,7 +8,6 @@ import it.uniba.app.Boundary.Costanti;
 /**
  * <<Entity>>: Classe che rappresenta un blocco di caselle sulla scacchiera.
  */
-@SuppressWarnings("unused")
 public class Blocca {
     public static final int DIM = 7;
     private Pedina[][] scacchiera;
@@ -28,14 +27,6 @@ public class Blocca {
 
         // Creiamo una copia difensiva della lista delle caselle bloccate
         this.caselleBloccateg = new ArrayList<>(caselleBloccate);
-    }
-
- /**
-     * Copy constructor.
-     * @param original The original Blocca instance to copy.
-     */
-    public Blocca(final Blocca original) {
-        this(original.scacchiera, original.caselleBloccateg);
     }
 
     /**

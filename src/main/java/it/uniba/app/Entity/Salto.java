@@ -8,7 +8,7 @@ import it.uniba.app.Boundary.Costanti;
 /**
  * <<Entity>>: Classe per rappresentare le mosse di salto di una pedina.
  */
-@SuppressWarnings("unused")
+
 public class Salto {
     private static final int DIM = 7;
     private final char[] colonne = {'a', 'b', 'c', 'd', 'e', 'f', 'g' };
@@ -21,7 +21,6 @@ public class Salto {
     public Salto(final Mossa mossas) {
         this.mossa = mossas;
     }
-
 /**
  * Calcola le mosse possibili per il salto.
  * @param riga La riga della coordinata di partenza.

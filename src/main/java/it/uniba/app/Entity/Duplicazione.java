@@ -6,7 +6,6 @@ import java.util.Arrays;
 /**
  * <<Entity>>: Classe per rappresentare la duplicazione di una mossa su una scacchiera.
  */
-@SuppressWarnings("unused")
 public class Duplicazione {
     private static final int DIM = 7;
     private final char[] colonne = {'a', 'b', 'c', 'd', 'e', 'f', 'g' };

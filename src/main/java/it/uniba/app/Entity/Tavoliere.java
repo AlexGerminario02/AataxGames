@@ -6,7 +6,6 @@ import it.uniba.app.Boundary.Costanti;
 /**
  * <<Entity>>: Classe per rappresentare il tavoliere di gioco.
  */
-@SuppressWarnings("unused")
 public class Tavoliere {
     public static final int ZERO = 0;
     public static final int UNO = 1;
@@ -36,41 +35,36 @@ public class Tavoliere {
     public Tavoliere(final int dim) {
         this.scacchiera = new Pedina[dim][dim];
     }
-
-
 /**
      * Costruttore per creare una copia di un tavoliere.
      *
      * @param copia il tavoliere da copiare
      */
     public Tavoliere(final Tavoliere copia) {
-        int dim = copia.scacchiera.length;
-        this.scacchiera = new Pedina[dim][dim];
-        for (int i = 0; i < dim; i++) {
-            for (int j = 0; j < dim; j++) {
-                if (copia.scacchiera[i][j] != null) {
-                    this.scacchiera[i][j] = new Pedina(copia.scacchiera[i][j]); // Creare una nuova istanza di Pedina
-                }
+        this.scacchiera = new Pedina[DIM][DIM];
+        for (int i = 0; i < DIM; i++) {
+            for (int j = 0; j < DIM; j++) {
+                this.scacchiera[i][j] = copia.scacchiera[i][j];
             }
         }
+        //inizializzaPedine(RIGAINIZIALE, COLONNAINIZIALE, RIGAFINALE, COLONNAFINALE);
     }
-/**
-     * Restituisce la scacchiera.
-     *
-     * @return la scacchiera
+    /**
+     *.
+     * @return
      */
     public Pedina[][] getScacchiera() {
-        Pedina[][] scacchieraCopy = new Pedina[scacchiera.length][];
+        Pedina[][] scacchieraCopy = new Pedina[scacchiera.length][scacchiera[0].length];
         for (int i = 0; i < scacchiera.length; i++) {
-            scacchieraCopy[i] = new Pedina[scacchiera[i].length];
             for (int j = 0; j < scacchiera[i].length; j++) {
                 if (scacchiera[i][j] != null) {
-                    scacchieraCopy[i][j] = new Pedina(scacchiera[i][j]); // assuming Pedina has a copy constructor
+                    scacchieraCopy[i][j] = new Pedina(scacchiera[i][j]);
+                }
                 }
             }
+            return scacchieraCopy;
         }
-        return scacchieraCopy;
-    }
+
 
  /**
      * Conta il numero di pedine con un carattere specifico sul tavoliere.
@@ -183,4 +177,5 @@ public class Tavoliere {
        //set pedina è il problema perché non inizializza X!.
        setPedina(new Pedina(Costanti.PEDINA_X, new Coordinate(riga + 1, colonna + 1)), riga, colonna);
    }
+
 }

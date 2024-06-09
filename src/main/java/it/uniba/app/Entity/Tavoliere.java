@@ -49,7 +49,7 @@ public class Tavoliere {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
                 if (copia.scacchiera[i][j] != null) {
-                    this.scacchiera[i][j] = new Pedina(copia.scacchiera[i][j]);
+                    this.scacchiera[i][j] = new Pedina(copia.scacchiera[i][j]); // Creare una nuova istanza di Pedina
                 }
             }
         }

@@ -91,7 +91,7 @@ public Partita(final Giocatore giocatoret1, final Giocatore giocatoret2, final T
     // Reinizializza l'oggetto mossa con gli oggetti duplicazione e salto validi
     this.mossaPartita = new Mossa(scacchiera, mossaa, mossab);
 
-    this.stampatav = new StampaTavoliere(tavoliere, blocca, mossaPartita, false);
+    this.stampatav = new StampaTavoliere(tavoliere, blocca, mossaPartita);
 }
 
 

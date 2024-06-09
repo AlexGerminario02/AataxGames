@@ -41,7 +41,7 @@ public static void main(final String[] args) {
     Duplicazione mossaa = new Duplicazione(null);
     Salto mossab = new Salto(null);
     Mossa mossa = new Mossa(tavoliere.getScacchiera(), mossaa, mossab);
-    StampaTavoliere stamp = new StampaTavoliere(tavoliere, blocca, mossa, false);
+    StampaTavoliere stamp = new StampaTavoliere(tavoliere, blocca, mossa);
     boolean isRunning = true;
     Partita partita = null;
     List<Coordinate> caselleDaBloccare = new ArrayList<>();

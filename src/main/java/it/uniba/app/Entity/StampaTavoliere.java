@@ -1,6 +1,6 @@
 package it.uniba.app.Entity;
-
 import java.util.ArrayList;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.uniba.app.Boundary.Costanti;
 
 /**
@@ -23,12 +23,11 @@ public class StampaTavoliere {
      * @param bloccas L'istanza di Blocca per gestire le caselle bloccate.
      * @param mossa L'istanza di Mossa per gestire le mosse disponibili.
      */
-    public StampaTavoliere(final Tavoliere tavolieres, final Blocca bloccas, final Mossa mossa, final boolean copia) {
-        if (copia) {
-            this.tavoliere = new Tavoliere(tavolieres); // Costruttore copia
-        } else {
-            this.tavoliere = tavolieres; // Utilizzo il tavoliere esistente
-        }
+
+    @SuppressFBWarnings("MVEI2")
+    public StampaTavoliere(final Tavoliere tavolieres, final Blocca bloccas, final Mossa mossa) {
+        this.tavoliere = tavolieres;
+         // Costruttore copia
         this.blocca = bloccas;
         this.mossaa = new Duplicazione(mossa);
         this.mossab = new Salto(mossa);

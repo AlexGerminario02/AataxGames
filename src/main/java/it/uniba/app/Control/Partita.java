@@ -69,11 +69,7 @@ public class Partita {
     final Blocca bloccat, final Duplicazione mossata, final Salto mossatb) {
 this.giocatore1 = new Giocatore(giocatoret1);
 this.giocatore2 = new Giocatore(giocatoret2);
-if (tavolieret == null) {
-this.tavoliere = tavolieret;
-} else {
 this.tavoliere = new Tavoliere(tavolieret);
-}
 this.blocca = bloccat;
 Pedina[][] scacchiera = tavoliere.getScacchiera();
 this.tastiera = new Tastiera();

@@ -27,9 +27,8 @@ public class Pedina {
      */
     public Pedina(final Pedina copia) {
         this.carattere = copia.carattere;
-        this.coordinate = new Coordinate(copia.coordinate.getRiga(), copia.coordinate.getColonna());
+        this.coordinate = new Coordinate(copia.coordinate); // Supponendo che Coordinate abbia un costruttore di copia
     }
-
     // Metodi getter e setter
     public final String getCarattere() {
         return carattere;

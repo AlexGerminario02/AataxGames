@@ -7,7 +7,7 @@ import it.uniba.app.Boundary.Costanti;
  * <<Entity>>
  * Classe che gestisce la stampa del tavoliere.
  */
-@SuppressWarnings("unused")
+
 public class StampaTavoliere {
     private static final int DIM = 7;
     /** I caratteri che rappresentano le colonne del tavoliere. */
@@ -23,8 +23,12 @@ public class StampaTavoliere {
      * @param bloccas L'istanza di Blocca per gestire le caselle bloccate.
      * @param mossa L'istanza di Mossa per gestire le mosse disponibili.
      */
-    public StampaTavoliere(final Tavoliere tavolieres, final Blocca bloccas, final Mossa mossa) {
-        this.tavoliere = tavolieres;
+    public StampaTavoliere(final Tavoliere tavolieres, final Blocca bloccas, final Mossa mossa, final boolean copia) {
+        if (copia) {
+            this.tavoliere = new Tavoliere(tavolieres); // Costruttore copia
+        } else {
+            this.tavoliere = tavolieres; // Utilizzo il tavoliere esistente
+        }
         this.blocca = bloccas;
         this.mossaa = new Duplicazione(mossa);
         this.mossab = new Salto(mossa);

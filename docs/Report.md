@@ -673,6 +673,17 @@ L'obiettivo principale di queste analisi è identificare cosa ha funzionato bene
    ![SprintRetrospective0](./img/SprintRetrospective.png)
    </div>
 
+   <div style="font-size: 16px;">
+
+* ### **9.2 Sprint 1**
+</div>
+
+<div style="margin-left: 20px;">  
+Lo Sprint 1 aveva lo scopo di implementare piccoli comandi di gioco.
+Di seguito viene riportata la tabella con gli stati emotivi provati dal team(arrabbiato, triste e felice) durante il lavoro, e le azioni che li hanno scatenati.
+
+</div>
+
 
 
 

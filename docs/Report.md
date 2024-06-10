@@ -17,23 +17,71 @@
 
     - 3.2 [Requisiti non Funzionali](#32-requisiti-non-funzionali)
 
-4. [Manuale Utente](#4-manuale-utente)
+4. [System Design](#4-system-design)
 
-   - 4.1 [Introduzione Manuale](#41-introduzione-manuale)
+   - 4.1 [Diagramma dei Package](#41-diagramma-dei-package)
+
+   - 4.2 [Architettura dell'Applicazione](#42-architettura-dellapplicazione)
+
+   - 4.3 [Commenti sulle Decisioni prese](#43-commenti-sulle-decisioni-prese)
+
+5. [OO Design](#5-oo-design)
+
+   - 5.1 [Diagramma delle Classi e di Sequenza](#51-diagramma-delle-classi-e-di-sequenza)
+
+   - 5.2 [Principi di OO Design](#52-principi-di-oo-design)
+
+     - 5.2.1 [Principi SOLID](#521-principi-solid)
+
+   - 5.3 [Commento sulle decisioni prese](#53-commento-sulle-decisioni-prese)
+
+6. [Riepilogo dei Test](#6-riepilogo-dei-test)
+
+   - 6.1 [Strumenti di Analisi e Testing del Codice utilizzati](#61-strumenti-di-analisi-e-testing-del-codice-utilizzati)
+
+   - 6.2 [Presentazione esiti Test e Considerazioni](#62-presentazione-esiti-test-e-considerazioni)
+
+   - 6.3 [Descrizione test effettuati](#63-descrizione-test-effettuati) 
+
+7. [Manuale Utente](#7-manuale-utente)
+
+   - 7.1 [Introduzione Manuale](#71-introduzione-manuale)
  
-   - 4.2 [Azioni Preliminari](#42-azioni-preliminari)
-     - 4.2.1 [Installazione e configurazione Docker](#421-installazione-e-configurazione-docker)
-     - 4.2.2 [Autenticazione con GitHub](#422-autenticazione-con-github)
-     - 4.2.3 [Avvio dell'Applicazione](#423-avvio-dellapplicazione)
+   - 7.2 [Azioni Preliminari](#72-azioni-preliminari)
+     - 7.2.1 [Installazione e configurazione Docker](#721-installazione-e-configurazione-docker)
+     - 7.2.2 [Autenticazione con GitHub](#722-autenticazione-con-github)
+     - 7.2.3 [Avvio dell'Applicazione](#723-avvio-dellapplicazione)
 
-   - 4.3 [Guida ai Comandi](#43-guida-ai-comandi)
-     - 4.3.1 [Come si Gioca](#431-come-si-gioca)
+   - 7.3 [Guida ai Comandi](#73-guida-ai-comandi)
+     - 7.3.1 [Come si Gioca](#731-come-si-gioca)
 
-   - 4.4 [Glossario e Termini Chiave](#44-glossario-e-termini-chiave)
+   - 7.4 [Glossario e Termini Chiave](#74-glossario-e-termini-chiave)
 
-5. [Analisi Retrospettiva](#5-analisi-retrospettiva)
+8. [Processo di Sviluppo e Organizzazione del Lavoro](#8-processo-di-sviluppo-e-organizzazione-del-lavoro)
 
-   - 5.1 [Sprint 0](#51-sprint-0)
+   - 8.1 [Introduzione Processo di Sviluppo](#81-introduzione-processo-di-sviluppo)
+
+   - 8.2 [RoadMap degli Sprint](#82-roadmap-degli-sprint)
+
+   - 8.3 [Gestione del Lavoro](#83-gestione-del-lavoro)
+
+     - 8.3.1  [Sprint 0](#831-sprint-0)
+
+     - 8.3.2 [Sprint 1](#832-sprint-1)
+
+     - 8.3.3 [Sprint 2](#833-sprint-2)
+
+   - 8.4 [Software Utilizzati](#84-software-utilizzati)
+
+   - 8.5 [Comunicazione nel Team](#85-comunicazione-nel-team)
+
+   - 8.6 [Problemi Riscontrati](#86-problemi-riscontrati)
+
+9. [Analisi Retrospettiva](#9-analisi-retrospettiva)
+
+   - 9.1 [Sprint 0](#91-sprint-0)
+
+   - 9.2 [Sprint 1](#92-sprint-1)
    </div>
   
 

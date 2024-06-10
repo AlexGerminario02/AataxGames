@@ -136,7 +136,7 @@ In questa sezione verrà mostrato il modello di dominio realizzato in UML tramit
 
 <div style="font-size: 15px;">
 
-- **Identificatore**: RF001
+- **Identificatore**: [RF001](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/18#issue-2285800064)
     
     * **Descrizione**: Come giocatore voglio mostrare l'help con elenco comandi
     
@@ -146,7 +146,7 @@ In questa sezione verrà mostrato il modello di dominio realizzato in UML tramit
 
     * **Condizioni finali**: L'utente accede al Menu help e gli viene mostrato l'elenco con i comandi utilizzabili all'interno del software.
 
-- **Identficatore**: RF002
+- **Identficatore**: [RF002](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/19#issue-2285802602)
 
     * **Descrizione**: Come giocatore voglio iniziare una nuova partita.
 
@@ -157,7 +157,7 @@ In questa sezione verrà mostrato il modello di dominio realizzato in UML tramit
     * **Condizioni finali**: All'utente viene mostrato il tavoliere di gioco con le pedine in posizione iniziale e si predispone ad effettuare la prima mossa di gioco, oppure potrebbe digitare altri comandi.
 
 
-- **identificatore**: RF003
+- **identificatore**: [RF003](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/20#issue-2285804100)
 
    * **Descrizione**: Come giocatore voglio mostrare il tavoliere vuoto con la numerazione.
 
@@ -168,7 +168,7 @@ In questa sezione verrà mostrato il modello di dominio realizzato in UML tramit
    * **Condizioni finali**: All'utente viene mostrato il tavoliere con 49 caselle (7x7) con le righe numerate con numeri da 1 a 7, e le colonne numerate con lettere che vanno da 'a' a 'g'.
 
 
-- **Identificatore**: RF004
+- **Identificatore**: [RF004](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/21#issue-2285805938)
 
    * **Descrizione**: Come giocatore voglio mostrare il tavoliere con le pedine e la numerazione
 
@@ -179,7 +179,7 @@ In questa sezione verrà mostrato il modello di dominio realizzato in UML tramit
    * **Condizioni finali**: All'utente viene mostrato il tavoliere con 49 caselle (7x7) con le righe numerate con numeri da 1 a 7, e le colonne numerate con lettere che vanno da 'a' a 'g'. Inoltre, sono presenti le pedine posizionate nelle caselle iniziali al fine di poter effettuare le successive mosse.
 
 
-- **Identificatore**: RF005
+- **Identificatore**: [RF005](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/22#issue-2285807427)
 
    * **Descrizione**: Come giocatore voglio visualizzare le mosse possibili di una pedina
 
@@ -190,7 +190,7 @@ In questa sezione verrà mostrato il modello di dominio realizzato in UML tramit
    * **Condizioni finali**: Dopo aver digitato la posizione della pedina (inserendo riga e colonna corrispondenti), all'utente vengono mostrate con un colore differente, le mosse che potrebbero essere effettuate dalla pedina indicata.
 
 
-- **Identificatore**: RF006
+- **Identificatore**: [RF006](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/23#issue-2285808665)
 
    * **Descrizione**: Come giocatore voglio abbandonare la partita.
 
@@ -202,7 +202,7 @@ In questa sezione verrà mostrato il modello di dominio realizzato in UML tramit
    Se la conferma è negativa, l'app si predispone a ricevere nuove mosse o comandi.
 
 
-- **Identificatore**: RF007
+- **Identificatore**: [RF007](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/24#issue-2285809899)
 
    * **Descrizione**: Come giocatore voglio chiudere il gioco.
 

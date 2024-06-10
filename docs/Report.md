@@ -510,7 +510,7 @@ Il processo di sviluppo del software è stato condotto seguendo la metodologia S
 
 Il professore ha interpretato il ruolo di **Product Owner**. Per ogni Sprint ci sono stati comunicati, in aula e attraverso la piattaforma Microsoft Teams, i requisiti sotto forma di *Definition of Done* e *User Story*; successivamente il team ha provveduto a realizzare una Board per la gestione dello Sprint.
 
-
+![ProductOwner](./img/Teams.png)
 
 La Board è stata gestita tramite la sezione Project messa a disposizione da GitHub. L'organizzazione della board è stata impostata durante lo Sprint 0 dal professore, e per gli Sprint successivi il team ha deciso di mantenere lo stesso modello in quanto ottimale per l'organizzazione del lavoro.
 

@@ -650,6 +650,8 @@ Per lo sviluppo del software sono stati utilizzati diversi programmi
 ### **8.5 Comunicazione nel Team**
 La comunicazione e le riunioni di retrospettiva sono state effettuate su un server Discord creato appositamente.
 
+![Discord](./img/Discord.png)
+
 
 
 ## **9. Analisi Retrospettiva**

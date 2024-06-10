@@ -265,7 +265,7 @@ In questa sezione vengono mostrati i diagrammi delle classi a prospettiva softwa
 
   **Diagramma di Sequenza**
 
-  
+  ![DiagrammaSequenzaRF002](./img/DiagrammaSequenzaRF002.png)
 
   
 

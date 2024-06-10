@@ -263,39 +263,42 @@ this.mossaPartita = new Mossa(scacchiera, mossaa, mossab);
  * @param to le coordinate di destinazione della mossa
  * @return true se la mossa è stata eseguita con successo, altrimenti false
  */
-    public final boolean eseguiMossa(final Giocatore giocatore, final Coordinate from, final Coordinate to) {
-        // Verifica se la mossa è valida
-        if (!mossaValida(from, to)) {
-            return false;
-        }
-
-        // Recupera la pedina dalla posizione di partenza
-        Pedina pedina = tavoliere.getPedina(from.getRiga(), (char) ('a' + from.getColonna() - 1));
-        if (pedina == null || !pedina.getCarattere().equals(giocatore.getPedina().getCarattere())) {
-            return false;
-        }
-
-        // Verifica le distanze di riga e colonna
-        int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
-        int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
-
-        boolean mossaEseguita = false;
-
-        // Se la mossa è una duplicazione
-        if (distanzaRiga <= 1 && distanzaColonna <= 1) {
-            mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
-        } else if (distanzaRiga <= 2 && distanzaColonna <= 2) {
-            mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
-            tavoliere.setPedina(null, from.getRiga(), from.getColonna());
-        }
-
-        // Se la mossa è stata eseguita, cattura le pedine avversarie adiacenti
-        if (mossaEseguita) {
-            catturaPedine(giocatore, to);
-        }
-
-        return mossaEseguita;
+public final boolean eseguiMossa(final Giocatore giocatore, final Coordinate from, final Coordinate to) {
+    // Verifica se la mossa è valida
+    if (!mossaValida(from, to)) {
+        System.out.println("Mossa non valida da " + from + " a " + to);
+        return false;
     }
+
+    // Recupera la pedina dalla posizione di partenza
+    Pedina pedina = tavoliere.getPedina(from.getRiga(), (char) ('a' + from.getColonna() - 1));
+    if (pedina == null || !pedina.getCarattere().equals(giocatore.getPedina().getCarattere())) {
+        System.out.println("Pedina non trovata o non corrispondente al giocatore");
+        return false;
+    }
+
+    // Verifica le distanze di riga e colonna
+    int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
+    int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
+
+    boolean mossaEseguita = false;
+
+    // Se la mossa è una duplicazione
+    if (distanzaRiga <= 1 && distanzaColonna <= 1) {
+        mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
+    } else if (distanzaRiga <= 2 && distanzaColonna <= 2) {
+        mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
+        // Rimuovi la pedina dalla posizione di partenza
+        tavoliere.setPedina(null, from.getRiga(), from.getColonna());
+    }
+
+    // Se la mossa è stata eseguita, cattura le pedine avversarie adiacenti
+    if (mossaEseguita) {
+        catturaPedine(giocatore, to);
+    }
+
+    return mossaEseguita;
+}
 
 /**
  * Cattura le pedine avversarie dopo una mossa.

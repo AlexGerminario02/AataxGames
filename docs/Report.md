@@ -491,6 +491,165 @@ All'interno dell'app vengono presentati dei termini che potrebbero causare incom
 
 <div style="font-size: 15px;">
 
+## **8. PROCESSO DI SVILUPPO E ORGANIZZAZIONE DEL LAVORO**
+<div style="font-size: 15px;">
+
+### **8.1 Introduzione Processo di Sviluppo**
+
+Durante l'intero periodo di sviluppo del progetto, il gruppo ha adottato il metodo di sviluppo software *Agile*. A differenza di uno sviluppo a cascata, lo sviluppo Agile suddivide il lavoro in cicli brevi e incrementali, permettendo al team di rilasciare frequenti aggiornamenti del prodotto.
+
+Il processo di sviluppo del software è stato condotto seguendo la metodologia Scrum, un framework agile che facilita la gestione di progetti complessi e il loro miglioramento continuo. Scrum si basa su delle iterazioni a tempo chiamate Sprint che sono caratterizzati da eventi:
+
+ * **Sprint Planning**: All'inizio di ogni Sprint, il team si riunisce per pianificare le attività da svolgere. Durante questa riunione vengono definiti gli obiettivi dello Sprint e viene creato lo Sprint Backlog, ovvero un elenco delle attività da completare.
+
+ * **Daily Scrum**: Ogni giorno il team tiene una breve riunione(di solito di durata 15 minuti) per sincronizzarsi sulle attività svolte, quelle pianificate per il giorno dopo e per identificare eventuali ostacoli. Questo aiuta a mantenere il team allineato e a risolvere rapidamente i problemi.
+
+ * **Sprint Review**: Al termine di ogni Sprint, il team presenta il lavoro completato agli stakeholder (Product Owner, eventuali sponsor, clienti e utenti finali). Questa riunione fornisce un'opportunità per raccogliere feedback e adattare il prodotto alle esigenze degli utenti.
+
+ * **Sprint Retrospective**: Dopo la fase di review, il team tiene una riunione retrospettiva per riflettere sull'andamento dello Sprint appena concluso. Durante questa riunione, il team identifica ciò che è andato bene, ciò che potrebbe essere migliorato e pianifica azioni per migliorare gli Sprint futuri.
+
+Il professore ha interpretato il ruolo di **Product Owner**. Per ogni Sprint ci sono stati comunicati, in aula e attraverso la piattaforma Microsoft Teams, i requisiti sotto forma di *Definition of Done* e *User Story*; successivamente il team ha provveduto a realizzare una Board per la gestione dello Sprint.
+
+
+
+La Board è stata gestita tramite la sezione Project messa a disposizione da GitHub. L'organizzazione della board è stata impostata durante lo Sprint 0 dal professore, e per gli Sprint successivi il team ha deciso di mantenere lo stesso modello in quanto ottimale per l'organizzazione del lavoro.
+
+La Board adottata segue uno stile Kanban con 5 sezioni:
+
+ * **To Do**: Task da risolvere
+
+ * **In Progress**: Task presa in carico e in via di completamento
+
+ * **Review**: Task completata, ma in attesa di revisione
+
+ * **Ready**: Task risolta e revisionata dai reviewers
+
+ * **Done**: Task risolta, revisionata e approvata dal Product Owner
+
+ 
+
+A ogni Sprint è stato dedicato un **Milestone** e una **Project Board** dove sono state inserite le issue da svolgere per lo Sprint corrente. In questo modo è stato più facile tenere traccia dei progressi fatti dal team grazie alla divisione efficiente della board.
+
+Per la gestione del codice sorgente e la risoluzione delle issue, abbiamo adottato il *GitHub Flow*, ovvero un workflow semplice ed efficace per il versionamento del codice. Il flow segue diversi passaggi che sono stati effettuati tramite il terminale di *GitBash*:
+
+ * **Creazione di un Branch**: Per prima cosa bisogna creare un nuovo branch tramite comando  
+ `git branch nomebranch`. Il nome del branch corrisponde al nome della issue che viene rappresentata come `issue#n` con n il numero della issue. E' utile creare un branch perchè crea una linea di sviluppo indipendente che serve per lavorare su modifiche ed estensioni.
+ 
+   Al momento della creazione del branch si ci trova ancora sul branch main, quindi bisogna spostarsi su quello appena creato tramite comando `git checkout nomebranch`.
+
+* **Modifiche** : Una volta creato il branch su cui lavorare è possibile apportare le modifiche al file preso in considerazione durante la issue.
+
+* **Eseguire i commit**: Una volta effettuate le modifiche bisogna scrivere dei commit per commentare ciò che è stato modificato.
+Prima di effettuare il commit bisogna digitare il comando `git add .` per apportare le modifiche. 
+Per eseguire i commit bisogna digitare il comando  
+`git commit -m "Descrizione commit"`.
+
+* **Aprire Pull Request**: Una volta effettuati i commit bisogna inviare i file su GitHub tramite comando   
+`git push origin nomebranch`.
+Per aprire una Pull Request bisogna recarsi su GitHub nel proprio repository e cliccare il tasto `compare and Pull Request` che appare nella pagina principale, e in questo caso si potrà richiedere la review da parte di altri componenti del gruppo.
+
+* **Effettuare il Merge**: Una volta creata la Pull Request bisogna recarsi nella sezione Pull Request di GitHub in modo da poter vedere i commenti effettuati dai reviewers. Se la revisione è andata a buon fine, è possibile effettuare il merge cliccando il tasto `Merge Pull Request`.
+
+* **Eliminare il branch**: Per mantenere la sezione pulita, è buona norma eliminare il branch creato. Per eliminare il branch bisogna cliccare il tasto `delete branch` che appare su GitHub una volta effettuato il merge.  
+Successivamente bisogna eliminare il branch in locale tramite comando  
+`git branch -d nomebranch`, però prima è buona norma digitare il comando `git pull` per scaricare in locale tutte le modifiche apportate al repository.
+Prima di eliminare il branch in locale bisogna spostarsi sul main branch tramite il comando `git checkout main`.
+### **8.2 RoadMap degli Sprint**
+
+
+
+### **8.3 Gestione del Lavoro**
+Dato l'utilizzo del framework Scrum, gli Sprint si compongono di quattro fasi: Analisi, Progettazione, Implementazione e Testing.
+
+In generale, dovendo risolvere per la maggior parte delle volte 7 issue principali, abbiamo deciso di assegnare 1 issue ad ogni componente del gruppo. Nel caso di issue aggiuntive, i componenti del team hanno avuto la facoltà di assegnarsi l'issue.
+
+
+
+<div style="font-size: 19px;">
+
+#### **8.3.1 Sprint 0**
+</div>
+
+<div style="font-size: 15px;">
+
+Lo Sprint Goal era quello di dimostrare familiarità con Git, GitHub e il processo Agile di sviluppo.
+
+* **Analisi**: Per questa fase si è deciso di incontrarsi in un Meeting sulla piattaforma Discord per circa 1 ora, al fine di assegnare i task e stabilire le modalità di lavoro.
+In particolare si è deciso di effettuare una issue in condivisione schermo in modo che tutti imparassero a lavorare in modo autonomo con i tool messi a disposizione. Questa scelta si è rivelata efficiente a lungo termine, dato che non sono sorte problematiche da questo punto di vista.
+
+* **Progettazione**: In questo Sprint le task riguardavano principalmente la stesura di documenti in formato MarkDown e il settaggio di alcune impostazioni su GitHub, dunque la fase di progettazione non è stata inclusa.
+
+* **Implementazione**: Questa fase ha previsto la modifica del file README.md; la modifica del file Guida per lo studente.md; la creazione e stesura del file ispiratore.md in cui è stata inclusa la biografia di chi ha ispirato il nome del gruppo; e la stesura del file Code Of Conduct.md dove sono state definite le regole interne del team.
+
+* **Testing**: Questa fase ha previsto la revisione dal punto di vista ortografico e contenutistico dei file sopra citati, e anche l'eliminazione di eventuali immagini non utilizzate.
+</div>
+
+<div style="font-size: 19px;">
+
+#### **8.3.2 Sprint 1**
+</div>
+
+<div style="font-size: 15px;">
+
+Lo Sprint Goal era quello di implementare piccoli comandi.
+
+* **Analisi**: Per questa fase si è deciso di incontrarsi in un Meeting sulla piattaforma Discord per circa 1 ora, al fine di assegnare i task e stabilire le modalità di lavoro in modo che fossero distribuite in modo equo tra tutti i componenti del team.
+
+* **Progettazione**: In questa fase ogni elemento del team ha implementato il proprio comando all'interno del codice del gioco.
+E' stato sviluppato il [modello di dominio](#2-modello-di-dominio) e questo ha richiesto una continua comunicazione tra i membri del team dato che il modello rappresenta una visione d'insieme del progetto.
+
+* **Implementazione**: Questa fase ha previsto l'implementazione del file [Report.md](#1-introduzione) che ha il compito di spiegare all'utente finale come utilizzare il software.
+
+* **Testing**: Questa fase è stata effettuata individualmente da ogni membro del team prima di effettuare la push del codice, avviando l'applicazione e testando tutti i possibili input.
+Sono stati sfruttati anche gli elementi messi a disposizione dalle Pull Request di GitHub: questi si sono rilevati di particolare importanza per individuare eventuali errori di SpotBugs.
+</div>
+
+<div style="font-size: 19px;">
+
+#### **8.3.3 Sprint 2**
+</div>
+
+Lo Sprint Goal era quello di 
+
+* **Analisi**: Per questa fase si è deciso di incontrarsi in un Meeting sulla piattaforma Discord per circa 1 ora, al fine di assegnare i task e stabilire le modalità di lavoro in modo che fossero distribuite in modo equo tra tutti i componenti del team.
+
+* **Progettazione**: In questa fase ogni componente del gruppo ha implementato il comando o la funzionalità che gli era stata assegnata. Inoltre sono stati creati i diagrammi delle classi e di sequenza e per i principi di OO Design.
+
+* **Implementazione**: Questa fase ha previsto l'implementazione di nuove sezioni all'interno del file [Report.md](#1-introduzione) che avevano lo scopo di spiegare le fasi di processo e di sviluppo del software. 
+
+* **Testing**: Per questa fase sono stati effettuati dei test qualitativi sul codice mediante l'utilizzo di JUnit.
+
+### **8.4 Software Utilizzati**
+Per lo sviluppo del software sono stati utilizzati diversi programmi
+
+ * **Organizzazione del lavoro e Review**
+
+   - **Microsoft Teams**: per visulizzare i compiti definiti per ogni Sprint
+
+   - **Discord**: per le riunioni interne del team
+
+* **Ambienti di Sviluppo**
+
+  - **Visual Studio Code**: IDE utilizzato per lo sviluppo del codice in Java e anche come text editor per il MarkDown.
+
+     - **Plugin Aggiuntivi**
+
+       - *CheckStyle*: per controllare eventuali problemi di CheckStyle evitando di eseguire sempre il comando `./gradlew build`
+
+       - *Gradle*: utilizzato per l'esecuzione del programma
+
+* **Software per la creazione di diagrammi e tabelle**
+
+  - **StarUML**: per la creazione di diagrammi UML
+
+  - **Miro**: per la creazione della tabella per lo Sprint Retrospective
+
+
+### **8.5 Comunicazione nel Team**
+La comunicazione e le riunioni di retrospettiva sono state effettuate su un server Discord creato appositamente.
+
+
+
 ## **9. Analisi Retrospettiva**
 In questa sezione verranno trasmesse le analisi retrospettive fatte dal team durante lo *Sprint Feedback*.
 L'obiettivo principale di queste analisi è identificare cosa ha funzionato bene durante il periodo precedente, cosa non ha funzionato e quali miglioramenti possono essere apportati per i futuri Sprint.

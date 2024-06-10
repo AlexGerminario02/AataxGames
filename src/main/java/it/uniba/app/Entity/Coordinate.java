@@ -1,4 +1,5 @@
 package it.uniba.app.Entity;
+import java.util.Objects;
 
 /**
  * <<Entity>>: Classe per rappresentare le coordinate di una pedina sul tavoliere.
@@ -42,6 +43,30 @@ public class Coordinate {
     public final void setRiga(final int row) {
         this.riga = row;
     }
+
+    /**
+     * Metodo equals della classe Coordinate.
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        } else {
+            Coordinate that = (Coordinate) obj;
+            return riga == that.riga && colonna == that.colonna;
+       }
+  }
+
+/**
+     * Metodo hashCode della classe Coordinate.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(riga, colonna);
+}
 
     @Override
     public final String toString() {

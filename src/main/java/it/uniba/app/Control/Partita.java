@@ -213,7 +213,6 @@ this.mossaPartita = new Mossa(scacchiera, mossaa, mossab);
         // Chiama il metodo mossaValida() per verificare la validità delle coordinate
         return mossaValida(from, to);
     }
-
 /**
  * Gestisce le coordinate inserite dall'utente.
  *
@@ -263,39 +262,42 @@ this.mossaPartita = new Mossa(scacchiera, mossaa, mossab);
  * @param to le coordinate di destinazione della mossa
  * @return true se la mossa è stata eseguita con successo, altrimenti false
  */
-    public final boolean eseguiMossa(final Giocatore giocatore, final Coordinate from, final Coordinate to) {
-        // Verifica se la mossa è valida
-        if (!mossaValida(from, to)) {
-            return false;
-        }
-
-        // Recupera la pedina dalla posizione di partenza
-        Pedina pedina = tavoliere.getPedina(from.getRiga(), (char) ('a' + from.getColonna() - 1));
-        if (pedina == null || !pedina.getCarattere().equals(giocatore.getPedina().getCarattere())) {
-            return false;
-        }
-
-        // Verifica le distanze di riga e colonna
-        int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
-        int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
-
-        boolean mossaEseguita = false;
-
-        // Se la mossa è una duplicazione
-        if (distanzaRiga <= 1 && distanzaColonna <= 1) {
-            mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
-        } else if (distanzaRiga <= 2 && distanzaColonna <= 2) {
-            mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
-            tavoliere.setPedina(null, from.getRiga(), from.getColonna());
-        }
-
-        // Se la mossa è stata eseguita, cattura le pedine avversarie adiacenti
-        if (mossaEseguita) {
-            catturaPedine(giocatore, to);
-        }
-
-        return mossaEseguita;
+public final boolean eseguiMossa(final Giocatore giocatore, final Coordinate from, final Coordinate to) {
+    // Verifica se la mossa è valida
+    if (!mossaValida(from, to)) {
+        System.out.println("Mossa non valida da " + from + " a " + to);
+        return false;
     }
+
+    // Recupera la pedina dalla posizione di partenza
+    Pedina pedina = tavoliere.getPedina(from.getRiga(), (char) ('a' + from.getColonna() - 1));
+    if (pedina == null || !pedina.getCarattere().equals(giocatore.getPedina().getCarattere())) {
+        System.out.println("Pedina non trovata o non corrispondente al giocatore");
+        return false;
+    }
+
+    // Verifica le distanze di riga e colonna
+    int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
+    int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
+
+    boolean mossaEseguita = false;
+
+    // Se la mossa è una duplicazione
+    if (distanzaRiga <= 1 && distanzaColonna <= 1) {
+        mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
+    } else if (distanzaRiga <= 2 && distanzaColonna <= 2) {
+        mossaEseguita = tavoliere.setPedina(new Pedina(pedina.getCarattere(), to), to.getRiga(), to.getColonna());
+        // Rimuovi la pedina dalla posizione di partenza
+        tavoliere.setPedina(null, from.getRiga(), from.getColonna());
+    }
+
+    // Se la mossa è stata eseguita, cattura le pedine avversarie adiacenti
+    if (mossaEseguita) {
+        catturaPedine(giocatore, to);
+    }
+
+    return mossaEseguita;
+}
 
 /**
  * Cattura le pedine avversarie dopo una mossa.
@@ -303,36 +305,53 @@ this.mossaPartita = new Mossa(scacchiera, mossaa, mossab);
  * @param giocatore il giocatore che ha eseguito la mossa
  * @param to le coordinate della casella in cui è stata spostata la pedina
  */
-    private void catturaPedine(final Giocatore giocatore, final Coordinate to) {
-        int riga = to.getRiga();
-        int colonna = to.getColonna(); // Assumendo che colonna sia già un intero che rappresenta l'indice
+private void catturaPedine(final Giocatore giocatore, final Coordinate to) {
+    int riga = to.getRiga();
+    int colonna = to.getColonna(); // Assumendo che colonna sia già un intero che rappresenta l'indice
 
-        // Definizione dei delta per le righe e le colonne
-        int[] deltaRighe = {-1, -1, -1, 0, 0, 1, 1, 1 };
-        int[] deltaColonne = {-1, 0, 1, -1, 1, -1, 0, 1 };
+    // Definizione dei delta per le righe e le colonne
+    int[] deltaRighe = {-1, -1, -1, 0, 0, 1, 1, 1};
+    int[] deltaColonne = {-1, 0, 1, -1, 1, -1, 0, 1};
 
-        // Verifica le pedine adiacenti
-        for (int i = 0; i < deltaRighe.length; i++) {
-            int nuovaRiga = riga + deltaRighe[i];
-            int nuovaColonna = colonna + deltaColonne[i];
+    // Verifica le pedine adiacenti
+    for (int i = 0; i < deltaRighe.length; i++) {
+        int nuovaRiga = riga + deltaRighe[i];
+        int nuovaColonna = colonna + deltaColonne[i];
 
-            // Verifica se la nuova posizione è valida
-            if (nuovaRiga >= 1 && nuovaRiga <= Costanti.RIGAF
-            && nuovaColonna >= 1 && nuovaColonna <= Costanti.COLONNAF) {
-                char nuovaColonnaChar = (char) ('a' + nuovaColonna - 1); // Converti l'indice di colonna in carattere
-                Pedina adiacente = tavoliere.getPedina(nuovaRiga, nuovaColonnaChar);
+        // Verifica se la nuova posizione è valida
+        if (nuovaRiga >= 1 && nuovaRiga <= Tavoliere.RIGAFINALE
+                && nuovaColonna >= 1 && nuovaColonna <= Tavoliere.COLONNAFINALE) {
+            char nuovaColonnaChar = (char) ('a' + nuovaColonna - 1); // Converti l'indice di colonna in carattere
+            Pedina adiacente = tavoliere.getPedina(nuovaRiga, nuovaColonnaChar);
 
-                // Se la casella adiacente contiene una pedina avversaria
-                if (adiacente != null && !adiacente.getCarattere().equals(giocatore.getPedina().getCarattere())) {
-                    // Verifica se la pedina è bloccata
-                    if (adiacente.getCarattere() != Costanti.PEDINA_X) {
-                        // Converte la pedina avversaria nel colore del giocatore corrente
-                        adiacente.setCarattere(giocatore.getPedina().getCarattere());
+            // Se la casella adiacente contiene una pedina avversaria
+            if (adiacente != null && !adiacente.getCarattere().equalsIgnoreCase(giocatore.getPedina().getCarattere())) {
+                // Verifica se la pedina non è bloccata e la casella adiacente non è bloccata
+                Coordinate nuovaCoord = new Coordinate(nuovaRiga, nuovaColonna);
+
+                // Verifica se la pedina avversaria è adiacente a una casella bloccata
+                boolean adiacenteABloccata = false;
+                for (int j = 0; j < deltaRighe.length; j++) {
+                    int adiacenteRiga = nuovaRiga + deltaRighe[j];
+                    int adiacenteColonna = nuovaColonna + deltaColonne[j];
+                    Coordinate adiacenteCoord = new Coordinate(adiacenteRiga, adiacenteColonna);
+                    if (blocca.isBloccata(adiacenteCoord)) {
+                        adiacenteABloccata = true;
+                        break;
                     }
                 }
+                // Se la pedina avversaria non è bloccata, la casella adiacente non è bloccata,
+                // e la pedina avversaria non è adiacente a una casella bloccata
+                if (!adiacenteABloccata && !blocca.isBloccata(nuovaCoord) && !adiacente.getCarattere()
+                .equals(Costanti.PEDINA_X)) {
+                    // Converte la pedina avversaria nel colore del giocatore corrente
+                    adiacente.setCarattere(giocatore.getPedina().getCarattere());
+                    tavoliere.setPedina(adiacente, nuovaRiga, nuovaColonna); // Aggiorna la pedina nel tavoliere
+                }
             }
-        }
+       }
     }
+}
 /**
  * Verifica se una mossa è valida.
  *
@@ -340,44 +359,42 @@ this.mossaPartita = new Mossa(scacchiera, mossaa, mossab);
  * @param to le coordinate di destinazione della mossa
  * @return true se la mossa è valida, altrimenti false
  */
-    public final boolean mossaValida(final Coordinate from, final Coordinate to) {
-        // Verifica se le coordinate di partenza e di destinazione sono all'interno del
-        // tavoliere
-        if (from.getRiga() < 1 || from.getRiga() > Costanti.RIGAF
-        || to.getRiga() < 1 || to.getRiga() > Costanti.RIGAF
-        || from.getColonna() < 1 || from.getColonna() > Costanti.COLONNAF
-        || to.getColonna() < 1 || to.getColonna() > Costanti.COLONNAF) {
-            return false;
-        }
-
-        // Calcola la distanza in righe e colonne tra le coordinate di partenza e di
-        // destinazione
-        int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
-        int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
-
-        // Verifica se la mossa viola le regole del gioco:
-        // - La mossa non può superare una distanza di 2 caselle in orizzontale o
-        // verticale
-        // - La mossa non può essere una casella di partenza e destinazione uguali
-        // - La mossa non può essere una diagonale di 2 caselle
-        if (distanzaRiga > 2 || distanzaColonna > 2
-        || (distanzaRiga == 0 && distanzaColonna == 0)) {
-            return false;
-        }
-
-        // Verifica se la casella di destinazione è vuota
-        if (!tavoliere.posizioneVuota(to.getRiga() - 1, to.getColonna() - 1)) {
-            return false;
-        }
-
-        // Verifica se la casella di destinazione è bloccata
-        if (blocca.isBloccata(to)) {
-            return false;
-        }
-
-        // Se tutte le condizioni sono soddisfatte, la mossa è valida
-        return true;
+public final boolean mossaValida(final Coordinate from, final Coordinate to) {
+    // Verifica se le coordinate di partenza e di destinazione sono all'interno del tavoliere
+    if (from.getRiga() < 1 || from.getRiga() > Costanti.RIGAF
+            || to.getRiga() < 1 || to.getRiga() > Costanti.RIGAF
+            || from.getColonna() < 1 || from.getColonna() > Costanti.COLONNAF
+            || to.getColonna() < 1 || to.getColonna() > Costanti.COLONNAF) {
+        return false;
     }
+
+    // Calcola la distanza in righe e colonne tra le coordinate di partenza e di destinazione
+    int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
+    int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
+
+    // Verifica se la mossa viola le regole del gioco:
+    // - La mossa non può superare una distanza di 2 caselle in orizzontale o verticale
+    // - La mossa non può essere una casella di partenza e destinazione uguali
+    // - La mossa non può essere una diagonale di 2 caselle
+    if (distanzaRiga > 2 || distanzaColonna > 2
+            || (distanzaRiga == 0 && distanzaColonna == 0)
+            || (distanzaRiga == 2 && distanzaColonna == 2)) {
+        return false;
+    }
+
+    // Verifica se la casella di destinazione è vuota
+    if (!tavoliere.posizioneVuota(to.getRiga() - 1, to.getColonna() - 1)) {
+        return false;
+    }
+
+    // Verifica se la casella di destinazione è bloccata
+    if (blocca.isBloccata(to)) {
+        return false;
+    }
+
+    // Se tutte le condizioni sono soddisfatte, la mossa è valida
+   return true;
+}
     /**
      * Verifica se la partita è finita.
      *
@@ -645,46 +662,47 @@ private void stampaTempoDiGioco() {
  * @param tavoliere il tavoliere di gioco
  * @param blocca l'oggetto Blocca per il bloccaggio delle caselle
  */
-    public static void gestioneBlocca(final String input, final List<Coordinate> caselleDaBloccare,
-            final Tavoliere tavoliere, final Blocca blocca) {
-        if (input.toLowerCase().startsWith("/blocca")) {
-            String[] parts = input.split(" ");
-            if (parts.length > 1) {
-                String coordString = parts[1].trim();
-                Coordinate coordinate = Partita.parseCoordinate(coordString);
-                if (coordinate != null && Partita.isValidCoordinate(coordString)) {
-                    if (caselleDaBloccare.size() < Costanti.LIMITE_BLOCCA) {
-                        if (!caselleDaBloccare.contains(coordinate)) {
-                            if (blocca.bloccaCasella(coordinate)) {
-                                caselleDaBloccare.add(coordinate);
-                                System.out.println("Casella bloccata con successo: " + coordinate);
-                            } else {
-                                System.out.println("Errore nel bloccare la casella: " + coordinate);
-                            }
-                        } else {
-                            System.out.println("Casella già bloccata: " + coordString);
-                        }
-                    } else {
-                        System.out.println("Non puoi bloccare più di 9 caselle.");
-                    }
-                } else {
-                    System.out.println(
-                        "Coordinata non valida. Usa il comando /blocca seguito da una coordinata valida.");
-                }
-            } else {
-                System.out.println("Comando non valido. Usa il comando /blocca seguito da una coordinata.");
-            }
-            // Stampa le caselle attualmente bloccate
-            System.out.print("Caselle attualmente bloccate: ");
-            for (int i = 0; i < caselleDaBloccare.size(); i++) {
-                if (i != 0) {
-                    System.out.print(", ");
-                }
-                System.out.print(caselleDaBloccare.get(i));
-            }
-            System.out.println();
-        }
-    }
+public static void gestioneBlocca(final String input, final List<Coordinate> caselleDaBloccare,
+final Tavoliere tavoliere, final Blocca blocca) {
+if (input.toLowerCase().startsWith("/blocca")) {
+String[] parts = input.split(" ");
+if (parts.length > 1) {
+String coordString = parts[1].trim();
+Coordinate coordinate = Partita.parseCoordinate(coordString);
+if (coordinate != null && Partita.isValidCoordinate(coordString)) {
+if (caselleDaBloccare.size() < Costanti.LIMITE_BLOCCA) {
+// Controlla se la casella è già bloccata
+if (!caselleDaBloccare.contains(coordinate)) {
+if (blocca.bloccaCasella(coordinate)) {
+caselleDaBloccare.add(coordinate);
+System.out.println("Casella bloccata con successo: " + coordinate);
+} else {
+System.out.println("Errore nel bloccare la casella: " + coordinate);
+}
+} else {
+System.out.println("Casella già bloccata: " + coordinate);
+}
+} else {
+System.out.println("Non puoi bloccare più di 9 caselle.");
+}
+} else {
+System.out.println(
+"Coordinata non valida. Usa il comando /blocca seguito da una coordinata valida.");
+}
+} else {
+System.out.println("Comando non valido. Usa il comando /blocca seguito da una coordinata.");
+}
+// Stampa le caselle attualmente bloccate
+System.out.print("Caselle attualmente bloccate: ");
+for (int i = 0; i < caselleDaBloccare.size(); i++) {
+if (i != 0) {
+System.out.print(", ");
+}
+System.out.print(caselleDaBloccare.get(i));
+}
+System.out.println();
+ }
+}
 /**
  * Verifica se una stringa rappresenta una coordinata valida.
  *

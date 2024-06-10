@@ -508,7 +508,7 @@ Il processo di sviluppo del software è stato condotto seguendo la metodologia S
 
  * **Sprint Retrospective**: Dopo la fase di review, il team tiene una riunione retrospettiva per riflettere sull'andamento dello Sprint appena concluso. Durante questa riunione, il team identifica ciò che è andato bene, ciò che potrebbe essere migliorato e pianifica azioni per migliorare gli Sprint futuri.
 
-Il professore ha interpretato il ruolo di **Product Owner**. Per ogni Sprint ci sono stati comunicati, in aula e attraverso la piattaforma Microsoft Teams, i requisiti sotto forma di *Definition of Done* e *User Story*; successivamente il team ha provveduto a realizzare una Board per la gestione dello Sprint.
+Il professore ha interpretato il ruolo di **Product Owner**. Per ogni Sprint ci sono stati comunicati, in aula e attraverso la piattaforma *[Microsoft Teams](https://www.microsoft.com/it-it/microsoft-teams/log-in)*, i requisiti sotto forma di *Definition of Done* e *User Story*; successivamente il team ha provveduto a realizzare una Board per la gestione dello Sprint.
 
 ![ProductOwner](./img/Teams.png)
 

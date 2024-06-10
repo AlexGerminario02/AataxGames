@@ -250,6 +250,50 @@ Il funzionamento del software richiede:
 
 </div>
 
+## **5. OO DESIGN**
+
+<div style="font-size: 15px;">
+
+### **5.1 Diagramma delle Classi e di Sequenza**
+In questa sezione vengono mostrati i diagrammi delle classi a prospettiva software e i diagrammi di sequenza per le user story maggiormente significative.
+
+* **[RF002]()**: Come giocatore voglio iniziare una nuova partita.
+
+  **Diagramma delle Classi**
+
+
+  **Diagramma di Sequenza**
+
+  
+
+* **[RF015]()**: Come giocatore voglio impostare caselle non accessibili
+
+  **Diagramma delle Classi**
+
+  
+
+  **Diagramma di Sequenza**
+
+  
+
+* **[RF006]()**: Come giocatore voglio abbandonare una partita
+
+  **Diagramma delle Classi**
+
+  
+  **Diagramma di Sequenza**
+
+  
+  
+
+### **5.2 Principi di OO Design**
+
+#### **5.2.1 Principi SOLID**
+
+### **5.3 Commento sulle Decisioni prese**
+
+</div>
+
 
 ## **7. MANUALE UTENTE**
 

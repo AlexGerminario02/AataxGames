@@ -273,9 +273,13 @@ In questa sezione vengono mostrati i diagrammi delle classi a prospettiva softwa
 
   **Diagramma delle Classi**
 
+  ![DiagrammaClassiRF015](./img/DiagrammaClassiRF015.png)
+
   
 
   **Diagramma di Sequenza**
+
+  ![DiagrammaSequenzaRF015](./img/DiagrammaSequenzaRF015.png)
 
   
 

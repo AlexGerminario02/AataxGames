@@ -144,8 +144,7 @@ In questa sezione verrà mostrato il modello di dominio realizzato in UML tramit
 
     * **Azioni richieste**: L'utente deve digitare il comando *`/help`*, *`--help`* o *`-h`* per visualizzare il Menu di Help.
 
-    * **Condizioni finali**: L'utente accede al Menu help e gli viene mostrato l'elenco con i comandi utilizzabili all'interno del software. Per poter utilizzare i comandi visualizzati bisogna tornare al menu principale tramite *`/indietro`*, e dopo sarà possibile digitare i comandi appena visualizzati. 
-
+    * **Condizioni finali**: L'utente accede al Menu help e gli viene mostrato l'elenco con i comandi utilizzabili all'interno del software.
 
 - **Identficatore**: RF002
 

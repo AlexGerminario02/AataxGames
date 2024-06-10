@@ -422,6 +422,8 @@ I comandi disponibili, oltre al già citato /help, sono:
 * `/vuoto`   Questo comando permette di visualizzare il tavoliere di 49 caselle senza pedine
 * `/tavoliere` Questo comando permette all'utente di visualizzare il tavoliere con le pedine poste nelle posizioni iniziali, pronte ad accettare una nuova mossa
 * `/qualimosse` Questo comando permette al giocatore di visualizzare quali mosse può effettuare la pedina presa in considerazione
+* `/mosse` Questo comando permette di visualizzare lo storico delle mosse effettuate
+* `/tempo` Questo comando serve per vedere il tempo effettivo di gioco
 * `/abbandona` Questo comando permette al giocatore di abbandonare una partita andando anche a decretare la sconfitta dello stesso
 * `/esci` Questo comando permette all'utente di chiudere il gioco
 

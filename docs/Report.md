@@ -121,7 +121,7 @@ In questo report verranno illustrati in modo dettagliato i vari processi di svil
 
 <div style="font-size: 15px;">
 
-In questa sezione verrà mostrato il modello di dominio realizzato in UML tramite il software StarUML.
+In questa sezione verrà mostrato il modello di dominio realizzato in UML tramite il software [StarUML](https://staruml.io/).
 </div>
 
 ![ModelloDiDominio](./img/ModelloDominio.png)

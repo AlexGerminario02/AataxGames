@@ -306,36 +306,53 @@ public final boolean eseguiMossa(final Giocatore giocatore, final Coordinate fro
  * @param giocatore il giocatore che ha eseguito la mossa
  * @param to le coordinate della casella in cui è stata spostata la pedina
  */
-    private void catturaPedine(final Giocatore giocatore, final Coordinate to) {
-        int riga = to.getRiga();
-        int colonna = to.getColonna(); // Assumendo che colonna sia già un intero che rappresenta l'indice
+private void catturaPedine(final Giocatore giocatore, final Coordinate to) {
+    int riga = to.getRiga();
+    int colonna = to.getColonna(); // Assumendo che colonna sia già un intero che rappresenta l'indice
 
-        // Definizione dei delta per le righe e le colonne
-        int[] deltaRighe = {-1, -1, -1, 0, 0, 1, 1, 1 };
-        int[] deltaColonne = {-1, 0, 1, -1, 1, -1, 0, 1 };
+    // Definizione dei delta per le righe e le colonne
+    int[] deltaRighe = {-1, -1, -1, 0, 0, 1, 1, 1};
+    int[] deltaColonne = {-1, 0, 1, -1, 1, -1, 0, 1};
 
-        // Verifica le pedine adiacenti
-        for (int i = 0; i < deltaRighe.length; i++) {
-            int nuovaRiga = riga + deltaRighe[i];
-            int nuovaColonna = colonna + deltaColonne[i];
+    // Verifica le pedine adiacenti
+    for (int i = 0; i < deltaRighe.length; i++) {
+        int nuovaRiga = riga + deltaRighe[i];
+        int nuovaColonna = colonna + deltaColonne[i];
 
-            // Verifica se la nuova posizione è valida
-            if (nuovaRiga >= 1 && nuovaRiga <= Costanti.RIGAF
-            && nuovaColonna >= 1 && nuovaColonna <= Costanti.COLONNAF) {
-                char nuovaColonnaChar = (char) ('a' + nuovaColonna - 1); // Converti l'indice di colonna in carattere
-                Pedina adiacente = tavoliere.getPedina(nuovaRiga, nuovaColonnaChar);
+        // Verifica se la nuova posizione è valida
+        if (nuovaRiga >= 1 && nuovaRiga <= Tavoliere.RIGAFINALE
+                && nuovaColonna >= 1 && nuovaColonna <= Tavoliere.COLONNAFINALE) {
+            char nuovaColonnaChar = (char) ('a' + nuovaColonna - 1); // Converti l'indice di colonna in carattere
+            Pedina adiacente = tavoliere.getPedina(nuovaRiga, nuovaColonnaChar);
 
-                // Se la casella adiacente contiene una pedina avversaria
-                if (adiacente != null && !adiacente.getCarattere().equals(giocatore.getPedina().getCarattere())) {
-                    // Verifica se la pedina è bloccata
-                    if (adiacente.getCarattere() != Costanti.PEDINA_X) {
-                        // Converte la pedina avversaria nel colore del giocatore corrente
-                        adiacente.setCarattere(giocatore.getPedina().getCarattere());
+            // Se la casella adiacente contiene una pedina avversaria
+            if (adiacente != null && !adiacente.getCarattere().equalsIgnoreCase(giocatore.getPedina().getCarattere())) {
+                // Verifica se la pedina non è bloccata e la casella adiacente non è bloccata
+                Coordinate nuovaCoord = new Coordinate(nuovaRiga, nuovaColonna);
+
+                // Verifica se la pedina avversaria è adiacente a una casella bloccata
+                boolean adiacenteABloccata = false;
+                for (int j = 0; j < deltaRighe.length; j++) {
+                    int adiacenteRiga = nuovaRiga + deltaRighe[j];
+                    int adiacenteColonna = nuovaColonna + deltaColonne[j];
+                    Coordinate adiacenteCoord = new Coordinate(adiacenteRiga, adiacenteColonna);
+                    if (blocca.isBloccata(adiacenteCoord)) {
+                        adiacenteABloccata = true;
+                        break;
                     }
                 }
+                // Se la pedina avversaria non è bloccata, la casella adiacente non è bloccata,
+                // e la pedina avversaria non è adiacente a una casella bloccata
+                if (!adiacenteABloccata && !blocca.isBloccata(nuovaCoord) && !adiacente.getCarattere()
+                .equals(Costanti.PEDINA_X)) {
+                    // Converte la pedina avversaria nel colore del giocatore corrente
+                    adiacente.setCarattere(giocatore.getPedina().getCarattere());
+                    tavoliere.setPedina(adiacente, nuovaRiga, nuovaColonna); // Aggiorna la pedina nel tavoliere
+                }
             }
-        }
+       }
     }
+}
 /**
  * Verifica se una mossa è valida.
  *

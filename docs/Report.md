@@ -241,7 +241,7 @@ Il funzionamento del software richiede:
 
 ### **4.1 Diagramma dei Package**
 
-
+![DiagrammaPackage](./img/DiagrammaPackage.png)
 
 ### **4.2 Architettura dell'Applicazione**
 

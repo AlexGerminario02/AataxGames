@@ -118,22 +118,20 @@ public class Tavoliere {
      * @return true se la pedina è stata impostata con successo, false altrimenti
      */
 
-    public boolean setPedina(final Pedina pedina, final int riga, final int colonna) {
+     public boolean setPedina(final Pedina pedina, final int riga, final int colonna) {
         if (colonna < 1 || colonna > DIM || riga < 1 || riga > DIM) {
-            return false;
+            return false; // Casella fuori dal limite
         }
-
-        if (pedina == null) {
-            scacchiera[riga - 1][colonna - 1] = null;
-            return true;
-        } else if (scacchiera[riga - 1][colonna - 1] != null) {
-            return false;
-        }
-
+        // Imposta la pedina sulla scacchiera
         scacchiera[riga - 1][colonna - 1] = pedina;
-        pedina.setCoordinate(new Coordinate(riga, colonna));
-        return true;
-    }
+
+        // Se la pedina non è nulla, imposta le coordinate
+        if (pedina != null) {
+            pedina.setCoordinate(new Coordinate(riga, colonna));
+        }
+
+        return true; // Pedina impostata correttamente
+}
     /**
      * Verifica se la posizione specificata sul tavoliere è vuota.
      *

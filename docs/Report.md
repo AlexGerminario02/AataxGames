@@ -235,6 +235,21 @@ Il funzionamento del software richiede:
     * Gitbash (in questo caso il Docker ha come prefisso winpty)
     </div>
 
+## **4. SYSTEM DESIGN**
+
+<div style="font-size: 15px;">
+
+### **4.1 Diagramma dei Package**
+
+
+
+### **4.2 Architettura dell'Applicazione**
+
+### **4.3 Commenti sulle Decisioni prese**
+
+
+</div>
+
 
 ## **7. MANUALE UTENTE**
 

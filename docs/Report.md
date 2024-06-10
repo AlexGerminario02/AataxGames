@@ -236,7 +236,7 @@ Il funzionamento del software richiede:
     </div>
 
 
-## **4. MANUALE UTENTE**
+## **7. MANUALE UTENTE**
 
 <div style="font-size: 18px;">
 
@@ -246,7 +246,7 @@ Il funzionamento del software richiede:
 
 <div style="font-size: 15px;">
 
-### **4.1 Introduzione Manuale**
+### **7.1 Introduzione Manuale**
 Benvenuto nel Manuale Utente del software **Ataxx**. Questo manuale è stato creato per guidarti nell'utilizzo del software in modo efficace e senza problemi.
 
 #### <span style="font-size: 112%;">Obiettivo del Manuale
@@ -269,14 +269,14 @@ Per ottenere il massimo beneficio da questo manuale, ti consigliamo di leggerlo 
 
 <div style="font-size: 16px;">
 
-### **4.2 Azioni Preliminari**
+### **7.2 Azioni Preliminari**
 </div>
 
 Prima di poter avviare l'applicazione si devono compiere delle azioni preliminari: installare Docker e configurare l'accesso con GitHub.
 
 <div style="font-size: 16px;">
 
-* #### 4.2.1 Installazione e Configurazione Docker
+* #### 7.2.1 Installazione e Configurazione Docker
    </div>
 
    <div style="margin-left: 20px;">
@@ -286,7 +286,7 @@ Prima di poter avviare l'applicazione si devono compiere delle azioni preliminar
 
 <div style="font-size: 16px;">
 
-* #### 4.2.2 Autenticazione con GitHub
+* #### 7.2.2 Autenticazione con GitHub
 </div>
   
   <div style="margin-left: 20px;">
@@ -297,7 +297,7 @@ Prima di poter avviare l'applicazione si devono compiere delle azioni preliminar
 
 <div style="font-size: 16px;">
 
-* #### 4.2.3 Avvio dell'Applicazione
+* #### 7.2.3 Avvio dell'Applicazione
 </div>
   
   <div style="margin-left: 20px;">
@@ -329,7 +329,7 @@ Prima di poter avviare l'applicazione si devono compiere delle azioni preliminar
   </div>
    
 
-### **4.3 Guida ai Comandi**
+### **7.3 Guida ai Comandi**
 Una volta avviata l'applicazione, l'utente vedrà una schermata di benvenuto in cui verrà richiesto di digitare un comando. L'elenco dei comandi è reso disponibile all'utente digitando,in un qualsiasi momento, il comando `/help`, `--h` o `-h`.
 I comandi disponibili, oltre al già citato /help, sono:
 
@@ -343,7 +343,7 @@ I comandi disponibili, oltre al già citato /help, sono:
 
 <div style="font-size: 16px;">
 
- #### 4.3.1 Come si Gioca
+ #### 7.3.1 Come si Gioca
  </div>
 
  Una volta avviata l'applicazione, verrà visualizzata la scritta *Ataxx* sotto al quale verrà suggerito di digitare il comando `/help`, `--h` o `-h` per visualizzare i comandi disponibili.
@@ -383,7 +383,7 @@ Infine si tornerà alla schermata iniziale dove si potrà iniziare una nuova par
 ![Esci](./img/Esci.png)
 
 
-### **4.4 Glossario e Termini Chiave**
+### **7.4 Glossario e Termini Chiave**
 All'interno dell'app vengono presentati dei termini che potrebbero causare incomprensioni, eccone alcuni:
 
  * Tavoliere : Il tavoliere è lo spazio di gioco. E' composto da 49 caselle (7x7) e su di esso verranno mosse le pedine.
@@ -393,13 +393,13 @@ All'interno dell'app vengono presentati dei termini che potrebbero causare incom
 
 <div style="font-size: 15px;">
 
-## **5. Analisi Retrospettiva**
+## **9. Analisi Retrospettiva**
 In questa sezione verranno trasmesse le analisi retrospettive fatte dal team durante lo *Sprint Feedback*.
 L'obiettivo principale di queste analisi è identificare cosa ha funzionato bene durante il periodo precedente, cosa non ha funzionato e quali miglioramenti possono essere apportati per i futuri Sprint.
 
 <div style="font-size: 16px;">
 
-* ### **5.1 Sprint 0**
+* ### **9.1 Sprint 0**
 </div>
 
   <div style="margin-left: 20px;">

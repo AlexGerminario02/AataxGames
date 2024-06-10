@@ -437,10 +437,6 @@ I comandi disponibili, oltre al già citato /help, sono:
  ![PaginaIniziale](./img/PaginaIniziale.png)
 
 
-Dopo aver appreso l'elenco dei comandi disponibili nell'applicazione, digitare il comando `/indietro` per tornare nuovamente alla schermata principale.
-
-![TastoIndietro](./img/TastoIndietro.png)
-
 Tornati nella schermata principale si potrà iniziare una nuova partita digitando il comando `/gioca`, oppure si potrà chiudere il gioco digitando `/esci`.
 
 ![Gioca](./img/Gioca.png)
@@ -455,14 +451,30 @@ Se l'utente volesse visualizzare il tavoliere vuoto (senza pedine), dovrebbe dig
 
 ![InizioPartita](./img/Vuoto.png)
 
+Prima di iniziare la partita, l'utente può decidere di bloccare alcune caselle del tavoliere tramite il comando `/blocca xn` dove xn indica la coordinata della casella.  Non sarà possibile bloccare le caselle di partenza del gioco; tutte le caselle adiacenti a una casella di partenza del gioco; tutte le caselle a distanza 2 da una casella di partenza del gioco.
+Inoltre, non sarà possibile bloccare più di 9 caselle. Si potrà bloccare una sola casella alla volta, quindi nel caso si volesse bloccare più di una casella, bisognerà digitare nuovamente il comando.
 
-A questo punto sarà possibile visualizzare le mosse disponibili digitando il comando `/qualimosse`. Verrà richiesto di inserire le coordinate della riga e della colonna di dove si vuole spostare la pedina.
+Durante la partità è possibile visualizzare il menu help di gioco digitando il comando `/help`, `--h` o `-h`, in cui verranno mostrati i comandi digitabili durante la partita.
+
+Sarà possibile visualizzare le mosse disponibili digitando il comando `/qualimosse`. Verrà richiesto di inserire le coordinate della riga e della colonna di dove si vuole spostare la pedina.
+
+Per effettuare una mossa, l'utente dovrà inserire la coordinata della pedina che vuole muovere/duplicare, e la coordinata della casella d'arrivo *(ad esempio a1-a2)*.
+
+Dopo aver effettuato delle mosse, l'utente, potrà visualizzare lo storico delle mosse effettuate digitando il comando `/mosse`.
+
+L'utente potrà anche visualizzare il tempo effettivo di gioco digitando il comando `/tempo`, in questo modo verrà visualizzato il tempo nel formato *ore:minuti:secondi*.
+
+Per visualizzare il tavoliere durante la fase di gioco bisogna digitare il comando `/tavoliere`.
 
 ![QualiMosse](./img/QualiMosse1.png)
 
-Successivamente il giocatore potrà continuare a visualizzare le mosse oppure potrà abbandondare la partita tramite il comando `/abbandona`, decretando così la sua sconfitta. Se il giocatore digita il comando per abbandonare la partita, verrà richiesto di confermare ciò attraverso il comando `si` oppure si può tornare alla partita digitando `no`.
+Successivamente il giocatore potrà continuare ad effettuare le mosse oppure potrà abbandondare la partita tramite il comando `/abbandona`, decretando così la sua sconfitta(verrà mostrato il numero pedine dell'avversario contro le zero pedine di chi ha abbandonato la partita). Se il giocatore digita il comando per abbandonare la partita, verrà richiesto di confermare ciò attraverso il comando `si` oppure si può tornare alla partita digitando `no`. 
 
 ![Abbandona](./img/Abbandona1.png)
+
+Se la partita termina non per abbandono, ma perchè è stato riempito il tavoliere, allora verrà visualizzato il vincitore indicando il numero di pedine a dispozione di entrambi i giocatori. Vince chi ha più pedine.
+
+Potrebbe capitare che un giocatore mangi tutte le pedine dell'avversario. In questo caso il turno sarà fino alla fine della partita, di chi ha ancora pedine presenti sul tavoliere.
 
 Infine si tornerà alla schermata iniziale dove si potrà iniziare una nuova partita oppure si potrà chiudere il gioco tramite `/esci`.
 

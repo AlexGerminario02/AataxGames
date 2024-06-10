@@ -305,6 +305,20 @@ In questa sezione vengono mostrati i diagrammi delle classi a prospettiva softwa
 
 </div>
 
+## **6. RIEPILOGO DEI TEST**
+
+<div style="font-size: 15px;">
+
+### **6.1 Strumenti di Analisi e Testing del Codice utilizzati**
+
+### **6.2 Presentazione esiti Test e Considerazioni**
+
+### **6.3 Descrizione Test effettuati**
+
+
+</div>
+
+
 
 ## **7. MANUALE UTENTE**
 

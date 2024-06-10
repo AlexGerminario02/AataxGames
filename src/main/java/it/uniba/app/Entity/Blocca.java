@@ -45,6 +45,12 @@ public void resettaCelleBloccate(final List<Coordinate> caselleBloccate) {
 public final boolean isBloccata(final Coordinate coord) {
     int riga = coord.getRiga() - 1; // Converti da 1-based a 0-based
     int colonna = coord.getColonna() - 1; // Converti da 1-based a 0-based
+
+    // Controlla che riga e colonna siano all'interno dei limiti validi
+    if (riga < 0 || riga >= scacchiera.length || colonna < 0 || colonna >= scacchiera[0].length) {
+        return false; // O lancia un'eccezione o gestisci l'errore in altro modo
+    }
+
     // Controlla se la posizione contiene una pedina bloccata con simbolo 'X'
     return scacchiera[riga][colonna] != null && scacchiera[riga][colonna].getCarattere() == Costanti.PEDINA_X;
 }

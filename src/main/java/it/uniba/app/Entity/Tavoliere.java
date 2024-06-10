@@ -34,6 +34,7 @@ public class Tavoliere {
      */
     public Tavoliere(final int dim) {
         this.scacchiera = new Pedina[dim][dim];
+        this.turno = 1;
     }
 /**
      * Costruttore per creare una copia di un tavoliere.

@@ -530,7 +530,7 @@ La Board adottata segue uno stile Kanban con 5 sezioni:
 
 A ogni Sprint è stato dedicato un **Milestone** e una **Project Board** dove sono state inserite le issue da svolgere per lo Sprint corrente. In questo modo è stato più facile tenere traccia dei progressi fatti dal team grazie alla divisione efficiente della board.
 
-Per la gestione del codice sorgente e la risoluzione delle issue, abbiamo adottato il *GitHub Flow*, ovvero un workflow semplice ed efficace per il versionamento del codice. Il flow segue diversi passaggi che sono stati effettuati tramite il terminale di *GitBash*:
+Per la gestione del codice sorgente e la risoluzione delle issue, abbiamo adottato il *[GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow)*, ovvero un workflow semplice ed efficace per il versionamento del codice. Il flow segue diversi passaggi che sono stati effettuati tramite il terminale di *[GitBash](https://www.git-scm.com/downloads)*:
 
  * **Creazione di un Branch**: Per prima cosa bisogna creare un nuovo branch tramite comando  
  `git branch nomebranch`. Il nome del branch corrisponde al nome della issue che viene rappresentata come `issue#n` con n il numero della issue. E' utile creare un branch perchè crea una linea di sviluppo indipendente che serve per lavorare su modifiche ed estensioni.

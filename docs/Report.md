@@ -257,7 +257,7 @@ Il funzionamento del software richiede:
 ### **5.1 Diagramma delle Classi e di Sequenza**
 In questa sezione vengono mostrati i diagrammi delle classi a prospettiva software e i diagrammi di sequenza per le user story maggiormente significative.
 
-* **[RF002]()**: Come giocatore voglio iniziare una nuova partita.
+* **[RF002](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/19#issue-2285802602)**: Come giocatore voglio iniziare una nuova partita.
 
   **Diagramma delle Classi**
 
@@ -269,7 +269,7 @@ In questa sezione vengono mostrati i diagrammi delle classi a prospettiva softwa
 
   
 
-* **[RF015]()**: Come giocatore voglio impostare caselle non accessibili
+* **[RF015](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/55#issue-2325265844)**: Come giocatore voglio impostare caselle non accessibili
 
   **Diagramma delle Classi**
 
@@ -283,7 +283,7 @@ In questa sezione vengono mostrati i diagrammi delle classi a prospettiva softwa
 
   
 
-* **[RF006]()**: Come giocatore voglio abbandonare una partita
+* **[RF006](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/23#issue-2285808665)**: Come giocatore voglio abbandonare una partita
 
   **Diagramma delle Classi**
 

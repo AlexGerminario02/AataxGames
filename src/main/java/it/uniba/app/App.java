@@ -17,6 +17,7 @@ import it.uniba.app.Entity.Salto;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Costruttore privato per evitare l'istanziazione della classe.
  */

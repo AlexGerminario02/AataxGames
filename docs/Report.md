@@ -245,7 +245,49 @@ Il funzionamento del software richiede:
 
 ### **4.2 Architettura dell'Applicazione**
 
+La suddivisione in package è stata effettuata accomunando le classi in base alle loro responsabilità e compiti svolti. In particolare è stato utilizzato il pattern architetturale dell'Entity Control Boundary (ECB) che prevede la classificazione delle classi in tre categorie:
+
+**CONTROL**: sono le classi che si occupano della logica del software. In particolare si occupano di gestire le interazioni tra le entità e di gestire le richieste dell'utente.
+
+**BOUNDARY**: sono le classi che si occupano di interfacciarsi con l'utente e di gestire le logiche di presentazione. In particolare si occupano di ricevere i comandi dell'utente e di mostrare i risultati delle operazioni.
+
+**ENTITY**: sono le classi che rappresentano le entità del dominio del problema. In particolare si occupano di rappresentare le entità del gioco e di gestire le loro interazioni.
+
+Passiamo ora all'elenco dei package e delle classi in essi contenuti:
+
+- Il package **app** è quello impostato di default alla creazione del progetto. Contiene la classe App che si occupa dell'inizializzazione e avvio del software. 
+Contiene anche tutti i package e le classi contenuti in essi create dal team di sviluppo. 
+E' evidente la suddivisione in package seguendo il pattern architetturale dell'Entity Control Boundary. 
+
+- Il package **entity** contiene le seguenti classi: 
+	- *Blocca*: classe che gestisce l'impostazione delle casella bloccate prima dell'inizio della Partita.
+	- *Pedina*: classe che si occupa della creazione di pedine sul tavoliere.
+	- *Giocatore* : classe che si occupa delle caratteristiche,stato e funzionalità di un giocatore durante una partita.
+	- *Coordinat*: classe che rappresenta le coordinate di una pedina sul tavoliere di gioco.
+	- *Mossa*: Classe utilizzata per rappresentare le mosse possibili di una pedina. 
+	- *Duplicazione*: classe che si occupa della gestione della mossa di tipo A.
+	- *Salto*: classe che si occupa della gestione della mossa di tipo B.
+	- *Tavoliere*: classe che rappresenta un generico tavoliere di gioco.
+	- *StampaTavoliere*: classe che contiene tutte le stampe delle possibili rappresentazioni del tavoliere.
+
+Questo package contiene dunque tutte le classi di tipo Entity previste dallo standard ECB.
+
+- Il package **control** contiene:
+	-Partita: classe che contiene il controllo di tutta la partita del gioco.
+
+Questo package contiene appunto l'unica classe principale di tipo control previste dallo standard ECB.
+
+Il package **Boundary** contiene:
+- *Costanti*: Classe che contiene le costanti del gioco. Questa classe fornisce variabili statiche finali utilizzate per la formattazione del testo, i limiti della griglia del gioco, messaggi di benvenuto, menu dei comandi, e le regole del gioco.
+	
+- *Tastiera*: Classe per gestire l'input da tastiera. Questa classe fornisce metodi per leggere diversi tipi di input dall'utente, come stringhe, interi e caratteri, gestendo eventuali errori di input.
+  
+- *Menu*: Questa classe gestisce l'interfaccia del menu per l'utente nel gioco. Fornisce metodi per visualizzare l'aiuto, confermare l'uscita e pulire lo schermo.
+
+
 ### **4.3 Commenti sulle Decisioni prese**
+
+Il team di sviluppo ha deciso di utilizzare il pattern architetturale ECB per la sua semplicità. In particolare, il pattern ECB è stato scelto per la sua capacità di separare le classi in base alle loro responsabilità, in modo da rispettare gli OO Design, e per la sua capacità di rendere il codice più manutenibile e testabile, data la modularità delle componenti.
 
 
 </div>
@@ -326,9 +368,31 @@ Data la realizzazione del progetto in Java, un linguaggio intrinsecamente Object
   Un esempio nel nostro codice è proprio la classe StampaTavoliere aderisce al principio Do Not Repeat Yourself (DRY) attraverso i seguenti approcci:
 
 <div style = "margin:20px;"> 
+
 #### **5.2.1 Principi SOLID**
 
+
+I principi SOLID sono intesi come linee guida per lo sviluppo di software leggibile, estendibile e manutenibile:
+
+**Single Responsibility**: ogni classe ha una sola responsabilità
+
+**Open-Closed**: le classi sono aperte all'estensione e chiuse alle modifiche mediante i modificatori di accesso giusti e alla modularità fornita dall'architettura
+
+**Liskov Substitution**: non è stato implementato il principio di Liskov Substitution
+
+**Interface Segregation**: non sono state utilizzate interfacce
+   
+**Dependency Inversion**: Non è stato adoperato questo principio solid
+
+
 ### **5.3 Commento sulle Decisioni prese**
+
+#### Considerazioni in merito alla decisione di non utilizzare file di testo:
+
+La classe "Costanti" gestisce la stampa di una grande quantità di testo importante, motivo per cui inizialmente si era pensato all'utilizzo di file di testo. Ad esempio, nella classe, sono state definite delle "costanti" per la stampa di elementi come gli alieni o le scritte GAME e ATAXX, che originariamente si pensava di caricare da file di testo.
+
+Tuttavia, questa soluzione non è stata possibile a causa delle limitazioni del workflow. La configurazione del workflow non permette di includere file di testo esterni al jar all'interno del container Docker, che viene creato dalla build di Gradle. Pertanto, il team ha rispettato il workflow e ha ripiegato sull'utilizzo di stampe dirette e la suddivisione in sottometodi per gestire stampe molto corpose.
+
 
 </div>
 
@@ -382,6 +446,16 @@ Di seguito vengono presentati gli esiti delle fasi di test.
 
 ### **6.3 Descrizione Test effettuati**
 
+
+Seguendo l'organizzazione canonica della test suite è stata redatta una classe di test per ogni classe del software a eccezione delle classi Boundary, in quanto è stato applicato il principio di presentazione separata, in quanto non presentano metodi da testare. Tutte le classi di test sono state raggruppate in un unico package denominato "test" separato dal resto del codice e la struttura delle classi nel package test rispecchia la struttura delle classi nel package main. Inoltre tutti i metodi di test hanno la stringa "test" come prefisso in testa al nome del metodo.
+
+
+
+I test sono stati eseguiti utilizzando criteri funzionali, selezionando i casi di test basandosi esclusivamente sulle specifiche, senza conoscere la struttura interna del software. I criteri adottati sono:
+
+**Suddivisione in classi di equivalenza**: I casi di test sono stati scelti per coprire tutti i possibili input, raggruppando i valori in classi di equivalenza.
+
+**Ripetizione dei test**: Alcuni test sono stati ripetuti più volte con parametri diversi per coprire tutti i casi possibili
 
 </div>
 

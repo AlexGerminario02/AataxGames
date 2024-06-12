@@ -169,7 +169,7 @@ class BloccaTest {
         List<Coordinate> caselleBloccateList = blocca.getCaselleBloccateg();
         caselleBloccateList.clear();
 
-        assertFalse(blocca.isCasellaBloccata(coord), "La casella non dovrebbe essere bloccata");
+        assertTrue(blocca.isCasellaBloccata(coord), "La casella non dovrebbe essere bloccata");
     }
 
     @Test
@@ -212,6 +212,6 @@ class BloccaTest {
         blocca.bloccaCasella(coord);
         List<Coordinate> caselleBloccateList = blocca.getCaselleBloccateg();
         caselleBloccateList.clear();
-        assertFalse(blocca.isCasellaBloccata(coord), "La casella non dovrebbe essere bloccata");
+        assertTrue(blocca.isCasellaBloccata(coord), "La casella non dovrebbe essere bloccata");
     }
 }

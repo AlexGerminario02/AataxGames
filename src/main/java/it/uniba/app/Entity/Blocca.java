@@ -95,13 +95,17 @@ public final boolean isCasellaBloccata(final Coordinate coord) {
    * @return
    */
   public Pedina[][] getScacchiera() {
-    return scacchiera;
+    Pedina[][] scacchieraCopy = new Pedina[scacchiera.length][];
+    for (int i = 0; i < scacchiera.length; i++) {
+        scacchieraCopy[i] = scacchiera[i].clone();
+    }
+    return scacchieraCopy;
 }
 /**
  * .
  * @return
  */
 public List<Coordinate> getCaselleBloccateg() {
-    return caselleBloccateg;
+    return new ArrayList<>(caselleBloccateg);
 }
 }

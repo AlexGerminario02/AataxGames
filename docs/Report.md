@@ -546,7 +546,7 @@ Per eseguire i commit bisogna digitare il comando
 
 * **Aprire Pull Request**: Una volta effettuati i commit bisogna inviare i file su GitHub tramite comando   
 `git push origin nomebranch`.
-Per aprire una Pull Request bisogna recarsi su GitHub nel proprio repository e cliccare il tasto `compare and Pull Request` che appare nella pagina principale, e in questo caso si potrà richiedere la review da parte di altri componenti del gruppo.
+Per aprire una Pull Request bisogna recarsi su GitHub nel proprio repository e cliccare il tasto `compare & Pull Request` che appare nella pagina principale, e in questo caso si potrà richiedere la review da parte di altri componenti del gruppo.
 
 * **Effettuare il Merge**: Una volta creata la Pull Request bisogna recarsi nella sezione Pull Request di GitHub in modo da poter vedere i commenti effettuati dai reviewers. Se la revisione è andata a buon fine, è possibile effettuare il merge cliccando il tasto `Merge Pull Request`.
 

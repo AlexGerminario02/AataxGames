@@ -311,7 +311,18 @@ In questa sezione vengono mostrati i diagrammi delle classi a prospettiva softwa
 
 ### **6.1 Strumenti di Analisi e Testing del Codice utilizzati**
 
+ * [JUNIT](https://junit.org/junit5/)
+
+ * [CheckStyle](https://checkstyle.sourceforge.io/)
+
+ * [SpotBugs](https://spotbugs.github.io/)
+
+ * [PMD](https://pmd.github.io/)
+ 
+
 ### **6.2 Presentazione esiti Test e Considerazioni**
+
+![TestSummary](./img/TestSummary.png)
 
 ### **6.3 Descrizione Test effettuati**
 

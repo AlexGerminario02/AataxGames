@@ -201,4 +201,136 @@ final class MossaTest {
         assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
     }
 
+    /**
+     * Verifica le mosse possibili quando la riga e la colonna sono entrambe al di fuori dei limiti.
+     */
+    @Test
+    void testmosseBRigaColonnaSuperioreMassima() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Costanti.RIGA_8, 'h'));
+        mossec.addAll(mosseb.mosseB(Costanti.RIGA_2, 'c'));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la riga è al di fuori dei limiti mentre la colonna è compresa.
+     */
+    @Test
+    void testmosseCRigaSuperioreMassima() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Costanti.RIGA_8, 'd'));
+        mossec.addAll(mosseb.mosseB(Costanti.RIGA_2, 'c'));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la riga è compresa e la colonna è al di fuori dei limiti.
+     */
+    @Test
+    void testMosseBColonnaSuperioreMassima() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Costanti.RIGA_4, 'h'));
+        mossec.addAll(mosseb.mosseB(Costanti.RIGA_2, 'c'));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la riga è = MAX_VALUE e la colonna è compresa.
+     */
+    @Test
+    void testMosseBRigaIntMaxValue() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Integer.MAX_VALUE, 'd'));
+        mossec.addAll(mosseb.mosseB(Costanti.RIGA_2, 'c'));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la colonna è = MAX_VALUE e la riga è compresa.
+     */
+    @Test
+    void testMosseBColonnaIntMaxValue() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Costanti.RIGA_4, (char) Integer.MAX_VALUE));
+        mossec.addAll(mosseb.mosseB(Costanti.RIGA_2, 'c'));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la riga è = MIN_VALUE e la colonna è compresa.
+     */
+    @Test
+    void testMosseBRigaIntMinValue() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Integer.MIN_VALUE, 'd'));
+        mossec.addAll(mosseb.mosseB(Costanti.RIGA_2, 'c'));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la colonna è = MIN_VALUE e la riga è compresa.
+     */
+    @Test
+    void testMossaBColonnaIntMinValue() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Costanti.RIGA_4, (char) Integer.MIN_VALUE));
+        mossec.addAll(mosseb.mosseB(Costanti.RIGA_2, 'c'));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la riga è al massimo e la colonna è minima.
+     */
+    @Test
+    void testmosseCRigaMassima2() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Costanti.RIGA_2, 'c'));
+        mossec.addAll(mosseb.mosseB(Costanti.RIGA_7, 'a'));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la riga è al minimo e la colonna è al massimo.
+     */
+    @Test
+    void testmosseCColonnaMassima2() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Costanti.RIGA_2, 'c'));
+        mossec.addAll(mosseb.mosseB(Costanti.RIGA_1, 'g'));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la riga e la colonna sono entrambe al di fuori dei limiti.
+     */
+    @Test
+    void testmosseCRigaColonnaNonAppartenenti2() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Costanti.RIGA_2, 'c'));
+        mossec.addAll(mosseb.mosseB(0, 'h'));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la riga è 0 e la colonna è compresa nei limiti.
+     */
+    @Test
+    void testmosseBRigaNulla2() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Costanti.RIGA_2, 'c'));
+        mossec.addAll(mosseb.mosseB(0, 'f'));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la riga e la colonna sono entrambe al di fuori dei limiti.
+     */
+    @Test
+    void testmosseBRigaColonnaSuperioreMassima2() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Costanti.RIGA_2, 'c'));
+        mossec.addAll(mosseb.mosseB(Costanti.RIGA_8, 'h'));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
 }

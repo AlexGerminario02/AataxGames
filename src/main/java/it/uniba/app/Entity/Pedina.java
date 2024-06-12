@@ -1,5 +1,6 @@
 package it.uniba.app.Entity;
 
+import java.util.Objects;
 
 /**
  * <<Entity>>
@@ -44,6 +45,30 @@ public class Pedina {
 
     public final void setCoordinate(final Coordinate coordinates) {
         this.coordinate = new Coordinate(coordinates.getRiga(), coordinates.getColonna());
+    }
+
+    /**
+ *  Metodo equals della classe Pedina.
+ */
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Pedina pedina = (Pedina) o;
+        return Objects.equals(carattere, pedina.carattere)
+         && Objects.equals(coordinate, pedina.coordinate);
+    }
+
+    /**
+     * Metodo hashCode della classe Pedina.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(carattere, coordinate);
     }
 
 

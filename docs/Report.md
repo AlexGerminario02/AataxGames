@@ -615,7 +615,7 @@ Sono stati sfruttati anche gli elementi messi a disposizione dalle Pull Request 
 #### **8.3.3 Sprint 2**
 </div>
 
-Lo Sprint Goal era quello di 
+Lo Sprint Goal era quello di completare il gioco, assicurando la qualità del software.
 
 * **Analisi**: Per questa fase si è deciso di incontrarsi in un Meeting sulla piattaforma Discord per circa 1 ora, al fine di assegnare i task e stabilire le modalità di lavoro in modo che fossero distribuite in modo equo tra tutti i componenti del team.
 

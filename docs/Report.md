@@ -322,7 +322,36 @@ In questa sezione vengono mostrati i diagrammi delle classi a prospettiva softwa
 
 ### **6.2 Presentazione esiti Test e Considerazioni**
 
-![TestSummary](./img/TestSummary.png)
+Nello Sprint 2, il gruppo "Minsky" si è adoperato per effettuare l'attività di Verification&Validation (V&V) che si suddivide in un processo statico (finalizzato all'analisi del codice con Checkstyle, Spotbugs e PMD) e un processo dinamico (finalizzato alla creazione di casi di test con JUnit 5 e verifica del funzionamento dei metodi).
+
+Di seguito vengono presentati gli esiti delle fasi di test.
+
+ * **Esito test JUnit5**
+ 
+    Qui sotto un breve resoconto dei casi di test effettuati.
+
+
+   ![TestSummary](./img/TestSummary.png)
+
+* **Esito CheckStyle Main**
+
+  ![CheckStyle](./img/CheckStyle_Main.png)
+
+* **Esito CheckStyle Test**
+
+  ![CheckStyle1](./img/CheckStyle_Test.png)
+
+* **Esito PMD Main**
+
+  ![PMD](./img/pmd.png)
+
+* **Esito PMD Test**
+
+  ![PMD1](./img/pmd.png)
+
+* **Esito Build (GitHub Actions)**
+
+  ![Gradle](./img/GradleBuild.png)
 
 ### **6.3 Descrizione Test effettuati**
 

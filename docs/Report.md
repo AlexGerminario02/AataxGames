@@ -585,7 +585,7 @@ In particolare si è deciso di effettuare una issue in condivisione schermo in m
 
 * **Progettazione**: In questo Sprint le task riguardavano principalmente la stesura di documenti in formato MarkDown e il settaggio di alcune impostazioni su GitHub, dunque la fase di progettazione non è stata inclusa.
 
-* **Implementazione**: Questa fase ha previsto la modifica del file [README.md](ReadMe.md); la modifica del file [Guida per lo studente.md](/Guida%20per%20lo%20studente.md); la creazione e stesura del file [ispiratore.md](/ISPIRATORE.md) in cui è stata inclusa la biografia di chi ha ispirato il nome del gruppo; e la stesura del file [Code Of Conduct.md](/CODE_OF_CONDUCT.md) dove sono state definite le regole interne del team.
+* **Implementazione**: Questa fase ha previsto la modifica del file [README.md](../README.md); la modifica del file [Guida per lo studente.md](Guida%20per%20lo%20studente.md); la creazione e stesura del file [ispiratore.md](ISPIRATORE.md) in cui è stata inclusa la biografia di chi ha ispirato il nome del gruppo; e la stesura del file [Code Of Conduct.md](CODE_OF_CONDUCT.md) dove sono state definite le regole interne del team.
 
 * **Testing**: Questa fase ha previsto la revisione dal punto di vista ortografico e contenutistico dei file sopra citati, e anche l'eliminazione di eventuali immagini non utilizzate.
 </div>

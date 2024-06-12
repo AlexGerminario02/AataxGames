@@ -904,6 +904,9 @@ Per le riunioni in modalità sincrona abbiamo utilizzato l'aula studio messa a d
 
 ![Gruppo](./img/Gruppo.png)
 
+### **8.6 Problemi Riscontrati**
+Durante l'esecuzione degli Sprint, il componente del gruppo Bracciolioni Alberto, ha effettuato tutte le issue a lui commisionate complete di commit, ma non risulta nella sezione Insights, più precisamente nella sezione Contributors, presente sulla piattaforma di GitHub.
+
 
 
 ## **9. Analisi Retrospettiva**

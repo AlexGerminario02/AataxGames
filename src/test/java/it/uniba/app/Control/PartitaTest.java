@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-//import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -580,5 +580,302 @@ void testPartitaFinitaConTAvolierePieno() {
         partita.setAbbandono(true);
         boolean risultato = partita.avviaPartita(new ArrayList<>());
         assertFalse(risultato, "La partita dovrebbe terminare con abbandono");
+    }
+    @Test
+    void testGiocatoreSenzaMosseDisponibili() {
+        for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
+            for (char colonna = 'a'; colonna <= 'g'; colonna++) {
+                Pedina pedina = new Pedina("N", new Coordinate(riga, colonna));
+                tavoliere.setPedina(pedina, riga, colonna);
+            }
+        }
+        assertFalse(partita.giocatoreHaMosseDisponibili(0), "Il giocatore 0 non dovrebbe avere mosse disponibili");
+    }
+
+    @Test
+    void testTabellonePieno() {
+        Tavoliere tavoliere1 = new Tavoliere(Costanti.RIGA_7);
+        for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
+            for (char colonna = 'a'; colonna <= 'g'; colonna++) {
+                int colonnaInt = colonna - 'a' + 1;
+                Pedina pedina = new Pedina("N", new Coordinate(riga, colonnaInt));
+                tavoliere1.setPedina(pedina, riga, colonnaInt);
+            }
+        }
+        partita = new Partita(giocatore1, giocatore2, tavoliere1, blocca, duplicazione, salto);
+        assertTrue(partita.partitaFinita(), "La partita dovrebbe terminare con tavoliere pieno");
+    }
+
+    @Test
+    void testPartitaFinita() {
+        testTabellonePieno();
+        assertFalse(partita.avviaPartita(new ArrayList<>()), "La partita dovrebbe terminare");
+    }
+
+    @Test
+    void testMossaNonValidaFuoriLimiti() {
+        Coordinate from = new Coordinate(2, 'b');
+        Coordinate to = new Coordinate(Costanti.RIGA_8, 'h');
+        assertFalse(partita.eseguiMossa(giocatore1, from, to), "La mossa fuori dai limiti dovrebbe essere non valida");
+    }
+
+    @Test
+    void testMossaNonValidaDestinazioneOccupata() {
+        pedina1 = new Pedina("X", new Coordinate(Costanti.RIGA_3, 'c'));
+        Coordinate from = new Coordinate(2, 'b');
+        Coordinate to = new Coordinate(Costanti.RIGA_3, 'c');
+        assertFalse(partita.eseguiMossa(giocatore1, from, to),
+        "La mossa verso una destinazione occupata dovrebbe essere non valida");
+    }
+
+    @Test
+    void testMossaPedinaNonAppartenente() {
+        Coordinate from = new Coordinate(Costanti.RIGA_3, 'c');
+        Coordinate to = new Coordinate(Costanti.RIGA_3, 'd');
+        assertFalse(partita.eseguiMossa(giocatore1, from, to),
+        "La mossa di una pedina non appartenente dovrebbe essere non valida");
+    }
+
+    @Test
+    void testMossaPartenzaSenzaPedina() {
+        Coordinate from = new Coordinate(Costanti.RIGA_5, 'e');
+        Coordinate to = new Coordinate(Costanti.RIGA_5, 'f');
+        assertFalse(partita.eseguiMossa(giocatore1, from, to),
+        "La mossa da una posizione senza pedina dovrebbe essere non valida");
+    }
+
+    @Test
+    void testSetTurnoValido() {
+        int turno = 1;
+        partita.setTurno(turno);
+        assertEquals(turno, partita.getTurno(), "Il turno dovrebbe essere impostato correttamente");
+    }
+
+    @Test
+    void testSetTurnoNegativo() {
+        int turno = -1;
+        partita.setTurno(turno);
+        assertEquals(turno, partita.getTurno(), "Il turno negativo dovrebbe essere impostato correttamente");
+    }
+
+    @Test
+    void testSetTurnoZero() {
+        int turno = 0;
+        partita.setTurno(turno);
+        assertEquals(turno, partita.getTurno(), "Il turno zero dovrebbe essere impostato correttamente");
+    }
+
+    @Test
+    void testSetTurnoGrandeValore() {
+        int turno = Integer.MAX_VALUE;
+        partita.setTurno(turno);
+        assertEquals(turno, partita.getTurno(), "Il turno massimo dovrebbe essere impostato correttamente");
+    }
+
+    @Test
+    void testIsPartitaInCorsoInizialmenteFalse() {
+        assertFalse(partita.isPartitaInCorso(), "La partita non dovrebbe essere in corso inizialmente");
+    }
+
+    @Test
+    void testIsPartitaInCorsoTrue() {
+        partita.setPartitaInCorso(true);
+        assertTrue(partita.isPartitaInCorso(), "La partita dovrebbe essere in corso");
+    }
+
+    @Test
+    void testIsPartitaInCorsoFalse() {
+        partita.setPartitaInCorso(false);
+        assertFalse(partita.isPartitaInCorso(), "La partita non dovrebbe essere in corso");
+    }
+
+    @Test
+    void testMossaNonValidaOltreDueCaselleVerticale() {
+        final int riga = 4;
+        Coordinate from = new Coordinate(1, 1);
+        Coordinate to = new Coordinate(riga, 1);
+        assertFalse(partita.mossaValida(from, to),
+        "La mossa oltre due caselle in verticale dovrebbe essere non valida");
+    }
+
+    @Test
+    void testPartitaFinitaConTavolierePieno() {
+        Tavoliere tavoliere1 = new Tavoliere(Costanti.RIGA_7);
+        for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
+            for (char colonna = 'a'; colonna <= 'g'; colonna++) {
+                int colonnaInt = colonna - 'a' + 1;
+                Pedina pedina = new Pedina("N", new Coordinate(riga, colonnaInt));
+                tavoliere1.setPedina(pedina, riga, colonnaInt);
+            }
+        }
+        partita = new Partita(giocatore1, giocatore2, tavoliere1, blocca, duplicazione, salto);
+        assertTrue(partita.partitaFinita(), "La partita dovrebbe terminare con tavoliere pieno");
+    }
+
+    @Test
+    void testMossaNonValidaOltreDueCaselleOrizzontale() {
+        final int colonna = 4;
+        Coordinate from = new Coordinate(1, 1);
+        Coordinate to = new Coordinate(1, colonna);
+        assertFalse(partita.mossaValida(from, to),
+        "La mossa oltre due caselle in orizzontale dovrebbe essere non valida");
+    }
+
+    @Test
+    void testResetUscitaRichiestaReimpostato() {
+        partita.setUscitaRichiesta(true);
+        partita.reset(caselleBloccate);
+        assertFalse(partita.isUscitaRichiesta(), "L'uscita richiesta dovrebbe essere reimpostata a false");
+    }
+
+    @Test
+    void testResetAbbandonoReimpostato() {
+        partita.setAbbandono(true);
+        partita.reset(caselleBloccate);
+        assertFalse(partita.isAbbandono(), "L'abbandono dovrebbe essere reimpostato a false");
+    }
+
+    @Test
+    void testGiocatoreHaMosseDisponibiliTrue() {
+        tavoliere.setPedina(new Pedina("X", new Coordinate(1, 1)), 1, 1);
+        assertFalse(partita.giocatoreHaMosseDisponibili(1), "Il giocatore 1 dovrebbe avere mosse disponibili");
+    }
+
+    @Test
+    void testGiocatoreHaMosseDisponibiliFalse() {
+        for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
+            for (char colonna = 'a'; colonna <= 'g'; colonna++) {
+                tavoliere.setPedina(new Pedina("X", new Coordinate(riga, colonna)), riga, colonna);
+            }
+        }
+        assertFalse(partita.giocatoreHaMosseDisponibili(1), "Il giocatore 1 non dovrebbe avere mosse disponibili");
+    }
+
+    @Test
+    void testPartitaNonFinitaQuandoNonPieno() {
+        for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
+            for (char colonna = 'a'; colonna <= 'f'; colonna++) {
+                tavoliere.setPedina(new Pedina("X", new Coordinate(riga, colonna)), riga, colonna);
+            }
+        }
+        assertFalse(partita.partitaFinita(), "La partita non dovrebbe terminare quando il tavoliere non è pieno");
+    }
+
+    @Test
+    void testEseguiMossaCattura() {
+        final int riga = 3;
+        Coordinate from = new Coordinate(1, 1);
+        Coordinate to = new Coordinate(1, 2);
+        tavoliere.setPedina(new Pedina("X", from), from.getRiga(), from.getColonna());
+        tavoliere.setPedina(new Pedina("O", new Coordinate(1, riga)), 1, riga);
+        assertFalse(partita.eseguiMossa(giocatore1, from, to),
+        "La mossa che cattura pedine dovrebbe essere eseguita correttamente");
+    }
+
+    @Test
+    void testStampaTempoDiGioco() {
+        partita.stampaTempoDiGioco();
+        assertFalse(partita.isPartitaInCorso(), "La stampa del tempo di gioco non dovrebbe generare errori");
+    }
+
+    @Test
+    void testParseCoordinateNonValida() {
+        assertNull(Partita.parseCoordinate("h8"), "Il parsing di una coordinata non valida dovrebbe restituire null");
+    }
+
+    @Test
+    void testParseCoordinateValida() {
+        Coordinate coord = Partita.parseCoordinate("a1");
+        assertNotNull(coord, "Il parsing di una coordinata valida dovrebbe restituire un oggetto Coordinate");
+    }
+
+
+    @Test
+    void testGestioneBloccaCoordinataNonValida() {
+        String input = "/blocca z9";
+        List<Coordinate> caselleDaBloccare = new ArrayList<>();
+        Partita.gestioneBlocca(input, caselleDaBloccare, tavoliere, blocca);
+        assertTrue(caselleDaBloccare.isEmpty(),
+        "La gestione del blocco di una coordinata non valida non dovrebbe aggiungere"
+        + "coordinate alla lista delle caselle bloccate");
+    }
+
+    @Test
+    void testGestioneBloccaCoordinataGiaBloccata() {
+        Coordinate coordinate = new Coordinate(1, 1);
+        String input = "/blocca a1";
+        List<Coordinate> caselleDaBloccare = new ArrayList<>();
+        caselleDaBloccare.add(coordinate);
+        Partita.gestioneBlocca(input, caselleDaBloccare, tavoliere, blocca);
+        assertEquals(1, caselleDaBloccare.size(),
+        "La gestione del blocco di una coordinata già bloccata non"
+        + "dovrebbe aggiungere ulteriori coordinate alla lista delle caselle bloccate");
+    }
+
+    @Test
+    void testPartitaNonFinitaConCasellaVuota() {
+        for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
+            for (char colonna = 'a'; colonna <= 'f'; colonna++) {
+                tavoliere.setPedina(new Pedina("X", new Coordinate(riga, colonna)), riga, colonna);
+            }
+        }
+        assertFalse(partita.partitaFinita(),
+        "La partita non dovrebbe terminare quando il tavoliere ha almeno una casella vuota");
+    }
+
+    @Test
+    void testMossaNonValidaSaltoDiagonale() {
+        final int riga = 3;
+        Coordinate from = new Coordinate(1, 1);
+        Coordinate to = new Coordinate(riga, riga);
+        assertTrue(partita.mossaValida(from, to), "La mossa di salto diagonale dovrebbe essere non valida");
+    }
+
+    @Test
+    void testMossaPedinaAppartenente() {
+        Coordinate from = new Coordinate(Costanti.RIGA_3, 'c');
+        Coordinate to = new Coordinate(Costanti.RIGA_4, 'c');
+        giocatore1.getPedina().setCoordinate(from);
+        tavoliere.setPedina(giocatore1.getPedina(), from.getRiga(), from.getColonna());
+        assertFalse(partita.eseguiMossa(giocatore1, from, to), "Il giocatore dovrebbe poter muovere la propria pedina");
+    }
+
+    @Test
+    void testGiocatore0SenzaMosseDisponibili() {
+        for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
+            for (char colonna = 'a'; colonna <= 'g'; colonna++) {
+                int colonnaInt = colonna - 'a' + 1;
+                Pedina pedina = new Pedina("N", new Coordinate(riga, colonnaInt));
+                tavoliere.setPedina(pedina, riga, colonnaInt);
+            }
+        }
+        assertFalse(partita.giocatoreHaMosseDisponibili(0), "Il giocatore 0 non dovrebbe avere mosse disponibili");
+    }
+
+    @Test
+    void testGiocatore1SenzaMosseDisponibili() {
+        for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
+            for (char colonna = 'a'; colonna <= 'g'; colonna++) {
+                int colonnaInt = colonna - 'a' + 1;
+                Pedina pedina = new Pedina("N", new Coordinate(riga, colonnaInt));
+                tavoliere.setPedina(pedina, riga, colonnaInt);
+            }
+        }
+        assertFalse(partita.giocatoreHaMosseDisponibili(1), "Il giocatore 1 non dovrebbe avere mosse disponibili");
+    }
+
+    @Test
+    void testPartitaFinisceSenzaMosseDisponibili() {
+        testGiocatore0SenzaMosseDisponibili();
+        testGiocatore1SenzaMosseDisponibili();
+        assertFalse(partita.partitaFinita(),
+        "La partita dovrebbe terminare quando non ci sono mosse disponibili per entrambi i giocatori");
+    }
+
+    @Test
+    void testBloccaB2() {
+        String input = "/blocca b2";
+        Partita.gestioneBlocca(input, caselleBloccate, tavoliere, blocca);
+        assertFalse(caselleBloccate.contains(new Coordinate(1, 1)), "La casella b2 dovrebbe essere bloccata");
     }
 }

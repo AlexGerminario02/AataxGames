@@ -556,7 +556,11 @@ Successivamente bisogna eliminare il branch in locale tramite comando
 Prima di eliminare il branch in locale bisogna spostarsi sul main branch tramite il comando `git checkout main`.
 ### **8.2 RoadMap degli Sprint**
 
-![RoadMap](./img/Roadmap.png)
+| Sprint No.  | Descrizione                                               |Data Inizio |Data Fine |Data Feedback|
+|-------------|---------------------------------------------------------- |------------|----------|-------------|
+| 0           |Dimostrare familiarità con GitHub e il processo agile      |31/03/2024  |12/04/2024|18/04/2024   | 
+| 1           |Implementare piccoli comandi                               |06/05/2024  |21/05/2024|28/05/2024   |
+| 2           |Completare il gioco, assicurando la qualità del software   |29/05/2024  |12/06/2024|21/06/2024   |
 
 
 

@@ -29,6 +29,15 @@ public class Salto {
  */
 public final ArrayList<Coordinate> mosseB(final int riga, final int colonna) {
     ArrayList<Coordinate> mosse = new ArrayList<>();
+    if (riga < 1 || riga > DIM) {
+        System.out.println("Errore: la riga inserita non è valida");
+        return mosse; // Esci dalla funzione restituendo un arraylist vuoto
+    }
+    // Verifica se la colonna è valida
+    if (colonna < 'a' || colonna > 'g') {
+        System.out.println("Errore: la colonna inserita non è valida");
+        return mosse; // Esci dalla funzione restituendo un arraylist vuoto
+    }
 
     int[] deltaRighe = {Costanti.MENODUE, Costanti.MENODUE, Costanti.MENODUE, -1, 0, 0, 1, 1,
         Costanti.DUE, Costanti.DUE, Costanti.DUE, Costanti.MENODUE, Costanti.DUE,

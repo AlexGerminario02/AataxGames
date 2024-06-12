@@ -690,6 +690,8 @@ Sarà possibile visualizzare le mosse disponibili digitando il comando `/qualimo
 
 Per effettuare una mossa, l'utente dovrà inserire la coordinata della pedina che vuole muovere/duplicare, e la coordinata della casella d'arrivo *(ad esempio a1-a2)*.
 
+![MossaEffettuata](./img/MossaEffettuata.png)
+
 Dopo aver effettuato delle mosse, l'utente, potrà visualizzare lo storico delle mosse effettuate digitando il comando `/mosse`.
 
 ![Mosse1](./img/Mosse1.png)
@@ -697,6 +699,11 @@ Dopo aver effettuato delle mosse, l'utente, potrà visualizzare lo storico delle
 ![Mosse](./img/Mosse.png)
 
 L'utente potrà anche visualizzare il tempo effettivo di gioco digitando il comando `/tempo`, in questo modo verrà visualizzato il tempo nel formato *ore:minuti:secondi*.
+
+![Tempo1](./img/Tempo1.png)
+
+![Tempo](./img/Tempo.png)
+
 
 Per visualizzare il tavoliere durante la fase di gioco bisogna digitare il comando `/tavoliere`.
 

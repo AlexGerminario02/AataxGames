@@ -2,6 +2,7 @@ package it.uniba.app.Entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -243,5 +244,64 @@ import org.junit.jupiter.api.Test;
             assertEquals(x, pedinaNonBloccata.getCarattere(), "Non-blocked position should be correct");
             printSuccessMessage("testInizializzaCaselleBloccate - Casella non bloccata corretta");
         }
+    }
+
+    /**
+     * Test per il metodo resettaCaselleBloccate.
+     */
+    @SuppressWarnings("unused")
+    @Test
+    void testCostruttoreCopiaEsistenza() {
+        Tavoliere tavoliereOriginale = Tavoliere.creaTavoliere();
+        tavoliereOriginale.setPedina(new Pedina("\u26C1", new Coordinate(1, 1)), 1, 1); // ⛁
+        Tavoliere tavoliereCopia = new Tavoliere(tavoliereOriginale);
+        Pedina pedinaOriginale = tavoliereOriginale.getPedina(1, 'a');
+        Pedina pedinaCopia = tavoliereCopia.getPedina(1, 'a');
+        assertNotNull(pedinaCopia, "Copied pedina should exist");
+        printSuccessMessage("testCostruttoreCopia - Esistenza pedina copia");
+    }
+
+    /**
+     * Test per il metodo resettaCaselleBloccate.
+     */
+    @Test
+    void testCostruttoreCopiaCarattere() {
+        Tavoliere tavoliereOriginale = Tavoliere.creaTavoliere();
+        tavoliereOriginale.setPedina(new Pedina("\u26C1", new Coordinate(1, 1)), 1, 1); // ⛁
+        Tavoliere tavoliereCopia = new Tavoliere(tavoliereOriginale);
+        Pedina pedinaOriginale = tavoliereOriginale.getPedina(1, 'a');
+        Pedina pedinaCopia = tavoliereCopia.getPedina(1, 'a');
+        assertEquals(pedinaOriginale.getCarattere(), pedinaCopia.getCarattere(),
+         "Copied pedina character should be the same");
+        printSuccessMessage("testCostruttoreCopia - Carattere pedina copia");
+    }
+
+    /**
+     * Test per il metodo resettaCaselleBloccate.
+     */
+    @Test
+    void testCostruttoreCopiaCoordinate() {
+        Tavoliere tavoliereOriginale = Tavoliere.creaTavoliere();
+        tavoliereOriginale.setPedina(new Pedina("\u26C1", new Coordinate(1, 1)), 1, 1); // ⛁
+        Tavoliere tavoliereCopia = new Tavoliere(tavoliereOriginale);
+        Pedina pedinaOriginale = tavoliereOriginale.getPedina(1, 'a');
+        Pedina pedinaCopia = tavoliereCopia.getPedina(1, 'a');
+        assertEquals(pedinaOriginale.getCoordinate(), pedinaCopia.getCoordinate(),
+        "Copied pedina coordinates should be the same");
+        printSuccessMessage("testCostruttoreCopia - Coordinate pedina copia");
+    }
+
+    /**
+     * Test per il metodo resettaCaselleBloccate.
+     */
+    @Test
+    void testCostruttoreCopiaOggettiDiversi() {
+        Tavoliere tavoliereOriginale = Tavoliere.creaTavoliere();
+        tavoliereOriginale.setPedina(new Pedina("\u26C1", new Coordinate(1, 1)), 1, 1); // ⛁
+        Tavoliere tavoliereCopia = new Tavoliere(tavoliereOriginale);
+        Pedina pedinaOriginale = tavoliereOriginale.getPedina(1, 'a');
+        Pedina pedinaCopia = tavoliereCopia.getPedina(1, 'a');
+        assertNotSame(pedinaOriginale, pedinaCopia, "Original and copied pedina should be different objects");
+        printSuccessMessage("testCostruttoreCopia - Oggetti diversi");
     }
 }

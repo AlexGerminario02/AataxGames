@@ -94,11 +94,13 @@ this.mossaPartita = new Mossa(scacchiera, mossaa, mossab);
      *
      * @param coordinateb le coordinate della casella da bloccare
      */
-    public final void bloccaCasella(final Coordinate coordinateb) {
+    public final List<Coordinate> bloccaCasella(final Coordinate coordinateb) {
         if (!caselleBloccateb.contains(coordinateb)) {
             caselleBloccateb.add(coordinateb);
         }
+        return new ArrayList<>(caselleBloccateb);
     }
+
     /**
      * Avvia la partita.
      *
@@ -363,22 +365,22 @@ public final boolean mossaValida(final Coordinate from, final Coordinate to) {
     // Verifica se le coordinate di partenza e di destinazione sono all'interno del tavoliere
     if (from.getRiga() < 1 || from.getRiga() > Costanti.RIGAF
             || to.getRiga() < 1 || to.getRiga() > Costanti.RIGAF
-            || from.getColonna() < 1 || from.getColonna() > Costanti.COLONNAF
+            || from.getColonna() < 0 || from.getColonna() > Costanti.COLONNAF
             || to.getColonna() < 1 || to.getColonna() > Costanti.COLONNAF) {
         return false;
     }
+
 
     // Calcola la distanza in righe e colonne tra le coordinate di partenza e di destinazione
     int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
     int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
 
+
     // Verifica se la mossa viola le regole del gioco:
     // - La mossa non può superare una distanza di 2 caselle in orizzontale o verticale
     // - La mossa non può essere una casella di partenza e destinazione uguali
-    // - La mossa non può essere una diagonale di 2 caselle
     if (distanzaRiga > 2 || distanzaColonna > 2
-            || (distanzaRiga == 0 && distanzaColonna == 0)
-            || (distanzaRiga == 2 && distanzaColonna == 2)) {
+            || (distanzaRiga == 0 && distanzaColonna == 0)) {
         return false;
     }
 
@@ -416,7 +418,7 @@ public final boolean mossaValida(final Coordinate from, final Coordinate to) {
  * @param turnot il turno corrente
  * @return il carattere della pedina del giocatore corrente ('N' per Nero, 'R' per Rosso)
  */
-    private String getPedinaGiocatoreCorrente(final int turnot) {
+    String getPedinaGiocatoreCorrente(final int turnot) {
         return (Math.abs(turno) % 2 == 1) ? Costanti.PEDINA_NERA : Costanti.PEDINA_BIANCA;
     }
     /**
@@ -610,7 +612,7 @@ public final boolean giocatoreHaMosseDisponibili(final int turnot) {
 /**
  * Stampa il tempo di gioco trascorso finora.
  */
-private void stampaTempoDiGioco() {
+public void stampaTempoDiGioco() {
     long tempoTrascorso = System.currentTimeMillis() - tempoInizioPartita;
     long ore = tempoTrascorso / Costanti.ORE;
     long minuti = (tempoTrascorso % Costanti.ORE) / Costanti.MINUTI;
@@ -712,5 +714,63 @@ System.out.println();
     public static boolean isValidCoordinate(final String coordinate) {
         // Aggiungi la logica di validazione della coordinata, ad esempio
         return coordinate.matches("^[a-g][1-7]$"); // Supponendo che le coordinate valide siano da a1 a h8
+    }
+
+    /**
+     * Verifica se una casella è bloccata.
+     * @return
+     */
+    public boolean isUscitaRichiesta() {
+        return uscitaRichiesta;
+    }
+
+    /**
+     * Imposta l'uscita richiesta.
+     * @param uscitaRichiestas
+     */
+    public void setUscitaRichiesta(final boolean uscitaRichiestas) {
+        this.uscitaRichiesta = uscitaRichiestas;
+    }
+
+    /**
+     * Verifica se la partita è stata abbandonata.
+     * @return
+     */
+    // Getter e Setter per abbandono
+    public boolean isAbbandono() {
+        return abbandono;
+    }
+
+    /**
+     * Imposta l'abbandono della partita.
+     * @param abbandonos
+     */
+    public void setAbbandono(final boolean abbandonos) {
+        this.abbandono = abbandonos;
+    }
+
+    /**
+     * Restituisce il turno di gioco.
+     * @return
+     */
+    // Getter e Setter per turno
+    public int getTurno() {
+        return turno;
+    }
+
+    /**
+     * Imposta il turno di gioco.
+     * @param turnos
+     */
+    public void setTurno(final int turnos) {
+        this.turno = turnos;
+    }
+
+    /**
+     * .
+     * @param b
+     */
+    public void setPartitaInCorso(final boolean b) {
+        this.partitaInCorso = b;
     }
 }

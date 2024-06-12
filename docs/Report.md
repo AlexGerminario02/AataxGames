@@ -261,7 +261,7 @@ In questa sezione vengono mostrati i diagrammi delle classi a prospettiva softwa
 
   **Diagramma delle Classi**
 
-  ![DiagramaClassiRF002](./img/Diagramma_ClassiRF002.png)
+  ![DiagramaClassiRF002](./img/DiagrammaClassiRF002.png)
 
   **Diagramma di Sequenza**
 
@@ -273,13 +273,13 @@ In questa sezione vengono mostrati i diagrammi delle classi a prospettiva softwa
 
   **Diagramma delle Classi**
 
-  ![DiagrammaClassiRF015](./img/DiagrammaClassiRF015.png)
+  ![DiagrammaClassiRF015](./img/Diagramma_ClassiRF015.png)
 
   
 
   **Diagramma di Sequenza**
 
-  ![DiagrammaSequenzaRF015](./img/DiagrammaSequenzaRF015.png)
+  ![DiagrammaSequenzaRF015](./img/Diagramma_SequenzaRF015.png)
 
   
 
@@ -287,7 +287,7 @@ In questa sezione vengono mostrati i diagrammi delle classi a prospettiva softwa
 
   **Diagramma delle Classi**
 
-  ![DiagrammaClassiRF006](./img/DiagrammaClassiRF006.png)
+  ![DiagrammaClassiRF006](./img/Diagramma_ClassiRF006.png)
 
   
   **Diagramma di Sequenza**

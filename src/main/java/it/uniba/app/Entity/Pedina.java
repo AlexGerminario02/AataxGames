@@ -48,8 +48,8 @@ public class Pedina {
     }
 
     /**
- *  Metodo equals della classe Pedina.
- */
+    *  Metodo equals della classe Pedina.
+    */
     @Override
     public boolean equals(final Object o) {
         if (this == o) {

@@ -24,7 +24,7 @@ class GiocatoreTest {
     }
 
     /**
-     * Test per il costruttore con parametri.
+     * Test per il costruttore con parametri..
      */
     @Test
     void testCostruttoreConParametri() {

@@ -241,7 +241,7 @@ In questa sezione verrà mostrato il modello di dominio realizzato in UML tramit
 
   * **Azioni richieste**: Per poter catturare una pedina avversaria, l'utente, deve digitare il comando con notazione algebrica per spostarsi nella casella desiderata.
 
-  * **Condizioni finali**: L'utente ha effettuato la propria mossa e la pedina è stata in una casella adiacente a pedine avversarie, dunque quest'ultime vengono catturate assumendo il colore del giocatore che ha effettuato la mossa.
+  * **Condizioni finali**: L'utente ha effettuato la propria mossa e la pedina è stata spostata in una casella adiacente a pedine avversarie, dunque quest'ultime vengono catturate assumendo il colore del giocatore che ha effettuato la mossa.
 
 - **identificatore**: [RF011](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/51#issue-2325251871)
 
@@ -633,7 +633,7 @@ Prima di poter avviare l'applicazione si devono compiere delle azioni preliminar
 
 <div style="margin-left: 20px;">
 
-  ![Pedine](./img/Pedine.png)
+  ![Pedine](./img/Tavoliere.png)
   </div>
    
 
@@ -665,40 +665,56 @@ Tornati nella schermata principale si potrà iniziare una nuova partita digitand
 
 ![Gioca](./img/Gioca.png)
 
-![Gioca1](./img/Gioca1.png)
-
-
-Una volta avviata la partita verrà mostrato il tavoliere e verrà chiesto all'utente se vuole inserire un comando o delle coordinate per effettuare una mossa.
-Digitare il comando `comando` per inserire un nuovo comando, oppure `coordinate` per inserire delle coordinate. 
+![Tavoliere](./img/Tavoliere.png)
 
 Se l'utente volesse visualizzare il tavoliere vuoto (senza pedine), dovrebbe digitare il comando `/vuoto`.
 
-![InizioPartita](./img/Vuoto.png)
+![Vuoto1](./img/Vuoto1.png)
+
+![Vuoto2](./img/Vuoto2.png)
 
 Prima di iniziare la partita, l'utente può decidere di bloccare alcune caselle del tavoliere tramite il comando `/blocca xn` dove xn indica la coordinata della casella.  Non sarà possibile bloccare le caselle di partenza del gioco; tutte le caselle adiacenti a una casella di partenza del gioco; tutte le caselle a distanza 2 da una casella di partenza del gioco.
 Inoltre, non sarà possibile bloccare più di 9 caselle. Si potrà bloccare una sola casella alla volta, quindi nel caso si volesse bloccare più di una casella, bisognerà digitare nuovamente il comando.
 
+![Blocca](./img/Blocca.png)
+
+![CaselleBloccate](./img/CaselleBloccate.png)
+
 Durante la partità è possibile visualizzare il menu help di gioco digitando il comando `/help`, `--h` o `-h`, in cui verranno mostrati i comandi digitabili durante la partita.
 
+![Comandi](./img/Comandi.png)
+
 Sarà possibile visualizzare le mosse disponibili digitando il comando `/qualimosse`. Verrà richiesto di inserire le coordinate della riga e della colonna di dove si vuole spostare la pedina.
+
+![QualiMosse](./img/QualiMosse.png)
 
 Per effettuare una mossa, l'utente dovrà inserire la coordinata della pedina che vuole muovere/duplicare, e la coordinata della casella d'arrivo *(ad esempio a1-a2)*.
 
 Dopo aver effettuato delle mosse, l'utente, potrà visualizzare lo storico delle mosse effettuate digitando il comando `/mosse`.
 
+![Mosse1](./img/Mosse1.png)
+
+![Mosse](./img/Mosse.png)
+
 L'utente potrà anche visualizzare il tempo effettivo di gioco digitando il comando `/tempo`, in questo modo verrà visualizzato il tempo nel formato *ore:minuti:secondi*.
 
 Per visualizzare il tavoliere durante la fase di gioco bisogna digitare il comando `/tavoliere`.
 
-![QualiMosse](./img/QualiMosse1.png)
+![QualiMosse](./img/Tavoliere.png)
 
 Successivamente il giocatore potrà continuare ad effettuare le mosse oppure potrà abbandondare la partita tramite il comando `/abbandona`, decretando così la sua sconfitta(verrà mostrato il numero pedine dell'avversario contro le zero pedine di chi ha abbandonato la partita). Se il giocatore digita il comando per abbandonare la partita, verrà richiesto di confermare ciò attraverso il comando `si` oppure si può tornare alla partita digitando `no`. 
 
-![Abbandona](./img/Abbandona1.png)
+![Abbandona](./img/Abbandona.png)
+
+![Abbandonato](./img/Abbandonato.png)
 
 Se la partita termina non per abbandono, ma perchè è stato riempito il tavoliere, allora verrà visualizzato il vincitore indicando il numero di pedine a dispozione di entrambi i giocatori. Vince chi ha più pedine.
 
+![Vincitore](./img/Vincitore.png)
+
 Potrebbe capitare che un giocatore mangi tutte le pedine dell'avversario. In questo caso il turno sarà fino alla fine della partita, di chi ha ancora pedine presenti sul tavoliere.
+
+![FineMosse](./img/FineMosse.png)
 
 Infine si tornerà alla schermata iniziale dove si potrà iniziare una nuova partita oppure si potrà chiudere il gioco tramite `/esci`.
 

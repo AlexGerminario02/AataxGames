@@ -658,6 +658,12 @@ La comunicazione e le riunioni di retrospettiva sono state effettuate su un serv
 
 ![Discord](./img/Discord.png)
 
+![WhatsApp](./img/WhatsApp.png)
+
+Per le riunioni in modalità sincrona abbiamo utilizzato l'aula studio messa a disposizione dal Dipartimento Di Informatica.
+
+![Gruppo](./img/Gruppo.png)
+
 
 
 ## **9. Analisi Retrospettiva**

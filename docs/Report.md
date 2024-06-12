@@ -486,7 +486,7 @@ All'interno dell'app vengono presentati dei termini che potrebbero causare incom
 
  * Tavoliere : Il tavoliere è lo spazio di gioco. E' composto da 49 caselle (7x7) e su di esso verranno mosse le pedine.
 
- * Pedine: Le pedine sono i protagonisti del gioco. Sono nere o bianche e possono effettuare delle specifiche mosse che sono riportate in [Come si Gioca](#431-come-si-gioca).
+ * Pedine: Le pedine sono i protagonisti del gioco. Sono nere o bianche e possono effettuare delle specifiche mosse che sono riportate in [Come si Gioca](#731-come-si-gioca).
  </div>
 
 <div style="font-size: 15px;">

@@ -299,6 +299,33 @@ In questa sezione vengono mostrati i diagrammi delle classi a prospettiva softwa
 
 ### **5.2 Principi di OO Design**
 
+
+Data la realizzazione del progetto in Java, un linguaggio intrinsecamente Object-Oriented, l'architettura dell'applicazione segue i seguenti principi:
+
+* **Information Hiding**
+
+  Gli attributi di tutte le classi sono privati e sono stati messi a disposizione dei getter/setter per permettere un accesso controllato e corretto. Laddove un metodo utilizzasse un altro metodo di servizio, quest'ultimo è stato reso privato.
+
+* **Alta Coesione**
+
+  Le classi hanno una ben definita responsabilità, grazie alla tassonomia ECB (Entity-Control-Boundary).
+
+* **Basso Accoppiamento**
+
+  Poiché il progetto rispetta il principio dell'information hiding, non ci sono forti dipendenze tra componenti. Questo consente di non propagare i cambiamenti.
+
+* **Presentazione Separata**
+
+  Dato l'utilizzo della tassonomia ECB, le classi Boundary si occupano esclusivamente della logica di presentazione e dell'interfacciamento con l'utente, mentre le classe Partita nel package Control implementano la logica di dominio.
+
+
+* **Do not Repeat Yourself (DRY)**
+
+  Il principio DRY è stato rispettato: non ci sono duplicazioni di codice all'interno del progetto.
+
+  Un esempio nel nostro codice è proprio la classe StampaTavoliere aderisce al principio Do Not Repeat Yourself (DRY) attraverso i seguenti approcci:
+
+<div style = "margin:20px;"> 
 #### **5.2.1 Principi SOLID**
 
 ### **5.3 Commento sulle Decisioni prese**

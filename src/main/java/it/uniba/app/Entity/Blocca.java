@@ -90,4 +90,18 @@ public final boolean isCasellaBloccata(final Coordinate coord) {
             return false;
    }
   }
+   /**
+   * .
+   * @return
+   */
+  public Pedina[][] getScacchiera() {
+    return scacchiera;
+}
+/**
+ * .
+ * @return
+ */
+public List<Coordinate> getCaselleBloccateg() {
+    return caselleBloccateg;
+}
 }

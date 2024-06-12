@@ -937,6 +937,8 @@ L'obiettivo principale di queste analisi è identificare cosa ha funzionato bene
 Lo Sprint 1 aveva lo scopo di implementare piccoli comandi di gioco.
 Di seguito viene riportata la tabella con gli stati emotivi provati dal team(arrabbiato, triste e felice) durante il lavoro, e le azioni che li hanno scatenati.
 
+![SprintRetrospective1](./img/SprintRetrospective1.png)
+
 </div>
 
 

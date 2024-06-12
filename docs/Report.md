@@ -261,7 +261,7 @@ In questa sezione vengono mostrati i diagrammi delle classi a prospettiva softwa
 
   **Diagramma delle Classi**
 
-  ![DiagramaClassiRF002](./img/Diagramma_ClassiRF002.png)
+  ![DiagramaClassiRF002](./img/DiagrammaClassiRF002.png)
 
   **Diagramma di Sequenza**
 
@@ -273,13 +273,13 @@ In questa sezione vengono mostrati i diagrammi delle classi a prospettiva softwa
 
   **Diagramma delle Classi**
 
-  ![DiagrammaClassiRF015](./img/DiagrammaClassiRF015.png)
+  ![DiagrammaClassiRF015](./img/Diagramma_ClassiRF015.png)
 
   
 
   **Diagramma di Sequenza**
 
-  ![DiagrammaSequenzaRF015](./img/DiagrammaSequenzaRF015.png)
+  ![DiagrammaSequenzaRF015](./img/Diagramma_SequenzaRF015.png)
 
   
 
@@ -287,7 +287,7 @@ In questa sezione vengono mostrati i diagrammi delle classi a prospettiva softwa
 
   **Diagramma delle Classi**
 
-  ![DiagrammaClassiRF006](./img/DiagrammaClassiRF006.png)
+  ![DiagrammaClassiRF006](./img/Diagramma_ClassiRF006.png)
 
   
   **Diagramma di Sequenza**
@@ -311,7 +311,47 @@ In questa sezione vengono mostrati i diagrammi delle classi a prospettiva softwa
 
 ### **6.1 Strumenti di Analisi e Testing del Codice utilizzati**
 
+ * [JUNIT](https://junit.org/junit5/)
+
+ * [CheckStyle](https://checkstyle.sourceforge.io/)
+
+ * [SpotBugs](https://spotbugs.github.io/)
+
+ * [PMD](https://pmd.github.io/)
+ 
+
 ### **6.2 Presentazione esiti Test e Considerazioni**
+
+Nello Sprint 2, il gruppo "Minsky" si è adoperato per effettuare l'attività di Verification&Validation (V&V) che si suddivide in un processo statico (finalizzato all'analisi del codice con Checkstyle, Spotbugs e PMD) e un processo dinamico (finalizzato alla creazione di casi di test con JUnit 5 e verifica del funzionamento dei metodi).
+
+Di seguito vengono presentati gli esiti delle fasi di test.
+
+ * **Esito test JUnit5**
+ 
+    Qui sotto un breve resoconto dei casi di test effettuati.
+
+
+   ![TestSummary](./img/TestSummary.png)
+
+* **Esito CheckStyle Main**
+
+  ![CheckStyle](./img/CheckStyle_Main.png)
+
+* **Esito CheckStyle Test**
+
+  ![CheckStyle1](./img/CheckStyle_Test.png)
+
+* **Esito PMD Main**
+
+  ![PMD](./img/pmd.png)
+
+* **Esito PMD Test**
+
+  ![PMD1](./img/pmd.png)
+
+* **Esito Build (GitHub Actions)**
+
+  ![Gradle](./img/GradleBuild.png)
 
 ### **6.3 Descrizione Test effettuati**
 
@@ -486,7 +526,7 @@ All'interno dell'app vengono presentati dei termini che potrebbero causare incom
 
  * Tavoliere : Il tavoliere è lo spazio di gioco. E' composto da 49 caselle (7x7) e su di esso verranno mosse le pedine.
 
- * Pedine: Le pedine sono i protagonisti del gioco. Sono nere o bianche e possono effettuare delle specifiche mosse che sono riportate in [Come si Gioca](#431-come-si-gioca).
+ * Pedine: Le pedine sono i protagonisti del gioco. Sono nere o bianche e possono effettuare delle specifiche mosse che sono riportate in [Come si Gioca](#731-come-si-gioca).
  </div>
 
 <div style="font-size: 15px;">
@@ -546,7 +586,7 @@ Per eseguire i commit bisogna digitare il comando
 
 * **Aprire Pull Request**: Una volta effettuati i commit bisogna inviare i file su GitHub tramite comando   
 `git push origin nomebranch`.
-Per aprire una Pull Request bisogna recarsi su GitHub nel proprio repository e cliccare il tasto `compare and Pull Request` che appare nella pagina principale, e in questo caso si potrà richiedere la review da parte di altri componenti del gruppo.
+Per aprire una Pull Request bisogna recarsi su GitHub nel proprio repository e cliccare il tasto `compare & Pull Request` che appare nella pagina principale, e in questo caso si potrà richiedere la review da parte di altri componenti del gruppo.
 
 * **Effettuare il Merge**: Una volta creata la Pull Request bisogna recarsi nella sezione Pull Request di GitHub in modo da poter vedere i commenti effettuati dai reviewers. Se la revisione è andata a buon fine, è possibile effettuare il merge cliccando il tasto `Merge Pull Request`.
 
@@ -556,7 +596,11 @@ Successivamente bisogna eliminare il branch in locale tramite comando
 Prima di eliminare il branch in locale bisogna spostarsi sul main branch tramite il comando `git checkout main`.
 ### **8.2 RoadMap degli Sprint**
 
-![RoadMap](./img/Roadmap.png)
+| Sprint No.  | Descrizione                                               |Data Inizio |Data Fine |Data Feedback|
+|-------------|---------------------------------------------------------- |------------|----------|-------------|
+| 0           |Dimostrare familiarità con GitHub e il processo agile      |31/03/2024  |12/04/2024|18/04/2024   | 
+| 1           |Implementare piccoli comandi                               |06/05/2024  |21/05/2024|28/05/2024   |
+| 2           |Completare il gioco, assicurando la qualità del software   |29/05/2024  |12/06/2024|21/06/2024   |
 
 
 
@@ -581,7 +625,7 @@ In particolare si è deciso di effettuare una issue in condivisione schermo in m
 
 * **Progettazione**: In questo Sprint le task riguardavano principalmente la stesura di documenti in formato MarkDown e il settaggio di alcune impostazioni su GitHub, dunque la fase di progettazione non è stata inclusa.
 
-* **Implementazione**: Questa fase ha previsto la modifica del file [README.md](ReadMe.md); la modifica del file [Guida per lo studente.md](/Guida%20per%20lo%20studente.md); la creazione e stesura del file [ispiratore.md](/ISPIRATORE.md) in cui è stata inclusa la biografia di chi ha ispirato il nome del gruppo; e la stesura del file [Code Of Conduct.md](/CODE_OF_CONDUCT.md) dove sono state definite le regole interne del team.
+* **Implementazione**: Questa fase ha previsto la modifica del file [README.md](../README.md); la modifica del file [Guida per lo studente.md](Guida%20per%20lo%20studente.md); la creazione e stesura del file [ispiratore.md](ISPIRATORE.md) in cui è stata inclusa la biografia di chi ha ispirato il nome del gruppo; e la stesura del file [Code Of Conduct.md](CODE_OF_CONDUCT.md) dove sono state definite le regole interne del team.
 
 * **Testing**: Questa fase ha previsto la revisione dal punto di vista ortografico e contenutistico dei file sopra citati, e anche l'eliminazione di eventuali immagini non utilizzate.
 </div>
@@ -611,7 +655,7 @@ Sono stati sfruttati anche gli elementi messi a disposizione dalle Pull Request 
 #### **8.3.3 Sprint 2**
 </div>
 
-Lo Sprint Goal era quello di 
+Lo Sprint Goal era quello di completare il gioco, assicurando la qualità del software.
 
 * **Analisi**: Per questa fase si è deciso di incontrarsi in un Meeting sulla piattaforma Discord per circa 1 ora, al fine di assegnare i task e stabilire le modalità di lavoro in modo che fossero distribuite in modo equo tra tutti i componenti del team.
 
@@ -629,6 +673,8 @@ Per lo sviluppo del software sono stati utilizzati diversi programmi
    - **Microsoft Teams**: per visulizzare i compiti definiti per ogni Sprint
 
    - **Discord**: per le riunioni interne del team
+
+   - **WhatsApp**: per la comunicazione tra componenti del team.
 
 * **Ambienti di Sviluppo**
 
@@ -651,6 +697,12 @@ Per lo sviluppo del software sono stati utilizzati diversi programmi
 La comunicazione e le riunioni di retrospettiva sono state effettuate su un server Discord creato appositamente.
 
 ![Discord](./img/Discord.png)
+
+![WhatsApp](./img/WhatsApp.png)
+
+Per le riunioni in modalità sincrona abbiamo utilizzato l'aula studio messa a disposizione dal Dipartimento Di Informatica.
+
+![Gruppo](./img/Gruppo.png)
 
 
 

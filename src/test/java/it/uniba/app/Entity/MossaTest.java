@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -331,6 +332,117 @@ final class MossaTest {
         mossec.addAll(mossea.mosseA(Costanti.RIGA_2, 'c'));
         mossec.addAll(mosseb.mosseB(Costanti.RIGA_8, 'h'));
         assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la riga è al di fuori dei limiti mentre la colonna è compresa.
+     */
+    @Test
+    void testmosseCRigaSuperioreMassima2() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Costanti.RIGA_2, 'c'));
+        mossec.addAll(mosseb.mosseB(Costanti.RIGA_8, 'd'));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la riga è compresa e la colonna è al di fuori dei limiti.
+     */
+    @Test
+    void testMosseBColonnaSuperioreMassima2() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Costanti.RIGA_2, 'c'));
+        mossec.addAll(mosseb.mosseB(Costanti.RIGA_4, 'h'));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la riga è = MAX_VALUE e la colonna è compresa.
+     */
+    @Test
+    void testMosseBRigaIntMaxValue2() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Costanti.RIGA_2, 'c'));
+        mossec.addAll(mosseb.mosseB(Integer.MAX_VALUE, 'd'));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la colonna è = MAX_VALUE e la riga è compresa.
+     */
+    @Test
+    void testMosseBColonnaIntMaxValue2() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Costanti.RIGA_2, 'c'));
+        mossec.addAll(mosseb.mosseB(Costanti.RIGA_4, (char) Integer.MAX_VALUE));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la riga è = MIN_VALUE e la colonna è compresa.
+     */
+    @Test
+    void testMosseBRigaIntMinValue2() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Costanti.RIGA_2, 'c'));
+        mossec.addAll(mosseb.mosseB(Integer.MIN_VALUE, 'd'));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica le mosse possibili quando la colonna è = MIN_VALUE e la riga è compresa.
+     */
+    @Test
+    void testMossaBColonnaIntMinValue2() {
+        ArrayList<Coordinate> mossec = new ArrayList<>();
+        mossec.addAll(mossea.mosseA(Costanti.RIGA_2, 'c'));
+        mossec.addAll(mosseb.mosseB(Costanti.RIGA_4, (char) Integer.MIN_VALUE));
+        assertNotNull(mossec, "L'ArrayList<Coordinate> mosse non dovrebbe essere nullo.");
+    }
+
+    /**
+     * Verifica se una cella è vuota con parametri accettabili.
+     */
+    @Test
+    void testPosizioneVuotaParametriAccettabili() {
+        scacchiera[0][0] = null;
+        assertTrue(mossa.posizioneVuota(Costanti.RIGA_4, 'c'), "La posizione dovrebbe essere vuota.");
+    }
+
+    /**
+     * Verifica se una cella è vuota con parametri minimi.
+     */
+    @Test
+    void testPosizioneVuotaParametriMinimi() {
+        scacchiera[0][0] = null;
+        assertFalse(mossa.posizioneVuota(1, 'a'), "La posizione non dovrebbe essere vuota.");
+    }
+
+    /**
+     * Verifica se una cella è vuota con parametri massimi.
+     */
+    @Test
+    void testPosizioneVuotaParametriMassimi() {
+        scacchiera[Costanti.RIGA_7 - 1][Costanti.RIGA_7 - 1] = null;
+        assertFalse(mossa.posizioneVuota(Costanti.RIGA_7, 'g'), "La posizione non dovrebbe essere vuota.");
+    }
+
+    /**
+     * Verifica se una cella è vuota con riga massima e colonna minima.
+     */
+    @Test
+    void testPosizioneVuotaRigaMassimaColonnaMinima() {
+        scacchiera[Costanti.RIGA_7 - 1][0] = null;
+        assertFalse(mossa.posizioneVuota(Costanti.RIGA_7, 'a'), "La posizione non dovrebbe essere vuota.");
+    }
+
+    /**
+     * Verifica se una cella è vuota con riga minima e colonna massima.
+     */
+    @Test
+    void testPosizioneVuotaRigaMinimaColonnaMassima() {
+        scacchiera[0][Costanti.RIGA_7 - 1] = null;
+        assertFalse(mossa.posizioneVuota(1, 'g'), "La posizione non dovrebbe essere vuota.");
     }
 
 }

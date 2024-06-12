@@ -249,13 +249,11 @@ import org.junit.jupiter.api.Test;
     /**
      * Test per il metodo resettaCaselleBloccate.
      */
-    @SuppressWarnings("unused")
     @Test
     void testCostruttoreCopiaEsistenza() {
         Tavoliere tavoliereOriginale = Tavoliere.creaTavoliere();
         tavoliereOriginale.setPedina(new Pedina("\u26C1", new Coordinate(1, 1)), 1, 1); // ⛁
         Tavoliere tavoliereCopia = new Tavoliere(tavoliereOriginale);
-        Pedina pedinaOriginale = tavoliereOriginale.getPedina(1, 'a');
         Pedina pedinaCopia = tavoliereCopia.getPedina(1, 'a');
         assertNotNull(pedinaCopia, "Copied pedina should exist");
         printSuccessMessage("testCostruttoreCopia - Esistenza pedina copia");

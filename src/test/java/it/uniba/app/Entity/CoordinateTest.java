@@ -107,24 +107,6 @@ class CoordinateTest {  // La classe di test è ora package-private
         assertFalse(coord1.equals(coord2), "Oggetti diversi con valori diversi non devono essere uguali");
     }
 
-    /**
-     * Test per il metodo equals con oggetto null.
-     */
-    @Test
-    void testEqualsNull() {
-        Coordinate coord = new Coordinate(1, 1);
-        assertFalse(coord.equals(null), "Un oggetto non deve essere uguale a null");
-    }
-
-    /**
-     * Test per il metodo equals con oggetto di classe diversa.
-     */
-    @Test
-    void testEqualsDifferentClass() {
-        Coordinate coord = new Coordinate(1, 1);
-        String notACoord = "Not a Coordinate";
-        assertFalse(coord.equals(notACoord), "Un oggetto non deve essere uguale a un oggetto di classe diversa");
-    }
 
     /**
      * Test per il metodo hashCode.

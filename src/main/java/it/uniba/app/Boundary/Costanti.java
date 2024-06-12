@@ -199,6 +199,7 @@ public static final String ALIENO = GREEN
             + "     |  |           |  |           |  |\n"
             + "     |  |           |  |           |  |\n"
             + ANSI_RESET;
+        public static final int RIGA_2 = 0;
 
     /**
      * Costruttore della classe Costanti.

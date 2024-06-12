@@ -47,6 +47,8 @@ public final class Costanti {
     public static final int COLONNAI = 1;
     public static final int RIGAF = 7;
     public static final int COLONNAF = 7;
+    public static final int RIGA_1 = 0;
+    public static final int RIGA_8 = 0;
     public static final int TIME5 = 5;
     public static final int TIME6 = 6;
     public static final int TIME7 = 7;

@@ -212,6 +212,89 @@ In questa sezione verrà mostrato il modello di dominio realizzato in UML tramit
 
    * **Condizioni finali**: Se la conferma di chiusura del gioco è positiva, l'app si chiude e restituisce il controllo al sistema operativo.
    Se la conferma è negativa, l'app si predispone a ricevere nuovi comandi.
+
+- **Identificatore**: [RF008](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/48#issue-2325219614)
+
+  * **Descrizione**: Come giocatore voglio giocare una nuova pedina in una casella adiacente a una propria pedina.
+
+  * **Condizioni iniziali**: L'utente sta giocando una partita, è il proprio turno, e vorrebbe muovere la pedina selezionata in una casella adiacente ad essa.
+
+  * **Azioni richieste**: Per poter muovere la pedina nella posizione desiderata, l'utente, deve digitare ad esempio il comando *`a1-a2`*, dove a1 è la casella di partenza e a2 la casella adiacente.
+
+  * **Condizioni finali**: Una volta digitato il comando, la pedina si sposterà nella casella indicata.
+
+- **Identificatore**: [RF009](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/49#issue-2325222616)
+
+  * **Descrizione**: Come giocatore voglio spostare una propria pedina saltando una casella adiacente.
+
+  * **Condizioni iniziali**: L'utente sta giocando una partita, è il proprio turno, e vorrebbe muovere la pedina selezionata saltando una casella adiacente ad essa.
+
+  * **Azioni richieste**:  Per poter muovere la pedina nella posizione desiderata, l'utente, deve digitare ad esempio il comando *`a1-a3`*, dove a1 è la casella di partenza e a3 la casella di arrivo.
+
+  * **Condizioni finali**: Una volta digitato il comando, la pedina si sposterà nella casella indicata, a patto che la casella libera non sia adiacente alla casella originaria.
+
+- **Identificatore**: [RF010](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/50#issue-2325228438)
+
+  * **Descrizione**: Come giocatore voglio catturare una pedina avversaria come effetto di una mossa.
+
+  * **Condizioni iniziali**: L'utente sta giocando una partita, è il proprio turno, e vorrebbe effettuare una mossa per catturare una pedina avversaria.
+
+  * **Azioni richieste**: Per poter catturare una pedina avversaria, l'utente, deve digitare il comando con notazione algebrica per spostarsi nella casella desiderata.
+
+  * **Condizioni finali**: L'utente ha effettuato la propria mossa e la pedina è stata in una casella adiacente a pedine avversarie, dunque quest'ultime vengono catturate assumendo il colore del giocatore che ha effettuato la mossa.
+
+- **identificatore**: [RF011](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/51#issue-2325251871)
+
+  * **Descrizione**: Come giocatore voglio mostrare le mosse effettuate.
+
+  * **Condizioni iniziali**: L'utente sta giocando una partita e vorrebbe visualizzare lo storico delle mosse effettuate.
+
+  * **Azioni richieste**: Per visualizzare lo storico delle mosse effettuate, l'utente, deve digitare il comando *`/mosse`*.
+
+  * **Condizioni finali**: Una volta digitato il comando, viene visualizzato lo storico delle mosse con notazione algerbrica, come ad esempio 
+  *1. a1-a2 (N);  2. g7-g6 (B)*.
+
+- **Identificatore**: [RF012](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/52#issue-2325255204)
+
+  * **Descrizione**: Come giocatore voglio passare il turno per impossibilità di movimento.
+
+  * **Condizioni iniziali**: L'utente sta giocando una partita, è il proprio turno, e vorrebbe passare il proprio turno per impossibilità di movimento.
+
+  * **Azioni richieste**: Per passare il proprio turno, l'utente non deve digitare alcun comando.
+
+  * **Condizioni finali**: Se il giocatore non può muovere nessuna pedina del proprio colore, l'app avvisa che il proprio turno passa all'altro giocatore.
+
+- **Identificatore**: [RF013](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/53#issue-2325260166)
+
+  * **Descrizione**: Come giocatore voglio visualizzare il fine partita con il vincitore e i punti segnati.
+
+  * **Condizioni iniziali**: L'utente non può effettuare mosse perchè il tavoliere è stato tutto riempito.
+
+  * **Azioni richieste**: Per visualizzare il fine partita e i punti segnati, l'utente non deve digitare alcun comando.
+
+  * **Condizioni finali**: L'app dichiara il vincitore (Bianco o Nero) e riporta il punteggio di ogni giocatore contando le rispettive pedine.
+
+- **Identificatore**: [RF014](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/54#issue-2325263349)
+
+  * **Descrizione**: Come giocatore voglio mostrare il tempo di gioco.
+
+  * **Condizioni iniziali**: L'utente sta giocando una partita e vorrebbe visualizzare il tempo di gioco.
+
+  * **Azioni richieste**: Per poter visualizzare il tempo di gioco, l'utente deve digitare il comando *`/tempo`*.
+
+  * **Condizioni finali**: Una volta digitato il comando verrà visualizzato a schermo il tempo effettivo di gioco nel formato *ore:minuti:secondi*.
+
+- **Identificatore**: [RF015](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/55#issue-2325265844)
+
+  * **Descrizione**: Come giocatore voglio impostare caselle non accessibli.
+
+  * **Condizioni iniziali**: L'utente si trova nel menu principale, e prima di iniziare a giocare una nuova partita, vorrebbe delle caselle del tavoliere non accessibili.
+
+  * **Azioni richieste**: Per poter far scelgiere all'utente quali caselle bloccare prima di iniziare a giocare, bisogna digitare il comando *`/blocca xn`* dove xn indica la coordinata della casella da bloccare.
+  Non è possibile bloccare le caselle di partenza del gioco; tutte le caselle adiacenti a una casella di partenza del gioco; tutte le caselle a distanza 2 da una casella di partenza del gioco.
+  Inoltre, non è possibile bloccare più di 9 caselle.
+
+  * **Condizioni finali**: Una volta digitato il comando verrà visualizzato il tavoliere con le caselle bloccate dall'utente.
    </div>
 
 <div style="font-size: 16px;">

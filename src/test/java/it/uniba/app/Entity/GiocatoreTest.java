@@ -68,4 +68,17 @@ class GiocatoreTest {
          "La pedina del giocatore dovrebbe essere uguale alla nuova pedina");
     }
 
+    /**
+     * Test per il metodo setNome.
+     */
+    @Test
+    void testSetNome() {
+        // Crea un'istanza della classe Giocatore
+        Giocatore giocatoreInstance = new Giocatore(giocatore);
+        // Imposta il nome del giocatore
+        String nomeAtteso = "Mario";
+        giocatoreInstance.setNome(nomeAtteso);
+        // Verifica che il nome sia stato impostato correttamente
+        assertEquals(nomeAtteso, giocatoreInstance.getNome(), "Il nome del giocatore dovrebbe essere 'Mario'");
+    }
 }

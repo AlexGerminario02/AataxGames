@@ -372,13 +372,12 @@ public final boolean mossaValida(final Coordinate from, final Coordinate to) {
     int distanzaRiga = Math.abs(from.getRiga() - to.getRiga());
     int distanzaColonna = Math.abs(from.getColonna() - to.getColonna());
 
+
     // Verifica se la mossa viola le regole del gioco:
     // - La mossa non può superare una distanza di 2 caselle in orizzontale o verticale
     // - La mossa non può essere una casella di partenza e destinazione uguali
-    // - La mossa non può essere una diagonale di 2 caselle
     if (distanzaRiga > 2 || distanzaColonna > 2
-            || (distanzaRiga == 0 && distanzaColonna == 0)
-            || (distanzaRiga == 2 && distanzaColonna == 2)) {
+            || (distanzaRiga == 0 && distanzaColonna == 0)) {
         return false;
     }
 

@@ -1,73 +1,68 @@
 package it.uniba.app.Entity;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import it.uniba.app.Boundary.Costanti;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Name: BloccaTest.java.
- */
-public class BloccaTest {
+
+
+class BloccaTest {
 
     private Pedina[][] scacchiera;
     private List<Coordinate> caselleBloccate;
     private Blocca blocca;
 
     @BeforeEach
-    final
     void setUp() {
         scacchiera = new Pedina[Blocca.DIM][Blocca.DIM];
         caselleBloccate = new ArrayList<>();
         blocca = new Blocca(scacchiera, caselleBloccate);
     }
 
-    /**
-     * Test per il metodo isBloccata.
-     */
     @Test
-    public void testIsBloccata() {
+    void testIsBloccata() {
         final int dim = 3;
-        final int dim2 = 4;
         Coordinate bloccata = new Coordinate(dim, dim);
-        Coordinate nonBloccata = new Coordinate(2, dim2);
         blocca.bloccaCasella(bloccata);
-        Assertions.assertFalse(blocca.isBloccata(bloccata));
-        Assertions.assertFalse(blocca.isBloccata(nonBloccata));
+        assertFalse(blocca.isBloccata(bloccata), "La casella non dovrebbe essere bloccata");
     }
 
-    /**
-     * Test per il metodo isCasellaBloccata.
-     */
     @Test
-    public void testIsCasellaBloccata() {
+    void testIsBloccataNonBloccata() {
+        final int dim2 = 4;
+        Coordinate nonBloccata = new Coordinate(2, dim2);
+        assertFalse(blocca.isBloccata(nonBloccata), "La casella non dovrebbe essere bloccata");
+    }
+
+    @Test
+    void testIsCasellaBloccata() {
         final int dim = 4;
         final int dim2 = 2;
-        final int dim3 = 6;
         Coordinate bloccata = new Coordinate(dim, dim2);
-        Coordinate nonBloccata = new Coordinate(1, dim3);
         blocca.bloccaCasella(bloccata);
-        Assertions.assertTrue(blocca.isCasellaBloccata(bloccata));
-        Assertions.assertFalse(blocca.isCasellaBloccata(nonBloccata));
+        assertTrue(blocca.isCasellaBloccata(bloccata), "La casella dovrebbe essere bloccata");
     }
 
-    /**
-     * Test per il metodo resettaCelleBloccate.
-     */
+    @Test
+    void testIsCasellaNonBloccata() {
+        final int dim3 = 6;
+        Coordinate nonBloccata = new Coordinate(1, dim3);
+        assertFalse(blocca.isCasellaBloccata(nonBloccata), "La casella non dovrebbe essere bloccata");
+    }
+
     @Test
     void testIsBloccataCasellaNonBloccata() {
         Coordinate coordC4 = new Coordinate(Costanti.RIGA_4, Costanti.RIGA_3);
-        assertFalse(blocca.isBloccata(coordC4));
+        assertFalse(blocca.isBloccata(coordC4), "La casella non dovrebbe essere bloccata");
     }
 
     @Test
@@ -75,55 +70,95 @@ public class BloccaTest {
         ArrayList<Coordinate> caselleBloccateList = new ArrayList<>();
         caselleBloccateList.add(new Coordinate(1, 1));
         blocca.resettaCelleBloccate(caselleBloccateList);
-        assertTrue(caselleBloccateList.isEmpty());
+        assertTrue(caselleBloccateList.isEmpty(), "La lista di caselle bloccate dovrebbe essere vuota");
     }
 
     @Test
-    void testBloccaECasellaBloccataTestUno() {
+    void testBloccaECasellaBloccata() {
         Coordinate coord = new Coordinate(Costanti.RIGA_4, 1);
-        assertTrue(blocca.bloccaCasella(coord));
-        assertTrue(blocca.isCasellaBloccata(coord));
+        assertTrue(blocca.bloccaCasella(coord), "La casella dovrebbe essere bloccata");
     }
 
     @Test
-    void testBloccaECasellaBloccataTestDue() {
+    void testCasellaBloccata() {
+        Coordinate coord = new Coordinate(Costanti.RIGA_4, 1);
+        blocca.bloccaCasella(coord);
+        assertTrue(blocca.isCasellaBloccata(coord), "La casella dovrebbe essere bloccata");
+    }
+
+    @Test
+    void testCasellaNonBloccata() {
         Coordinate anotherCoord = new Coordinate(1, 1);
-        assertFalse(blocca.isCasellaBloccata(anotherCoord));
+        assertFalse(blocca.isCasellaBloccata(anotherCoord), "La casella non dovrebbe essere bloccata");
     }
 
     @Test
     void testBloccaCasella() {
         Coordinate coordValida = new Coordinate(Costanti.RIGA_4, 1);
-        assertTrue(blocca.bloccaCasella(coordValida));
-        assertTrue(blocca.isCasellaBloccata(coordValida));
+        assertTrue(blocca.bloccaCasella(coordValida), "La casella dovrebbe essere bloccata");
+    }
+
+    @Test
+    void testCasellaBloccataValida() {
+        Coordinate coordValida = new Coordinate(Costanti.RIGA_4, 1);
+        blocca.bloccaCasella(coordValida);
+        assertTrue(blocca.isCasellaBloccata(coordValida), "La casella dovrebbe essere bloccata");
     }
 
     @Test
     void testBloccaCasellaNonBloccabile() {
         Coordinate coordNonValida = new Coordinate(1, 1);
-        assertFalse(blocca.bloccaCasella(coordNonValida));
-        assertFalse(blocca.isCasellaBloccata(coordNonValida));
+        assertFalse(blocca.bloccaCasella(coordNonValida), "La casella non dovrebbe essere bloccata");
+    }
+
+    @Test
+    void testCasellaNonBloccabile() {
+        Coordinate coordNonValida = new Coordinate(1, 1);
+        blocca.bloccaCasella(coordNonValida);
+        assertFalse(blocca.isCasellaBloccata(coordNonValida), "La casella non dovrebbe essere bloccata");
     }
 
     @Test
     void testBloccaCasellaNonBloccabileColonna() {
         Coordinate coordNonValida = new Coordinate(1, Costanti.RIGA_5);
-        assertFalse(blocca.bloccaCasella(coordNonValida));
-        assertFalse(blocca.isCasellaBloccata(coordNonValida));
+        assertFalse(blocca.bloccaCasella(coordNonValida), "La casella non dovrebbe essere bloccata");
+    }
+
+    @Test
+    void testCasellaNonBloccabileColonna() {
+        Coordinate coordNonValida = new Coordinate(1, Costanti.RIGA_5);
+        blocca.bloccaCasella(coordNonValida);
+        assertFalse(blocca.isCasellaBloccata(coordNonValida), "La casella non dovrebbe essere bloccata");
     }
 
     @Test
     void testCostruttore() {
-        assertNotNull(blocca);
-        assertArrayEquals(scacchiera, blocca.getScacchiera());
-        assertEquals(caselleBloccate, blocca.getCaselleBloccateg());
+        assertNotNull(blocca, "L'oggetto Blocca non dovrebbe essere nullo");
+    }
+
+    @Test
+    void testScacchiera() {
+        assertArrayEquals(scacchiera, blocca.getScacchiera(),
+        "La scacchiera dovrebbe essere uguale a quella inizializzata");
+    }
+
+    @Test
+    void testCaselleBloccateInizializzate() {
+        assertEquals(caselleBloccate, blocca.getCaselleBloccateg(),
+        "La lista di caselle bloccate dovrebbe essere uguale a quella inizializzata");
     }
 
     @Test
     void testBloccaCasellaRiga4ColonnaD() {
         Coordinate coordValida = new Coordinate(Costanti.RIGA_4, Costanti.RIGA_4);
-        assertTrue(blocca.bloccaCasella(coordValida));
-        assertTrue(blocca.isCasellaBloccata(coordValida));
+        assertTrue(blocca.bloccaCasella(coordValida), "La casella dovrebbe essere bloccata");
+    }
+
+    @Test
+    void testCasellaBloccataRiga4ColonnaD() {
+        Coordinate coordValida = new Coordinate(Costanti.RIGA_4, Costanti.RIGA_4);
+        blocca.bloccaCasella(coordValida);
+        assertTrue(blocca.isCasellaBloccata(coordValida), "La casella dovrebbe essere bloccata");
     }
 
     @Test
@@ -134,36 +169,41 @@ public class BloccaTest {
         List<Coordinate> caselleBloccateList = blocca.getCaselleBloccateg();
         caselleBloccateList.clear();
 
-        assertFalse(blocca.isCasellaBloccata(coord));
+        assertFalse(blocca.isCasellaBloccata(coord), "La casella non dovrebbe essere bloccata");
     }
 
-    // Test di regressione
     @Test
     void testIsBloccataCoordinateFuoriLimiti() {
         final int dim = 8;
         Coordinate coordFuoriLimiti = new Coordinate(dim, dim);
-        assertFalse(blocca.isBloccata(coordFuoriLimiti));
+        assertFalse(blocca.isBloccata(coordFuoriLimiti), "La casella non dovrebbe essere bloccata");
+    }
 
+    @Test
+    void testIsBloccataCoordinateNegativa() {
         Coordinate coordNegativa = new Coordinate(-1, -1);
-        assertFalse(blocca.isBloccata(coordNegativa));
+        assertFalse(blocca.isBloccata(coordNegativa), "La casella non dovrebbe essere bloccata");
     }
 
     @Test
     void testResettaCelleBloccateListaVuota() {
         List<Coordinate> caselleBloccateList = new ArrayList<>();
         blocca.resettaCelleBloccate(caselleBloccateList);
-        assertTrue(caselleBloccateList.isEmpty());
+        assertTrue(caselleBloccateList.isEmpty(), "La lista di caselle bloccate dovrebbe essere vuota");
     }
-
-
 
     @Test
     void testBloccaCasellaGiaBloccata() {
         Coordinate coord = new Coordinate(Costanti.RIGA_4, 1);
         blocca.bloccaCasella(coord);
-        assertTrue(blocca.isCasellaBloccata(coord));
-        assertTrue(blocca.bloccaCasella(coord));
-        assertTrue(blocca.isCasellaBloccata(coord));
+        assertTrue(blocca.isCasellaBloccata(coord), "La casella dovrebbe essere bloccata");
+    }
+
+    @Test
+    void testBloccaCasellaGiaBloccataDiNuovo() {
+        Coordinate coord = new Coordinate(Costanti.RIGA_4, 1);
+        blocca.bloccaCasella(coord);
+        assertTrue(blocca.bloccaCasella(coord), "La casella dovrebbe essere bloccata");
     }
 
     @Test
@@ -172,6 +212,6 @@ public class BloccaTest {
         blocca.bloccaCasella(coord);
         List<Coordinate> caselleBloccateList = blocca.getCaselleBloccateg();
         caselleBloccateList.clear();
-        assertFalse(blocca.isCasellaBloccata(coord));
+        assertFalse(blocca.isCasellaBloccata(coord), "La casella non dovrebbe essere bloccata");
     }
 }

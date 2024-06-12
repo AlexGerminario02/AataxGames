@@ -445,4 +445,27 @@ final class MossaTest {
         assertFalse(mossa.posizioneVuota(1, 'g'), "La posizione non dovrebbe essere vuota.");
     }
 
+    /**
+     * Verifica se una cella è vuota con riga e colonna non accettabili.
+     */
+    @Test
+    void testPosizioneVuotaRigaColonnaNonAccettabili() {
+        assertFalse(mossa.posizioneVuota(0, 'h'), "La posizione non dovrebbe essere vuota.");
+    }
+
+    /**
+     * Verifica se una cella è vuota con riga superiore ai limiti accettabili.
+     */
+    @Test
+    void testPosizioneVuotaRigaSuperioreAccettabili() {
+        assertFalse(mossa.posizioneVuota(Costanti.RIGA_7 + 1, 'd'), "La posizione non dovrebbe essere vuota.");
+    }
+
+    /**
+     * Verifica se una cella è vuota con colonna superiore ai limiti accettabili.
+     */
+    @Test
+    void testPosizioneVuotaColonnaSuperioreAccettabili() {
+        assertFalse(mossa.posizioneVuota(Costanti.RIGA_7, 'h'), "La posizione non dovrebbe essere vuota.");
+    }
 }

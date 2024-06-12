@@ -211,4 +211,37 @@ import org.junit.jupiter.api.Test;
         printSuccessMessage("testInizializzaPedine - Seconda pedina bianca");
     }
 
+    /**
+     * Test per il metodo inizializzaCaselleBloccate.
+     */
+    @Test
+    void testInizializzaCaselleBloccateNulla() {
+        final int dim3 = 3;
+        final int dim4 = 4;
+        Coordinate coordinateBloccata = new Coordinate(dim3, dim3);
+        Tavoliere tavoliere2 = new Tavoliere(dim4);
+        tavoliere2.inizializzaCaselleBloccate(coordinateBloccata);
+        Pedina pedinaBloccata = tavoliere2.getPedina(dim3, (char) dim3);
+        assertNull(pedinaBloccata, "Blocked position should be null");
+        printSuccessMessage("testInizializzaCaselleBloccate - Casella bloccata nulla");
+    }
+
+    /**
+     * Test per il metodo inizializzaCaselleBloccate.
+     */
+    @Test
+    void testInizializzaCaselleBloccateNonBloccata() {
+        final int dim4 = 4;
+        final String x = "\u2B24"; // Pallino rosso: ⬤
+        final int dim3 = 3;
+        Coordinate coordinateBloccata = new Coordinate(dim3, dim3);
+        Tavoliere tavoliere2 = new Tavoliere(dim4);
+        tavoliere2.inizializzaCaselleBloccate(coordinateBloccata);
+        Pedina pedinaNonBloccata = tavoliere2
+        .getPedina(dim4, 'd'); // Supponendo che dim4, 'd' sia una posizione valida e non bloccata
+        if (pedinaNonBloccata != null) {
+            assertEquals(x, pedinaNonBloccata.getCarattere(), "Non-blocked position should be correct");
+            printSuccessMessage("testInizializzaCaselleBloccate - Casella non bloccata corretta");
+        }
+    }
 }

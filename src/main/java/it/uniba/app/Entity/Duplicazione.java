@@ -30,6 +30,16 @@ public class Duplicazione {
      */
     public ArrayList<Coordinate> mosseA(final int riga, final int colonna) {
         ArrayList<Coordinate> mosse = new ArrayList<>();
+        if (riga < 1 || riga > DIM) {
+            System.out.println("Errore: la riga inserita non è valida");
+            return mosse; // Esci dalla funzione restituendo un arraylist vuoto
+        }
+        // Verifica se la colonna è valida
+        if (colonna < 'a' || colonna > 'g') {
+            System.out.println("Errore: la colonna inserita non è valida");
+            return mosse; // Esci dalla funzione restituendo un arraylist vuoto
+        }
+
         int[] deltaRighe = {-1, -1, -1, 0, 0, 1, 1, 1 };
         int[] deltaColonne = {-1, 0, 1, -1, 1, -1, 0, 1 };
         for (int i = 0; i < deltaRighe.length; i++) {

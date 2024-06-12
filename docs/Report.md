@@ -634,6 +634,8 @@ Per lo sviluppo del software sono stati utilizzati diversi programmi
 
    - **Discord**: per le riunioni interne del team
 
+   - **WhatsApp**: per la comunicazione tra componenti del team.
+
 * **Ambienti di Sviluppo**
 
   - **Visual Studio Code**: IDE utilizzato per lo sviluppo del codice in Java e anche come text editor per il MarkDown.

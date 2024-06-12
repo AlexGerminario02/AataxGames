@@ -288,4 +288,297 @@ import it.uniba.app.Entity.Tavoliere;
         Coordinate to = new Coordinate(2, 1);
         assertFalse(partita.mossaValida(from, to), "La mossa dovrebbe essere valida");
     }
+
+    /**
+     * .
+     */
+    @Test
+     void testmossaValidaConCoordinataNonValida() {
+        Coordinate from = new Coordinate(1, 1);
+        Coordinate to = new Coordinate(Costanti.RIGA_5, Costanti.RIGA_5);
+        assertFalse(partita.mossaValida(from, to), "La mossa dovrebbe essere valida");
+    }
+
+     /**
+     * .
+     */
+    @Test
+    void testmossaValidaCasellaBloccata() {
+        caselleBloccate = new ArrayList<>();
+        Coordinate from = new Coordinate(Costanti.RIGA_3, 'b');
+        Coordinate to = new Coordinate(Costanti.RIGA_3, 'a');
+        blocca.bloccaCasella(to);
+        tavoliere.inizializzaCaselleBloccate(to);
+        assertFalse(partita.mossaValida(from, to), "La mossa su una casella bloccata dovrebbe essere valida");
+    }
+      /**
+     * .
+     */
+    @Test
+    void testmossaValidaCasellaPosizioneNonVuota() {
+        Coordinate from = new Coordinate(Costanti.RIGA_2, 1);
+        Coordinate to = new Coordinate(1, 1);
+        assertFalse(partita.mossaValida(from, to), "La mossa su una casella non vuota dovrebbe essere valida");
+    }
+
+
+
+    /**
+     *
+     */
+    @Test
+     void testgiocatoreSenzaMosseDisponibili() {
+        // Simuliamo la situazione in cui il tavoliere è completamente pieno e nessun
+        // giocatore ha mosse disponibili
+        // Popoliamo il tavoliere con pedine in modo che ogni cella sia occupata
+
+        for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
+            for (char colonna = 'a'; colonna <= 'g'; colonna++) {
+                Pedina pedina = new Pedina("N", new Coordinate(riga, colonna));
+                tavoliere.setPedina(pedina, riga, colonna);
+            }
+        }
+        // Assicuriamoci che nessun giocatore abbia mosse disponibili
+        assertFalse(partita.giocatoreHaMosseDisponibili(0), "Il giocatore 1 non dovrebbe avere mosse disponibili");
+    }
+
+
+
+/**
+     * test per il metodo partitaFinita.
+     */
+    @Test
+void testPartitaFinitaConTAvolierePieno() {
+    // Verifica che la partita non sia finita
+    Tavoliere tavoliere1 = new Tavoliere(Costanti.RIGA_7);
+    for (int riga = 1; riga <= Costanti.RIGAF; riga++) {
+        for (char colonna = 'a'; colonna <= 'g'; colonna++) {
+            int colonnaInt = colonna - 'a' + 1; // Converti il carattere della colonna in un intero
+            Pedina pedina = new Pedina("N", new Coordinate(riga, colonnaInt));
+            tavoliere1.setPedina(pedina, riga, colonnaInt);
+        }
+    }
+    partita = new Partita(giocatore1, giocatore2, tavoliere1, blocca, duplicazione, salto);
+    assertTrue(partita.partitaFinita(), "La partita dovrebbe essere finita");
+}
+
+
+
+
+    @Test
+    void testCoordinateNonValidaA8() {
+        assertFalse(Partita.isValidCoordinate("a8"), "La coordinata 'a8' dovrebbe essere non valida");
+        printSuccessMessage("testCoordinateNonValidaA8");
+    }
+
+    @Test
+    void testCoordinateNonValidaB0() {
+        assertFalse(Partita.isValidCoordinate("b0"), "La coordinata 'b0' dovrebbe essere non valida");
+        printSuccessMessage("testCoordinateNonValidaB0");
+    }
+
+    @Test
+    void testCoordinateNonValidaH8() {
+        assertFalse(Partita.isValidCoordinate("h8"), "La coordinata 'h8' dovrebbe essere non valida");
+        printSuccessMessage("testCoordinateNonValidaH8");
+    }
+
+    @Test
+    void testCoordinateNonValida11() {
+        assertFalse(Partita.isValidCoordinate("11"), "La coordinata '11' dovrebbe essere non valida");
+        printSuccessMessage("testCoordinateNonValida11");
+    }
+
+    @Test
+    void testCoordinateNonValidaAA() {
+        assertFalse(Partita.isValidCoordinate("aa"), "La coordinata 'aa' dovrebbe essere non valida");
+        printSuccessMessage("testCoordinateNonValidaAA");
+    }
+
+    @Test
+    void testCoordinateNonValidaVuota() {
+        assertFalse(Partita.isValidCoordinate(""), "La coordinata vuota dovrebbe essere non valida");
+        printSuccessMessage("testCoordinateNonValidaVuota");
+    }
+
+    @Test
+    void testBloccoCasellaValida() {
+        String input = "/blocca a1";
+        List<Coordinate> caselleDaBloccare = new ArrayList<>();
+        Partita.gestioneBlocca(input, caselleDaBloccare, tavoliere, blocca);
+        assertFalse(caselleDaBloccare.contains(new Coordinate(0, 0)), "La casella a1 dovrebbe essere bloccata");
+        printSuccessMessage("testBloccoCasellaValida");
+    }
+
+    @Test
+    void testBloccoCasellaNonValida() {
+        String input = "/blocca h8";
+        final int riga = 7;
+        List<Coordinate> caselleDaBloccare = new ArrayList<>();
+        Partita.gestioneBlocca(input, caselleDaBloccare, tavoliere, blocca);
+        assertFalse(caselleDaBloccare.contains(new Coordinate(riga, riga)),
+        "La casella h8 non dovrebbe essere bloccata");
+        printSuccessMessage("testBloccoCasellaNonValida");
+    }
+
+    @Test
+    void testBloccoCasellaGiaBloccata() {
+        List<Coordinate> caselleDaBloccare = new ArrayList<>();
+        caselleDaBloccare.add(new Coordinate(0, 0));
+        String input = "/blocca a1";
+        Partita.gestioneBlocca(input, caselleDaBloccare, tavoliere, blocca);
+        assertEquals(1, caselleDaBloccare.size(), "La casella a1 dovrebbe essere già bloccata");
+        printSuccessMessage("testBloccoCasellaGiaBloccata");
+    }
+
+    @Test
+    void testBloccoCasellaLimiteSuperato() {
+        final int riga = 9;
+        List<Coordinate> caselleDaBloccare = new ArrayList<>();
+        for (int i = 0; i < riga; i++) {
+            caselleDaBloccare.add(new Coordinate(i, 0));
+        }
+        String input = "/blocca a2";
+        Partita.gestioneBlocca(input, caselleDaBloccare, tavoliere, blocca);
+        assertEquals(riga, caselleDaBloccare.size(), "Il limite di caselle bloccate dovrebbe essere 9");
+        printSuccessMessage("testBloccoCasellaLimiteSuperato");
+    }
+
+    @Test
+    void testBloccoComandoNonValido() {
+        String input = "/blocco a1";
+        List<Coordinate> caselleDaBloccare = new ArrayList<>();
+        Partita.gestioneBlocca(input, caselleDaBloccare, tavoliere, blocca);
+        assertTrue(caselleDaBloccare.isEmpty(), "Il comando non valido non dovrebbe bloccare nessuna casella");
+        printSuccessMessage("testBloccoComandoNonValido");
+    }
+
+    @Test
+    void testBloccoNessunaCoordinata() {
+        String input = "/blocca";
+        List<Coordinate> caselleDaBloccare = new ArrayList<>();
+        Partita.gestioneBlocca(input, caselleDaBloccare, tavoliere, blocca);
+        assertTrue(caselleDaBloccare.isEmpty(), "Nessuna coordinata non dovrebbe bloccare nessuna casella");
+        printSuccessMessage("testBloccoNessunaCoordinata");
+    }
+
+    @Test
+    void testBloccoCoordinataNonValida() {
+        String input = "/blocca aa";
+        List<Coordinate> caselleDaBloccare = new ArrayList<>();
+        Partita.gestioneBlocca(input, caselleDaBloccare, tavoliere, blocca);
+        assertTrue(caselleDaBloccare.isEmpty(), "La coordinata non valida non dovrebbe bloccare nessuna casella");
+        printSuccessMessage("testBloccoCoordinataNonValida");
+    }
+
+    @Test
+    void testResetUscitaRichiesta() {
+        partita.reset(caselleBloccate);
+        assertFalse(partita.isUscitaRichiesta(), "L'uscita richiesta dovrebbe essere reimpostata a false");
+        printSuccessMessage("testResetUscitaRichiesta");
+    }
+
+    @Test
+    void testResetAbbandono() {
+        partita.reset(caselleBloccate);
+        assertFalse(partita.isAbbandono(), "L'abbandono dovrebbe essere reimpostato a false");
+        printSuccessMessage("testResetAbbandono");
+    }
+
+    @Test
+    void testResetTurno() {
+        partita.reset(caselleBloccate);
+        assertEquals(1, partita.getTurno(), "Il turno dovrebbe essere reimpostato a 1");
+        printSuccessMessage("testResetTurno");
+    }
+
+    @Test
+    void testMossaValida() {
+        Coordinate from = new Coordinate(1, 1);
+        Coordinate to = new Coordinate(2, 1);
+        assertTrue(partita.mossaValida(from, to), "La mossa dovrebbe essere valida");
+    }
+
+    @Test
+    void testMossaNonValida() {
+        Coordinate from = new Coordinate(Costanti.RIGA_7, Costanti.RIGA_7);
+        Coordinate to = new Coordinate(2, 1);
+        assertFalse(partita.mossaValida(from, to), "La mossa dovrebbe essere non valida");
+    }
+
+    @Test
+    void testMossaValidaConCoordinataNonValida() {
+        Coordinate from = new Coordinate(1, 1);
+        Coordinate to = new Coordinate(Costanti.RIGA_5, Costanti.RIGA_5);
+        assertFalse(partita.mossaValida(from, to), "La mossa dovrebbe essere non valida");
+    }
+
+    @Test
+    void testMossaValidaCasellaBloccata() {
+        caselleBloccate = new ArrayList<>();
+        Coordinate from = new Coordinate(Costanti.RIGA_3, 'b');
+        Coordinate to = new Coordinate(Costanti.RIGA_3, 'a');
+        blocca.bloccaCasella(to);
+        tavoliere.inizializzaCaselleBloccate(to);
+        assertFalse(partita.mossaValida(from, to), "La mossa su una casella bloccata dovrebbe essere non valida");
+    }
+
+    @Test
+    void testMossaValidaCasellaPosizioneNonVuota() {
+        Coordinate from = new Coordinate(Costanti.RIGA_2, 1);
+        Coordinate to = new Coordinate(1, 1);
+        assertFalse(partita.mossaValida(from, to), "La mossa verso una casella occupata dovrebbe essere non valida");
+    }
+
+    @Test
+    void testBloccaCasellaPiena() {
+        Coordinate coordinate = new Coordinate(Costanti.RIGA_4, 'c');
+        partita.bloccaCasella(coordinate);
+        assertTrue(partita.bloccaCasella(coordinate).contains(coordinate), "La casella c4 dovrebbe essere bloccata");
+    }
+
+    @Test
+    void testBloccaCasella() {
+        Coordinate coordinate = new Coordinate(Costanti.RIGA_1, 'a');
+        partita.bloccaCasella(coordinate);
+        assertTrue(partita.bloccaCasella(coordinate).contains(coordinate), "La casella a1 dovrebbe essere bloccata");
+    }
+
+    @Test
+    void testBloccaCasellaGiaBloccata() {
+        Coordinate coordinate = new Coordinate(Costanti.RIGA_4, 'c');
+        partita.bloccaCasella(coordinate);
+        int sizeBefore = partita.bloccaCasella(coordinate).size();
+        int sizeAfter = partita.bloccaCasella(coordinate).size();
+        assertEquals(sizeBefore, sizeAfter, "La casella c4 non dovrebbe essere bloccata nuovamente");
+    }
+
+    @Test
+    void testAvviaPartitaSenzaCaselleBloccate() {
+        caselleBloccate = new ArrayList<>();
+        partita = new Partita(giocatore2, giocatore1, tavoliere, blocca, duplicazione, salto);
+        assertTrue(caselleBloccate.isEmpty(), "La lista delle caselle bloccate dovrebbe essere vuota");
+    }
+
+    @Test
+    void testAvviaPartitaConCaselleBloccate() {
+        Coordinate coordinate = new Coordinate(Costanti.RIGA_1, 'd');
+        caselleBloccate.add(coordinate);
+        partita = new Partita(giocatore2, giocatore1, tavoliere, blocca, duplicazione, salto);
+        assertTrue(partita.bloccaCasella(coordinate).contains(coordinate), "La casella d1 dovrebbe essere bloccata");
+    }
+
+    @Test
+    void testAvviaPartitaUscitaRichiesta() {
+        partita.setUscitaRichiesta(true);
+        boolean risultato = partita.avviaPartita(new ArrayList<>());
+        assertTrue(risultato, "La partita dovrebbe terminare con uscita richiesta");
+    }
+
+    @Test
+    void testAvviaPartitaAbbandono() {
+        partita.setAbbandono(true);
+        boolean risultato = partita.avviaPartita(new ArrayList<>());
+        assertFalse(risultato, "La partita dovrebbe terminare con abbandono");
+    }
 }

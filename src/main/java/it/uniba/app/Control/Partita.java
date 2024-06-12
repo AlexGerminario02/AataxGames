@@ -98,8 +98,9 @@ this.mossaPartita = new Mossa(scacchiera, mossaa, mossab);
         if (!caselleBloccateb.contains(coordinateb)) {
             caselleBloccateb.add(coordinateb);
         }
-        return caselleBloccateb;
+        return new ArrayList<>(caselleBloccateb);
     }
+
     /**
      * Avvia la partita.
      *

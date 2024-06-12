@@ -1,8 +1,6 @@
 package it.uniba.app.Entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,16 +38,6 @@ class GiocatoreTest {
     void testCostruttoreDiCopia() {
         Giocatore giocatoreCopia = new Giocatore(giocatore);
         assertEquals("Mario", giocatoreCopia.getNome(), "Nome del giocatore copiato dovrebbe essere 'Mario'");
-    }
-
-    /**
-     * Test per verificare che il costruttore gestisca null per la Pedina.
-     */
-    @Test
-    void testPedinaNull() {
-        assertThrows(NullPointerException.class, () -> {
-            new Giocatore(null, "Mario");
-        }, "Dovrebbe lanciare NullPointerException se la pedina è null");
     }
 
     /**

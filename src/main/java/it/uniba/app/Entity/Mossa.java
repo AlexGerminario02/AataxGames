@@ -38,28 +38,46 @@ public class Mossa {
      * @return Un'ArrayList di Coordinate contenente le mosse possibili per la pedina.
      */
     public final ArrayList<Coordinate> mosseC(final int riga, final int colonna) {
-        ArrayList<Coordinate> mosseC = new ArrayList<>();
-        if (mossea != null) {
-            mosseC.addAll(mossea.mosseA(riga, colonna));
+        ArrayList<Coordinate> mosseC = new ArrayList<>(); // Inizializza mosseC come null
+        // Se sia mossea che mosseb sono null, restituisci un'ArrayList vuota
+        if (mossea == null && mosseb == null) {
+            return new ArrayList<>();
         }
-        if (mosseb != null) {
+        // Se mossea è null, mosseC sarà null e non verrà eseguita alcuna operazione aggiuntiva
+        if (mossea == null) {
+            return new ArrayList<>();
+        }
+        // Se mosseb è null, mosseC sarà null e non verrà eseguita alcuna operazione aggiuntiva
+        if (mosseb == null) {
+            return new ArrayList<>();
+        } else {
+            mosseC.addAll(mossea.mosseA(riga, colonna));
             mosseC.addAll(mosseb.mosseB(riga, colonna));
         }
-        return mosseC;
+        return mosseC; // Restituisci l'ArrayList mosseC
+    }
+/**
+ * Verifica se una posizione sulla scacchiera è vuota.
+ * @param riga La riga della posizione.
+ * @param colonna La colonna della posizione.
+ * @return true se la posizione è vuota, altrimenti false.
+ */
+public final boolean posizioneVuota(final int riga, final char colonna) {
+    int indiceColonna = Arrays.binarySearch(colonne, Character.toLowerCase(colonna));
+    if (indiceColonna < 0 || riga < 1 || riga > DIM || indiceColonna >= colonne.length) {
+        return false;
     }
 
-    /**
-     * Verifica se una posizione sulla scacchiera è vuota.
-     * @param riga La riga della posizione.
-     * @param colonna La colonna della posizione.
-     * @return true se la posizione è vuota, altrimenti false.
-     */
-    public final boolean posizioneVuota(final int riga, final char colonna) {
-        int indiceColonna = Arrays.binarySearch(colonne, Character.toLowerCase(colonna));
-        if (indiceColonna < 0 || riga < 1 || riga > DIM) {
-            return false;
-        }
-        return scacchiera[riga - 1][indiceColonna] == null;
+    // Controllo per le celle specifiche sulla diagonale principale e secondaria
+    if ((riga == 1 && colonna == 'a') || (riga == DIM && colonna == 'a')
+    || (riga == 1 && colonna == 'g') || (riga == DIM && colonna == 'g')) {
+        return false;
     }
+
+    // Controllo se la posizione sulla scacchiera è vuota
+    return scacchiera[riga - 1][indiceColonna] == null;
+}
+
+
 
 }

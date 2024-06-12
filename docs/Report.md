@@ -212,6 +212,89 @@ In questa sezione verrà mostrato il modello di dominio realizzato in UML tramit
 
    * **Condizioni finali**: Se la conferma di chiusura del gioco è positiva, l'app si chiude e restituisce il controllo al sistema operativo.
    Se la conferma è negativa, l'app si predispone a ricevere nuovi comandi.
+
+- **Identificatore**: [RF008](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/48#issue-2325219614)
+
+  * **Descrizione**: Come giocatore voglio giocare una nuova pedina in una casella adiacente a una propria pedina.
+
+  * **Condizioni iniziali**: L'utente sta giocando una partita, è il proprio turno, e vorrebbe muovere la pedina selezionata in una casella adiacente ad essa.
+
+  * **Azioni richieste**: Per poter muovere la pedina nella posizione desiderata, l'utente, deve digitare ad esempio il comando *`a1-a2`*, dove a1 è la casella di partenza e a2 la casella adiacente.
+
+  * **Condizioni finali**: Una volta digitato il comando, la pedina si sposterà nella casella indicata.
+
+- **Identificatore**: [RF009](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/49#issue-2325222616)
+
+  * **Descrizione**: Come giocatore voglio spostare una propria pedina saltando una casella adiacente.
+
+  * **Condizioni iniziali**: L'utente sta giocando una partita, è il proprio turno, e vorrebbe muovere la pedina selezionata saltando una casella adiacente ad essa.
+
+  * **Azioni richieste**:  Per poter muovere la pedina nella posizione desiderata, l'utente, deve digitare ad esempio il comando *`a1-a3`*, dove a1 è la casella di partenza e a3 la casella di arrivo.
+
+  * **Condizioni finali**: Una volta digitato il comando, la pedina si sposterà nella casella indicata, a patto che la casella libera non sia adiacente alla casella originaria.
+
+- **Identificatore**: [RF010](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/50#issue-2325228438)
+
+  * **Descrizione**: Come giocatore voglio catturare una pedina avversaria come effetto di una mossa.
+
+  * **Condizioni iniziali**: L'utente sta giocando una partita, è il proprio turno, e vorrebbe effettuare una mossa per catturare una pedina avversaria.
+
+  * **Azioni richieste**: Per poter catturare una pedina avversaria, l'utente, deve digitare il comando con notazione algebrica per spostarsi nella casella desiderata.
+
+  * **Condizioni finali**: L'utente ha effettuato la propria mossa e la pedina è stata spostata in una casella adiacente a pedine avversarie, dunque quest'ultime vengono catturate assumendo il colore del giocatore che ha effettuato la mossa.
+
+- **identificatore**: [RF011](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/51#issue-2325251871)
+
+  * **Descrizione**: Come giocatore voglio mostrare le mosse effettuate.
+
+  * **Condizioni iniziali**: L'utente sta giocando una partita e vorrebbe visualizzare lo storico delle mosse effettuate.
+
+  * **Azioni richieste**: Per visualizzare lo storico delle mosse effettuate, l'utente, deve digitare il comando *`/mosse`*.
+
+  * **Condizioni finali**: Una volta digitato il comando, viene visualizzato lo storico delle mosse con notazione algerbrica, come ad esempio 
+  *1. a1-a2 (N);  2. g7-g6 (B)*.
+
+- **Identificatore**: [RF012](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/52#issue-2325255204)
+
+  * **Descrizione**: Come giocatore voglio passare il turno per impossibilità di movimento.
+
+  * **Condizioni iniziali**: L'utente sta giocando una partita, è il proprio turno, e vorrebbe passare il proprio turno per impossibilità di movimento.
+
+  * **Azioni richieste**: Per passare il proprio turno, l'utente non deve digitare alcun comando.
+
+  * **Condizioni finali**: Se il giocatore non può muovere nessuna pedina del proprio colore, l'app avvisa che il proprio turno passa all'altro giocatore.
+
+- **Identificatore**: [RF013](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/53#issue-2325260166)
+
+  * **Descrizione**: Come giocatore voglio visualizzare il fine partita con il vincitore e i punti segnati.
+
+  * **Condizioni iniziali**: L'utente non può effettuare mosse perchè il tavoliere è stato tutto riempito.
+
+  * **Azioni richieste**: Per visualizzare il fine partita e i punti segnati, l'utente non deve digitare alcun comando.
+
+  * **Condizioni finali**: L'app dichiara il vincitore (Bianco o Nero) e riporta il punteggio di ogni giocatore contando le rispettive pedine.
+
+- **Identificatore**: [RF014](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/54#issue-2325263349)
+
+  * **Descrizione**: Come giocatore voglio mostrare il tempo di gioco.
+
+  * **Condizioni iniziali**: L'utente sta giocando una partita e vorrebbe visualizzare il tempo di gioco.
+
+  * **Azioni richieste**: Per poter visualizzare il tempo di gioco, l'utente deve digitare il comando *`/tempo`*.
+
+  * **Condizioni finali**: Una volta digitato il comando verrà visualizzato a schermo il tempo effettivo di gioco nel formato *ore:minuti:secondi*.
+
+- **Identificatore**: [RF015](https://github.com/softeng2324-inf-uniba/progetto-minsky/issues/55#issue-2325265844)
+
+  * **Descrizione**: Come giocatore voglio impostare caselle non accessibli.
+
+  * **Condizioni iniziali**: L'utente si trova nel menu principale, e prima di iniziare a giocare una nuova partita, vorrebbe delle caselle del tavoliere non accessibili.
+
+  * **Azioni richieste**: Per poter far scelgiere all'utente quali caselle bloccare prima di iniziare a giocare, bisogna digitare il comando *`/blocca xn`* dove xn indica la coordinata della casella da bloccare.
+  Non è possibile bloccare le caselle di partenza del gioco; tutte le caselle adiacenti a una casella di partenza del gioco; tutte le caselle a distanza 2 da una casella di partenza del gioco.
+  Inoltre, non è possibile bloccare più di 9 caselle.
+
+  * **Condizioni finali**: Una volta digitato il comando verrà visualizzato il tavoliere con le caselle bloccate dall'utente.
    </div>
 
 <div style="font-size: 16px;">
@@ -550,7 +633,7 @@ Prima di poter avviare l'applicazione si devono compiere delle azioni preliminar
 
 <div style="margin-left: 20px;">
 
-  ![Pedine](./img/Pedine.png)
+  ![Pedine](./img/Tavoliere.png)
   </div>
    
 
@@ -582,40 +665,63 @@ Tornati nella schermata principale si potrà iniziare una nuova partita digitand
 
 ![Gioca](./img/Gioca.png)
 
-![Gioca1](./img/Gioca1.png)
-
-
-Una volta avviata la partita verrà mostrato il tavoliere e verrà chiesto all'utente se vuole inserire un comando o delle coordinate per effettuare una mossa.
-Digitare il comando `comando` per inserire un nuovo comando, oppure `coordinate` per inserire delle coordinate. 
+![Tavoliere](./img/Tavoliere.png)
 
 Se l'utente volesse visualizzare il tavoliere vuoto (senza pedine), dovrebbe digitare il comando `/vuoto`.
 
-![InizioPartita](./img/Vuoto.png)
+![Vuoto1](./img/Vuoto1.png)
+
+![Vuoto2](./img/Vuoto2.png)
 
 Prima di iniziare la partita, l'utente può decidere di bloccare alcune caselle del tavoliere tramite il comando `/blocca xn` dove xn indica la coordinata della casella.  Non sarà possibile bloccare le caselle di partenza del gioco; tutte le caselle adiacenti a una casella di partenza del gioco; tutte le caselle a distanza 2 da una casella di partenza del gioco.
 Inoltre, non sarà possibile bloccare più di 9 caselle. Si potrà bloccare una sola casella alla volta, quindi nel caso si volesse bloccare più di una casella, bisognerà digitare nuovamente il comando.
 
+![Blocca](./img/Blocca.png)
+
+![CaselleBloccate](./img/CaselleBloccate.png)
+
 Durante la partità è possibile visualizzare il menu help di gioco digitando il comando `/help`, `--h` o `-h`, in cui verranno mostrati i comandi digitabili durante la partita.
+
+![Comandi](./img/Comandi.png)
 
 Sarà possibile visualizzare le mosse disponibili digitando il comando `/qualimosse`. Verrà richiesto di inserire le coordinate della riga e della colonna di dove si vuole spostare la pedina.
 
+![QualiMosse](./img/QualiMosse.png)
+
 Per effettuare una mossa, l'utente dovrà inserire la coordinata della pedina che vuole muovere/duplicare, e la coordinata della casella d'arrivo *(ad esempio a1-a2)*.
+
+![MossaEffettuata](./img/MossaEffettuata.png)
 
 Dopo aver effettuato delle mosse, l'utente, potrà visualizzare lo storico delle mosse effettuate digitando il comando `/mosse`.
 
+![Mosse1](./img/Mosse1.png)
+
+![Mosse](./img/Mosse.png)
+
 L'utente potrà anche visualizzare il tempo effettivo di gioco digitando il comando `/tempo`, in questo modo verrà visualizzato il tempo nel formato *ore:minuti:secondi*.
+
+![Tempo1](./img/Tempo1.png)
+
+![Tempo](./img/Tempo.png)
+
 
 Per visualizzare il tavoliere durante la fase di gioco bisogna digitare il comando `/tavoliere`.
 
-![QualiMosse](./img/QualiMosse1.png)
+![QualiMosse](./img/Tavoliere.png)
 
 Successivamente il giocatore potrà continuare ad effettuare le mosse oppure potrà abbandondare la partita tramite il comando `/abbandona`, decretando così la sua sconfitta(verrà mostrato il numero pedine dell'avversario contro le zero pedine di chi ha abbandonato la partita). Se il giocatore digita il comando per abbandonare la partita, verrà richiesto di confermare ciò attraverso il comando `si` oppure si può tornare alla partita digitando `no`. 
 
-![Abbandona](./img/Abbandona1.png)
+![Abbandona](./img/Abbandona.png)
+
+![Abbandonato](./img/Abbandonato.png)
 
 Se la partita termina non per abbandono, ma perchè è stato riempito il tavoliere, allora verrà visualizzato il vincitore indicando il numero di pedine a dispozione di entrambi i giocatori. Vince chi ha più pedine.
 
+![Vincitore](./img/Vincitore.png)
+
 Potrebbe capitare che un giocatore mangi tutte le pedine dell'avversario. In questo caso il turno sarà fino alla fine della partita, di chi ha ancora pedine presenti sul tavoliere.
+
+![FineMosse](./img/FineMosse.png)
 
 Infine si tornerà alla schermata iniziale dove si potrà iniziare una nuova partita oppure si potrà chiudere il gioco tramite `/esci`.
 
@@ -805,6 +911,9 @@ Per le riunioni in modalità sincrona abbiamo utilizzato l'aula studio messa a d
 
 ![Gruppo](./img/Gruppo.png)
 
+### **8.6 Problemi Riscontrati**
+Durante l'esecuzione degli Sprint, il componente del gruppo Bracciolioni Alberto, ha effettuato tutte le issue a lui commisionate complete di commit, ma non risulta nella sezione Insights, più precisamente nella sezione Contributors, presente sulla piattaforma di GitHub.
+
 
 
 ## **9. Analisi Retrospettiva**
@@ -834,6 +943,8 @@ L'obiettivo principale di queste analisi è identificare cosa ha funzionato bene
 <div style="margin-left: 20px;">  
 Lo Sprint 1 aveva lo scopo di implementare piccoli comandi di gioco.
 Di seguito viene riportata la tabella con gli stati emotivi provati dal team(arrabbiato, triste e felice) durante il lavoro, e le azioni che li hanno scatenati.
+
+![SprintRetrospective1](./img/SprintRetrospective1.png)
 
 </div>
 
